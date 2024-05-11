@@ -1,6 +1,5 @@
 class Path {
   static String LogoAnime = 'assets/lottie/Logo.json';
-  static String LogoImg = 'assets/images/Logo.png';
   static String Logolib = 'assets/images/Logo-lib.png';
   static String Logogoogle = 'assets/images/google.png';
   static String Intro1 = 'assets/images/Bookshop-cuate.png';

@@ -86,7 +86,7 @@ class _LoginState extends State<Login> {
                 Alignment.center,
                 const EdgeInsets.only(bottom: 20 , top: 20),
                 null,
-                Image.asset(Path.LogoImg)
+                Image.asset(Path.Logolib)
               ),
               WidgetsModels.Container_widget(
                 null,

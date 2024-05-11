@@ -101,7 +101,7 @@ class SignUp1state extends State<SignUp1> {
                 //physics:const NeverScrollableScrollPhysics(),
                 //physics: const ClampingScrollPhysics(),
                 children: [
-                  Center(child: Image.asset(Path.LogoImg)),
+                  Center(child: Image.asset(Path.Logolib)),
                   WidgetsModels.Container_widget(
                       40,
                       33,

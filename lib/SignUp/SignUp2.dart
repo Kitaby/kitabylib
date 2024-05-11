@@ -92,7 +92,7 @@ class Signup2state extends State<Signup2> {
             child: ListView(
               physics: const ClampingScrollPhysics(),
               children: [
-                Center(child: Image.asset(Path.LogoImg)),
+                Center(child: Image.asset(Path.Logolib)),
                 WidgetsModels.Container_widget(
                     50,
                     35,

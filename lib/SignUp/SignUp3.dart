@@ -117,7 +117,7 @@ class _Signup3State extends State<Signup3> {
                   Alignment.center,
                   const EdgeInsets.only(bottom: 15),
                   null,
-                  Image.asset(Path.LogoImg)),
+                  Image.asset(Path.Logolib)),
               WidgetsModels.Container_widget(
                   null,
                   40,
