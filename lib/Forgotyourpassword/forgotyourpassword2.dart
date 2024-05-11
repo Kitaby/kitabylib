@@ -102,7 +102,7 @@ class Forgotyourpassword2state extends State<Forgotyourpassword2> {
                   Alignment.center,
                   const EdgeInsets.only(bottom: 20 , top: 20),
                   null,
-                  Image.asset(Path.LogoImg)),
+                  Image.asset(Path.Logolib)),
               WidgetsModels.Container_widget(
                   null,
                   30,
