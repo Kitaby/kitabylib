@@ -2,8 +2,6 @@ import 'dart:ffi';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -460,23 +458,6 @@ class WidgetsModels {
             )),
       ]),
     );
-  }
-
-  
-
-  static RatingBar rating(
-      double size, double initRate, bool ignoreGest, double padding) {
-    return RatingBar.builder(
-        itemSize: size,
-        allowHalfRating: true,
-        minRating: 0,
-        initialRating: initRate,
-        ignoreGestures: ignoreGest,
-        itemPadding: EdgeInsets.symmetric(horizontal: padding),
-        itemBuilder: (context, index) {
-          return Icon(FluentIcons.star_24_filled, color: ColorPalette.Star);
-        },
-        onRatingUpdate: (rating) {});
   }
 
   static Container button1(double varwidth, double varheight, Color varcolor,
