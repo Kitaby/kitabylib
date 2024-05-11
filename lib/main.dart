@@ -3,6 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:kitabylib/Mainscreen.dart';
 
 import 'package:window_manager/window_manager.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:kitabylib/AppIntro/SplashScreen.dart';
+import 'package:kitabylib/Forgotyourpassword/forgotyourpassword.dart';
+import 'package:kitabylib/Forgotyourpassword/forgotyourpassword2.dart';
+
+import 'package:kitabylib/Login.dart';
+import 'package:kitabylib/SignUp/SignUp1.dart';
+import 'package:kitabylib/SignUp/SignUp2.dart';
+import 'package:kitabylib/SignUp/SignUp3.dart';
+
 
 
 
@@ -35,10 +46,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       title: 'Kitabylib',
       debugShowCheckedModeBanner: false,
-      home: Mainscreen(),
+      home:SignUp1(),
+      routes: {
+        
+        'Forgotyourpassword' : (context) => Forgotyourpassword(oldmail: "") ,
+        'SignUp1' : (context) => SignUp1() ,
+        'SignUp2' : (context) => Signup2(phone: "", name: "") ,
+        'SignUp3' : (context) => Signup3(phone: "", email: "", password: "", name: "") ,
+      },
     );
   }
 }
