@@ -32,4 +32,9 @@ class ColorPalette {
   static Color snackBubbleWarning = const Color(0xffCC561E);
   //star color
   static Color Star = const Color(0xffFFC403);
+  //other
+   static Color violet = const Color(0xFF8280FF);
+   static Color salmon = const Color(0xFFFF9066);
+   static Color verylightgrey = const Color(0xFFF5F6FA);
+
 }

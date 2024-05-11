@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:kitabylib/Home.dart';
+import 'package:kitabylib/Mainscreen.dart';
 import 'package:kitabylib/login.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     MaterialPageRoute(
                         builder: (context) => const Login(forgotmail: "")))
                 : Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const Home())));
+                    MaterialPageRoute(builder: (context) =>  Mainscreen())));
   }
 
   @override

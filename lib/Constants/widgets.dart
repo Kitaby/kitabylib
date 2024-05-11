@@ -1,3 +1,15 @@
+import 'dart:ffi';
+
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/material.dart';
+
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kitabylib/Constants/Colors.dart';
+import 'package:kitabylib/Constants/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -317,4 +329,273 @@ class WidgetsModels {
       ),
     );
   }
+
+  static Container bookcard(
+      String vartitle,
+      double titlefontsize,
+      String varauthor,
+      double authorfontsize,
+      Color varcolor,
+      String varimage,
+      double containerwidth,
+      double? containerheight,
+      double imagewidth,
+      double imageheight,
+      bool selected,
+      String? booktype) {
+    return Container(
+      width: containerwidth,
+      height: containerheight,
+      child: Column(children: [
+        Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  border: (selected)
+                      ? Border.all(
+                          width: 3, color: ColorPalette.Secondary_Color_Orignal)
+                      : null,
+                ),
+                child: FadeInImage.assetNetwork(
+                  placeholder: 'assets/images/Logo.png', // Before image load
+                  image: varimage, // After image load
+                  width: imagewidth,
+                  height: imageheight,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            if (booktype == 'loan')
+              Positioned(
+                  top: 0,
+                  right: imagewidth / 7,
+                  child: WidgetsModels.Container_widget(
+                    imagewidth / 7,
+                    imagewidth / 7,
+                    Alignment.center,
+                    null,
+                    BoxDecoration(
+                        color: ColorPalette.Secondary_Color_Orignal,
+                        borderRadius: BorderRadius.all(Radius.circular(2))),
+                    Icon(
+                      FluentIcons.book_clock_20_filled,
+                      size: imagewidth / 8,
+                      color: ColorPalette.SH_Grey100,
+                    ),
+                  )),
+            if (booktype == 'wishlist')
+              Positioned(
+                  top: 0,
+                  right: imagewidth / 7,
+                  child: WidgetsModels.Container_widget(
+                    imagewidth / 7,
+                    imagewidth / 7,
+                    Alignment.center,
+                    null,
+                    BoxDecoration(
+                        color: ColorPalette.Secondary_Color_Orignal,
+                        borderRadius: BorderRadius.all(Radius.circular(2))),
+                    Icon(
+                      FluentIcons.bookmark_20_filled,
+                      size: imagewidth / 8,
+                      color: ColorPalette.SH_Grey100,
+                    ),
+                  )),
+            if (booktype == 'mybooks')
+              Positioned(
+                  top: 0,
+                  right: imagewidth / 7,
+                  child: WidgetsModels.Container_widget(
+                    imagewidth / 7,
+                    imagewidth / 7,
+                    Alignment.center,
+                    null,
+                    BoxDecoration(
+                        color: ColorPalette.Secondary_Color_Orignal,
+                        borderRadius: BorderRadius.all(Radius.circular(2))),
+                    Icon(
+                      FluentIcons.book_20_filled,
+                      size: imagewidth / 8,
+                      color: ColorPalette.SH_Grey100,
+                    ),
+                  )),
+          ],
+        ),
+        SizedBox(height: imagewidth / 30),
+        WidgetsModels.Container_widget(
+            null,
+            null,
+            Alignment.center,
+            null,
+            null,
+            Text(
+              vartitle,
+              style: GoogleFonts.montserrat(
+                  color: (selected)
+                      ? ColorPalette.Secondary_Color_Orignal
+                      : varcolor,
+                  fontWeight: FontWeight.w500,
+                  fontSize: titlefontsize),
+              textAlign: TextAlign.center,
+            )),
+        SizedBox(height: imagewidth / 30),
+        WidgetsModels.Container_widget(
+            null,
+            null,
+            Alignment.center,
+            null,
+            null,
+            Text(
+              varauthor,
+              style: GoogleFonts.montserrat(
+                  color: (selected)
+                      ? ColorPalette.Secondary_Color_Orignal
+                      : varcolor,
+                  fontWeight: FontWeight.w400,
+                  fontSize: authorfontsize),
+              textAlign: TextAlign.center,
+            )),
+      ]),
+    );
+  }
+
+  
+
+  static RatingBar rating(
+      double size, double initRate, bool ignoreGest, double padding) {
+    return RatingBar.builder(
+        itemSize: size,
+        allowHalfRating: true,
+        minRating: 0,
+        initialRating: initRate,
+        ignoreGestures: ignoreGest,
+        itemPadding: EdgeInsets.symmetric(horizontal: padding),
+        itemBuilder: (context, index) {
+          return Icon(FluentIcons.star_24_filled, color: ColorPalette.Star);
+        },
+        onRatingUpdate: (rating) {});
+  }
+
+  static Container button1(double varwidth, double varheight, Color varcolor,
+      IconData varicon, Color variconcolor, String vartitle) {
+    return Container(
+      width: varwidth,
+      height: varheight,
+      decoration: BoxDecoration(
+          color: varcolor,
+          borderRadius: const BorderRadius.all(Radius.circular(5))),
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        Icon(
+          varicon,
+          size: varheight / 2,
+          color: variconcolor,
+        ),
+        Text(
+          vartitle,
+          style: GoogleFonts.montserrat(
+              color: variconcolor,
+              fontWeight: FontWeight.w700,
+              fontSize: varwidth / 10),
+        )
+      ]),
+    );
+  }
+
+  static Container titlenr() {
+    return WidgetsModels.Container_widget(
+      null,
+      100,
+      Alignment.center,
+      null,
+      BoxDecoration(color: ColorPalette.Primary_Color_Original),
+      Text(
+        TextString.title,
+        style: GoogleFonts.montserrat(
+            color: ColorPalette.SH_Grey100,
+            fontSize: 32,
+            fontWeight: FontWeight.w800),
+      ),
+    );
+  }
+
+  static Container title(BuildContext context) {
+    return WidgetsModels.Container_widget(
+        null,
+        80,
+        Alignment.center,
+        null,
+        BoxDecoration(color: ColorPalette.Primary_Color_Original),
+        Row(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 20, right: 104),
+              child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(
+                    Icons.arrow_back_rounded,
+                    size: 30,
+                    color: ColorPalette.SH_Grey100,
+                  )),
+            ),
+            Text(
+              TextString.title,
+              style: GoogleFonts.montserrat(
+                  color: ColorPalette.SH_Grey100,
+                  fontSize: 32,
+                  fontWeight: FontWeight.w800),
+            ),
+          ],
+        ));
+  }
+
+  static Container searchbar(
+      TextEditingController varcontroller,
+      double? varwidth,
+      String varhinttext,
+      Widget? varprefix,
+      Widget? varsuffix,
+      Function(String) varonchanged,
+      Function(String) varonsubmitted) {
+    return Container(
+      width: varwidth,
+      child: TextField(
+        onChanged: varonchanged,
+        onSubmitted: varonsubmitted,
+        controller: varcontroller,
+        cursorColor: ColorPalette.SH_Grey900,
+        decoration: InputDecoration(
+          hintText: varhinttext,
+          filled: true,
+          fillColor: ColorPalette.SH_Grey100,
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent),
+              borderRadius: BorderRadius.all(Radius.circular(50))),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(50))),
+          prefixIcon: Align(
+            heightFactor: 1.0,
+            widthFactor: 1.0,
+            child: varprefix,
+          ),
+          suffixIcon: Align(
+            heightFactor: 1.0,
+            widthFactor: 2.0,
+            child: varsuffix,
+          ),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 10, horizontal: 10.0),
+        ),
+      ),
+    );
+  }
+
+  
+  
+  
+
 }
