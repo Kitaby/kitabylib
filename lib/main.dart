@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kitabylib/Dashbord/DashBoard.dart';
 
 import 'package:kitabylib/Mainscreen.dart';
 
@@ -23,9 +24,9 @@ void main() async{
 
   WindowOptions windowOptions = const WindowOptions(
     
-    center: true,
+    //center: true,
     windowButtonVisibility: true,
-    size:Size(1920,1080) ,
+    size:Size(1366,768) ,
     minimumSize:  Size(960,720),
     titleBarStyle: TitleBarStyle.normal,
    
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       title: 'Kitabylib',
       debugShowCheckedModeBanner: false,
-      home:SignUp1(),
+      home:Forgotyourpassword2(email: "email"),
       routes: {
         
         'Forgotyourpassword' : (context) => Forgotyourpassword(oldmail: "") ,

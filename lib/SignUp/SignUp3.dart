@@ -97,7 +97,7 @@ class _Signup3State extends State<Signup3> {
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        decoration: BoxDecoration(
+        decoration:const BoxDecoration(
           image : DecorationImage(image: AssetImage("assets/images/Shape.png"), fit: BoxFit.cover),
         ),
         child: Container(
@@ -117,7 +117,7 @@ class _Signup3State extends State<Signup3> {
                   Alignment.center,
                   const EdgeInsets.only(bottom: 15),
                   null,
-                  Image.asset(Path.LogoImg)),
+                  Image.asset(Path.Logolib)),
               WidgetsModels.Container_widget(
                   null,
                   40,
@@ -146,7 +146,7 @@ class _Signup3State extends State<Signup3> {
                 )),
               WidgetsModels.Container_widget(
                   null,
-                  35,
+                  30,
                   Alignment.center,
                   null,
                   null,

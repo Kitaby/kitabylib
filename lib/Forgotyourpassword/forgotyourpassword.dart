@@ -88,7 +88,7 @@ class Forgotyourpasswordstate extends State<Forgotyourpassword> {
                   )),
             ),
             WidgetsModels.Container_widget(null, null, Alignment.center,
-                const EdgeInsets.only(bottom: 30 , top: 50), null, Image.asset(Path.LogoImg)),
+                const EdgeInsets.only(bottom: 30 , top: 50), null, Image.asset(Path.Logolib)),
             WidgetsModels.Container_widget(
                 null,
                 40,
