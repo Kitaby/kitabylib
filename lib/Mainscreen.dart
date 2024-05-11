@@ -15,7 +15,7 @@ class Mainscreen extends StatefulWidget{
 class MainscreenState extends State<Mainscreen>{
 
   Map screens = {
-    0 : DashBoard(),
+    0 : const DashBoard(),
     1 : Container(),
     2 : Container(),
     3 : Container(),
