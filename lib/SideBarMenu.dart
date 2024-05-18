@@ -52,7 +52,7 @@ class SideBarMenuState extends State<StatefulWidget>{
        children: [
 
         Padding(
-          padding:  EdgeInsets.symmetric(vertical: 20),
+          padding:  EdgeInsets.symmetric(vertical: 15),
           child: Container(height: _mediaQueryWidth/2,width:_mediaQueryWidth/2,child: Image.asset(Path.Logolib),),
         ),
 
@@ -71,23 +71,23 @@ class SideBarMenuState extends State<StatefulWidget>{
             height:_mediaQueryWidth/4,
             margin: EdgeInsets.symmetric(horizontal: 15),
             child: Row(
-             
-             children: [
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal:_mediaQueryWidth/20),
-                child: Icon(Icons.insert_chart_outlined_rounded,size:_mediaQueryWidth/9,color:(selected==0)? Colors.white:ColorPalette.SH_Grey900, ),
-              ),
-              Text(
-                'Dashboard',
-                style: GoogleFonts.montserrat(
-                  color: (selected==0)? Colors.white:ColorPalette.SH_Grey900,
-                  fontSize: _mediaQueryWidth/16,
-                  fontWeight: FontWeight.w500
+              children: [
+                Padding(
+                  padding:  EdgeInsets.symmetric(horizontal:_mediaQueryWidth/20),
+                  child: Icon(Icons.insert_chart_outlined_rounded,size:_mediaQueryWidth/9,color:(selected==0)? Colors.white:ColorPalette.SH_Grey900, ),
                 ),
-              )
-            ],),
+                Text(
+                  'Dashboard',
+                  style: GoogleFonts.montserrat(
+                    color: (selected==0)? Colors.white:ColorPalette.SH_Grey900,
+                    fontSize: _mediaQueryWidth/16,
+                    fontWeight: FontWeight.w500
+                  ),
+                )
+              ],
+            ),
           ),
-         ),
+        ),
         GestureDetector(
          onTap: () {
            setState(() {
@@ -217,8 +217,7 @@ class SideBarMenuState extends State<StatefulWidget>{
             )
           ],),
         ),
-                 ),
-        
+        ),
          GestureDetector(
          onTap: () {
            setState(() {
@@ -251,7 +250,40 @@ class SideBarMenuState extends State<StatefulWidget>{
              )
            ],),
          ),
-                  ),
+        ),
+        GestureDetector(
+         onTap: () {
+           setState(() {
+             selected=6;
+             MainscreenState.currentscreen.value=6;
+           });
+         },
+         child: Container(
+           decoration: BoxDecoration(
+             borderRadius: BorderRadius.all(Radius.circular(10)),
+             color: (selected==6)? ColorPalette.Primary_Color_Light:Colors.white
+           ),
+            height:_mediaQueryWidth/4,
+            margin: EdgeInsets.symmetric(horizontal: 15),
+           child: Row(
+           
+            children: [
+             
+             Padding(
+               padding: EdgeInsets.symmetric(horizontal:_mediaQueryWidth/20),
+               child: Icon(FluentIcons.book_clock_24_regular,size:_mediaQueryWidth/9,color: (selected==6)? Colors.white:ColorPalette.SH_Grey900,  ),
+             ),
+             Text(
+               'Renew Requests',
+               style: GoogleFonts.montserrat(
+                 color: (selected==6)? Colors.white:ColorPalette.SH_Grey900, 
+                 fontSize: _mediaQueryWidth/16,
+                 fontWeight: FontWeight.w500
+               ),
+             )
+           ],),
+         ),
+        ),
          Padding(
            padding:  EdgeInsets.symmetric(vertical: 20),
            child: Container(height: 0.5,color:ColorPalette.SH_Grey300 ,),
@@ -261,41 +293,8 @@ class SideBarMenuState extends State<StatefulWidget>{
           GestureDetector(
           onTap: () {
             setState(() {
-              selected=6;
-              MainscreenState.currentscreen.value=6;
-            });
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: (selected==6)? ColorPalette.Primary_Color_Light:Colors.white
-            ),
-             height:_mediaQueryWidth/4,
-             margin: EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-            
-             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal:_mediaQueryWidth/20),
-                child: Icon(FluentIcons.settings_24_regular,size:_mediaQueryWidth/9,color: (selected==6)? Colors.white:ColorPalette.SH_Grey900, ),
-              ),
-              Text(
-                'Settings',
-                style: GoogleFonts.montserrat(
-                  color: (selected==6)? Colors.white:ColorPalette.SH_Grey900, 
-                  fontSize: _mediaQueryWidth/16,
-                  fontWeight: FontWeight.w500
-                ),
-              )
-            ],),
-          ),
-                   ),
-          GestureDetector(
-          onTap: () {
-            setState(() {
               selected=7;
               MainscreenState.currentscreen.value=7;
-              
             });
           },
           child: Container(
@@ -306,11 +305,44 @@ class SideBarMenuState extends State<StatefulWidget>{
              height:_mediaQueryWidth/4,
              margin: EdgeInsets.symmetric(horizontal: 15),
             child: Row(
+            
+             children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal:_mediaQueryWidth/20),
+                child: Icon(FluentIcons.settings_24_regular,size:_mediaQueryWidth/9,color: (selected==7)? Colors.white:ColorPalette.SH_Grey900, ),
+              ),
+              Text(
+                'Settings',
+                style: GoogleFonts.montserrat(
+                  color: (selected==7)? Colors.white:ColorPalette.SH_Grey900, 
+                  fontSize: _mediaQueryWidth/16,
+                  fontWeight: FontWeight.w500
+                ),
+              )
+            ],),
+          ),
+                   ),
+          GestureDetector(
+          onTap: () {
+            setState(() {
+              selected=8;
+              MainscreenState.currentscreen.value=8;
+              
+            });
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: (selected==8)? ColorPalette.Primary_Color_Light:Colors.white
+            ),
+             height:_mediaQueryWidth/4,
+             margin: EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
              
              children: [
               Padding(
                 padding:EdgeInsets.symmetric(horizontal:_mediaQueryWidth/20),
-                child: Icon(FluentIcons.power_24_regular,size:_mediaQueryWidth/9,color: (selected==7)? Colors.white:ColorPalette.SH_Grey900,  ),
+                child: Icon(FluentIcons.power_24_regular,size:_mediaQueryWidth/9,color: (selected==8)? Colors.white:ColorPalette.SH_Grey900,  ),
               ),
               Text(
                 'Logout',
@@ -322,7 +354,7 @@ class SideBarMenuState extends State<StatefulWidget>{
               )
             ],),
           ),
-                   ),
+          ),
 
       ],),
     );

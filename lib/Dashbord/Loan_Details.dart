@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitabylib/Constants/Colors.dart';
+import 'package:kitabylib/Constants/Path.dart';
 import 'package:kitabylib/Dashbord/Books_Details_charts/bar_graph_data.dart';
 import 'package:kitabylib/Dashbord/Books_Details_charts/graph_model.dart';
 import 'package:kitabylib/main.dart';
@@ -189,7 +190,7 @@ class Loan_DetailsState extends State<StatefulWidget>{
                                    children: [
                                  
                                      FadeInImage.assetNetwork(
-                                      placeholder: 'assets/images/Logo.png', // Before image load
+                                      placeholder: Path.Logolib , // Before image load
                                       image: "http://books.google.com/books/content?id=ncuX8p2xLIUC&printsec=frontcover&img=1&zoom=1&source=gbs_api", // After image load
                                       width:_mediaQueryWidth/24,
                                       height: _mediaQueryWidth/14,
