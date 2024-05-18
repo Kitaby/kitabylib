@@ -3,6 +3,7 @@ class Path {
   static String Logolib = 'assets/images/Logo-lib.png';
   static String Logogoogle = 'assets/images/google.png';
   static String Intro1 = 'assets/images/Bookshop-cuate.png';
+  static String upload = 'assets/images/upload.png';
   static String Selected1 = 'assets/images/SelectedLib1.png';
   static String Intro2 = 'assets/images/Library-rafiki.png';
   static String Selected2 = 'assets/images/SelectedLib2.png';
@@ -16,4 +17,6 @@ class Path {
   static String pathquestion = "assets/icons/question.svg";
   static String pathwarning = "assets/icons/warning.svg";
   static String barcode = "assets/images/Barcode-rafiki.png";
+  static String ExcelLogo = "assets/icons/Excel.svg";
+  
 }

@@ -53,6 +53,11 @@ dependencies:
   flutter_svg: ^2.0.10+1
   regexed_validator: ^2.0.0+1
   responsive_framework: ^1.4.0
+  desktop_drop: ^0.4.4
+  file_picker: ^8.0.3
+  excel: ^4.0.3
+  cross_file: ^0.3.4+1
+  dotted_border: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +85,7 @@ flutter:
   assets:
     - assets/lottie/Logo.json
     - assets/images/Logo-lib.png
+    - assets/images/upload.png
     - assets/images/Bookshop-cuate.png
     - assets/images/Library-rafiki.png
     - assets/images/Reading book-pana.png
@@ -93,6 +99,7 @@ flutter:
     - assets/icons/warning.svg
     - assets/icons/success.svg
     - assets/icons/question.svg
+    - assets/icons/Excel.svg
     - assets/images/Shape.png
     - assets/images/SelectedLib1.png
     - assets/images/SelectedLib2.png

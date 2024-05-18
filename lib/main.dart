@@ -25,6 +25,7 @@ void main() async{
   WindowOptions windowOptions = const WindowOptions(
     
     //center: true,
+    
     windowButtonVisibility: true,
     size:Size(1366,768) ,
     minimumSize:  Size(960,720),
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       title: 'Kitabylib',
       debugShowCheckedModeBanner: false,
-      home:Forgotyourpassword2(email: "email"),
+      home:Mainscreen(),
       routes: {
         
         'Forgotyourpassword' : (context) => Forgotyourpassword(oldmail: "") ,

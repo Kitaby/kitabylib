@@ -1,5 +1,5 @@
 class config {
-  static String apiURL = "http://192.168.6.106:3000/api";
+  static String apiURL = "http://192.168.1.6:3000/api";
   //auth liks
   static String loginURL = "/auth/login";
   static String signUpURL = "/auth/signup";
@@ -13,4 +13,11 @@ class config {
   static String GetWishList = '/home/getWishlist/';
   //profil links
   static String PostBookInCollection = '/profile/postBookInCollection';
+  static String PostBookInWishlist = '/profile/postInWishList';
+  //offers
+  static String getbook="/home/getBook";
+  static String getbooks="/home/getBooks";
+  static String getallbooks="/home/getAllBooks";
+  static String getreceivedoffers="/offers/getReceivedOffers/";
+  static String getsentoffers="/offers//getSentOffers/";
 }

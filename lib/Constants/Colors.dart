@@ -36,5 +36,6 @@ class ColorPalette {
    static Color violet = const Color(0xFF8280FF);
    static Color salmon = const Color(0xFFFF9066);
    static Color verylightgrey = const Color(0xFFF5F6FA);
-
+   static Color bleumarino = const Color(0xFF1640C1);
+   static Color grissouris = const Color(0xFF6D6D6D);
 }

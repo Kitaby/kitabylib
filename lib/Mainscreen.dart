@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kitabylib/Constants/Colors.dart';
 import 'package:kitabylib/Dashbord/DashBoard.dart';
+import 'package:kitabylib/Mybooks/Mybooks.dart';
 import 'package:kitabylib/SideBarMenu.dart';
 
 class Mainscreen extends StatefulWidget{
@@ -16,7 +17,7 @@ class MainscreenState extends State<Mainscreen>{
 
   Map screens = {
     0 : const DashBoard(),
-    1 : Container(),
+    1 : Mybooks(),
     2 : Container(),
     3 : Container(),
     4 : Container(),
@@ -27,7 +28,7 @@ class MainscreenState extends State<Mainscreen>{
 
  
 
-static  ValueNotifier<int> currentscreen =ValueNotifier<int>(0);
+static  ValueNotifier<int> currentscreen =ValueNotifier<int>(1);
 
 
 @override
