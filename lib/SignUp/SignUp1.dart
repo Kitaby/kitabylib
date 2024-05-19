@@ -101,7 +101,7 @@ class SignUp1state extends State<SignUp1> {
                 //physics:const NeverScrollableScrollPhysics(),
                 //physics: const ClampingScrollPhysics(),
                 children: [
-                  Center(child: Image.asset(Path.LogoImg)),
+                  Center(child: Image.asset(Path.Logolib)),
                   WidgetsModels.Container_widget(
                       40,
                       33,
@@ -124,7 +124,7 @@ class SignUp1state extends State<SignUp1> {
                               color: ColorPalette.backgroundcolor,
                               fontSize: 20,
                               fontWeight: FontWeight.w300))),
-                  WidgetsModels.Container_widget(100, 35, Alignment.center, null,
+                  WidgetsModels.Container_widget(null , 30, Alignment.center, null,
                       null, Image.asset(Path.Selected1)),
                   Form(
                       key: Signup,

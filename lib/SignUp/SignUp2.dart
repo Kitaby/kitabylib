@@ -92,7 +92,7 @@ class Signup2state extends State<Signup2> {
             child: ListView(
               physics: const ClampingScrollPhysics(),
               children: [
-                Center(child: Image.asset(Path.LogoImg)),
+                Center(child: Image.asset(Path.Logolib)),
                 WidgetsModels.Container_widget(
                     50,
                     35,
@@ -115,7 +115,7 @@ class Signup2state extends State<Signup2> {
                             color: ColorPalette.backgroundcolor,
                             fontSize: 20,
                             fontWeight: FontWeight.w300))),
-                WidgetsModels.Container_widget(150, 35, Alignment.center, null,
+                WidgetsModels.Container_widget(null, 30, Alignment.center, null,
                     null, Image.asset(Path.Selected2)),
                 Form(
                     key: Signup,

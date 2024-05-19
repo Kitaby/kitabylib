@@ -1,3 +1,13 @@
+import 'dart:ffi';
+
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kitabylib/Constants/Colors.dart';
+import 'package:kitabylib/Constants/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -246,7 +256,7 @@ class WidgetsModels {
     int? varlength,
   ) {
     return Container(
-      height: 111,
+      height: 118,
       margin: varmargin,
       child: Column(
         children: [
@@ -313,6 +323,220 @@ class WidgetsModels {
             ),
           ),
           tileColor: ColorPalette.Primary_Color_Dark,
+        ),
+      ),
+    );
+  }
+
+  static Container bookcard(
+      String vartitle,
+      double titlefontsize,
+      String varauthor,
+      double authorfontsize,
+      Color varcolor,
+      String varimage,
+      double containerwidth,
+      double? containerheight,
+      double imagewidth,
+      double imageheight,
+      bool selected,
+      String? booktype) {
+    return Container(
+      width: containerwidth,
+      height: containerheight,
+      child: Column(children: [
+        Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  border: (selected)
+                      ? Border.all(
+                          width: 3, color: ColorPalette.Secondary_Color_Orignal)
+                      : null,
+                ),
+                child: FadeInImage.assetNetwork(
+                  placeholder: Path.Logolib, // Before image load
+                  image: varimage, // After image load
+                  width: imagewidth,
+                  height: imageheight,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+          ],
+        ),
+        //SizedBox(height: imagewidth ),
+        WidgetsModels.Container_widget(
+            null,
+            null,
+            Alignment.center,
+            null,
+            null,
+            Text(
+              vartitle,
+              style: GoogleFonts.montserrat(
+                  color: (selected)
+                      ? ColorPalette.Secondary_Color_Orignal
+                      : varcolor,
+                  fontWeight: FontWeight.w500,
+                  fontSize: titlefontsize),
+              textAlign: TextAlign.center,
+            )),
+        //SizedBox(height: imagewidth / 30),
+        WidgetsModels.Container_widget(
+            null,
+            null,
+            Alignment.center,
+            null,
+            null,
+            Text(
+              varauthor,
+              style: GoogleFonts.montserrat(
+                  color: (selected)
+                      ? ColorPalette.Secondary_Color_Orignal
+                      : varcolor,
+                  fontWeight: FontWeight.w400,
+                  fontSize: authorfontsize),
+              textAlign: TextAlign.center,
+            )),
+      ]),
+    );
+  }
+
+  static Container button1(double varwidth, double varheight, Color varcolor,
+      IconData? varicon, Color vartitlecolor, String vartitle,{bool? shadow ,bool? border}) {
+    return Container(
+      width: varwidth,
+      height: varheight,
+      
+      decoration: BoxDecoration(
+          color: varcolor,
+          border:(border==true)?
+           Border.all(
+            color: vartitlecolor,
+            width: 1,
+          ):null,
+          boxShadow: [
+            if(shadow==true)
+            BoxShadow(
+                color:vartitlecolor,
+                blurRadius: 1.0,
+                spreadRadius: 0.0,
+                offset: Offset(1.0, 1.0), // shadow direction: bottom right
+            ),
+        ],
+          
+          borderRadius: const BorderRadius.all(Radius.circular(5))),
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        if(varicon!=null)
+        Icon(
+          varicon,
+          size: varheight / 2,
+          color: vartitlecolor,
+        ),
+        Text(
+          vartitle,
+          style: GoogleFonts.montserrat(
+              color: vartitlecolor,
+              fontWeight: FontWeight.w700,
+              fontSize: varwidth / 10),
+        )
+      ]),
+    );
+  }
+
+  static Container titlenr() {
+    return WidgetsModels.Container_widget(
+      null,
+      100,
+      Alignment.center,
+      null,
+      BoxDecoration(color: ColorPalette.Primary_Color_Original),
+      Text(
+        TextString.title,
+        style: GoogleFonts.montserrat(
+            color: ColorPalette.SH_Grey100,
+            fontSize: 32,
+            fontWeight: FontWeight.w800),
+      ),
+    );
+  }
+
+  static Container title(BuildContext context) {
+    return WidgetsModels.Container_widget(
+        null,
+        80,
+        Alignment.center,
+        null,
+        BoxDecoration(color: ColorPalette.Primary_Color_Original),
+        Row(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 20, right: 104),
+              child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(
+                    Icons.arrow_back_rounded,
+                    size: 30,
+                    color: ColorPalette.SH_Grey100,
+                  )),
+            ),
+            Text(
+              TextString.title,
+              style: GoogleFonts.montserrat(
+                  color: ColorPalette.SH_Grey100,
+                  fontSize: 32,
+                  fontWeight: FontWeight.w800),
+            ),
+          ],
+        ));
+  }
+
+  static Container searchbar(
+      TextEditingController varcontroller,
+      double? varwidth,
+      String varhinttext,
+      Widget? varprefix,
+      Widget? varsuffix,
+      Function(String) varonsubmitted) {
+    return Container(
+      width: varwidth,
+      child: TextField(
+        textAlignVertical: TextAlignVertical.center,
+        onSubmitted: varonsubmitted,
+        controller: varcontroller,
+        cursorColor: ColorPalette.SH_Grey300,
+        decoration: InputDecoration(
+          hintText: varhinttext,
+          filled: true,
+          fillColor: ColorPalette.verylightgrey,
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent),
+              borderRadius: BorderRadius.all(Radius.circular(50))),
+          border: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorPalette.SH_Grey300),
+              borderRadius: BorderRadius.all(Radius.circular(50))),
+          enabledBorder:OutlineInputBorder(
+              borderSide: BorderSide(color: ColorPalette.SH_Grey300,width: 0.5),
+              borderRadius: BorderRadius.all(Radius.circular(50))),
+          prefixIcon: Align(
+            heightFactor: 1.0,
+            widthFactor: 1.0,
+            child: varprefix,
+          ),
+          suffixIcon: Align(
+            heightFactor: 1.0,
+            widthFactor: 2.0,
+            child: varsuffix,
+          ),
+          
+          contentPadding:
+               EdgeInsets.symmetric(vertical: 10, horizontal: 10.0),
         ),
       ),
     );
