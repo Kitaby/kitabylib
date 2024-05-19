@@ -1,9 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:kitabylib/Notifications/BooksOnLoan.dart';
 import 'package:kitabylib/Constants/Colors.dart';
 import 'package:kitabylib/Dashbord/DashBoard.dart';
 import 'package:kitabylib/Mybooks/Mybooks.dart';
+import 'package:kitabylib/Notifications/ExpiredBooks.dart';
+import 'package:kitabylib/Notifications/LoanRequests.dart';
+import 'package:kitabylib/Notifications/PendingBooks.dart';
+import 'package:kitabylib/Notifications/RenewRequests.dart';
 import 'package:kitabylib/SideBarMenu.dart';
 
 class Mainscreen extends StatefulWidget{
@@ -16,19 +21,20 @@ class Mainscreen extends StatefulWidget{
 class MainscreenState extends State<Mainscreen>{
 
   Map screens = {
-    0 : const DashBoard(),
-    1 : Mybooks(),
-    2 : Container(),
-    3 : Container(),
-    4 : Container(),
-    5 : Container(),
-    6 : Container(),
+    0 :const DashBoard(),
+    1 :const Mybooks(),
+    2 :const LoanRequests(),
+    3 : const PendingBooks(),
+    4 : const BooksOnLoan(),
+    5 : const ExpiredBooks(),
+    6 : const RenewRequests(),
     7 : Container(),
+    8 : Container(),
   };
 
  
 
-static  ValueNotifier<int> currentscreen =ValueNotifier<int>(1);
+static  ValueNotifier<int> currentscreen =ValueNotifier<int>(0);
 
 
 @override
@@ -45,7 +51,7 @@ static  ValueNotifier<int> currentscreen =ValueNotifier<int>(1);
       body: SafeArea(
         child: Row(
           children: [
-            Expanded(
+            const Expanded(
               flex: 1,
               child:SideBarMenu(), 
             ),

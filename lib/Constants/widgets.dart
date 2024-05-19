@@ -256,7 +256,7 @@ class WidgetsModels {
     int? varlength,
   ) {
     return Container(
-      height: 111,
+      height: 118,
       margin: varmargin,
       child: Column(
         children: [
@@ -366,63 +366,9 @@ class WidgetsModels {
                 ),
               ),
             ),
-            if (booktype == 'loan')
-              Positioned(
-                  top: 0,
-                  right: imagewidth / 7,
-                  child: WidgetsModels.Container_widget(
-                    imagewidth / 7,
-                    imagewidth / 7,
-                    Alignment.center,
-                    null,
-                    BoxDecoration(
-                        color: ColorPalette.Secondary_Color_Orignal,
-                        borderRadius: BorderRadius.all(Radius.circular(2))),
-                    Icon(
-                      FluentIcons.book_clock_20_filled,
-                      size: imagewidth / 8,
-                      color: ColorPalette.SH_Grey100,
-                    ),
-                  )),
-            if (booktype == 'wishlist')
-              Positioned(
-                  top: 0,
-                  right: imagewidth / 7,
-                  child: WidgetsModels.Container_widget(
-                    imagewidth / 7,
-                    imagewidth / 7,
-                    Alignment.center,
-                    null,
-                    BoxDecoration(
-                        color: ColorPalette.Secondary_Color_Orignal,
-                        borderRadius: BorderRadius.all(Radius.circular(2))),
-                    Icon(
-                      FluentIcons.bookmark_20_filled,
-                      size: imagewidth / 8,
-                      color: ColorPalette.SH_Grey100,
-                    ),
-                  )),
-            if (booktype == 'mybooks')
-              Positioned(
-                  top: 0,
-                  right: imagewidth / 7,
-                  child: WidgetsModels.Container_widget(
-                    imagewidth / 7,
-                    imagewidth / 7,
-                    Alignment.center,
-                    null,
-                    BoxDecoration(
-                        color: ColorPalette.Secondary_Color_Orignal,
-                        borderRadius: BorderRadius.all(Radius.circular(2))),
-                    Icon(
-                      FluentIcons.book_20_filled,
-                      size: imagewidth / 8,
-                      color: ColorPalette.SH_Grey100,
-                    ),
-                  )),
           ],
         ),
-        SizedBox(height: imagewidth / 30),
+        //SizedBox(height: imagewidth ),
         WidgetsModels.Container_widget(
             null,
             null,
@@ -439,7 +385,7 @@ class WidgetsModels {
                   fontSize: titlefontsize),
               textAlign: TextAlign.center,
             )),
-        SizedBox(height: imagewidth / 30),
+        //SizedBox(height: imagewidth / 30),
         WidgetsModels.Container_widget(
             null,
             null,
@@ -595,9 +541,4 @@ class WidgetsModels {
       ),
     );
   }
-
-  
-  
-  
-
 }

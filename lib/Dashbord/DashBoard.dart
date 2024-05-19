@@ -51,18 +51,16 @@ class DashBoardState extends State<StatefulWidget>{
       body: ListView(
         physics: AlwaysScrollableScrollPhysics(),
         children: [
-
           Padding(
             padding: EdgeInsets.all(_mediaQueryWidth/40),
             child: Text(
-                  'Dashboard',
-                  style: GoogleFonts.montserrat(
-                    color: ColorPalette.SH_Grey900,
-                    fontSize: _mediaQueryWidth/40,
-                    fontWeight: FontWeight.w500
-                  ),
-                ),
-               
+              'Dashboard',
+              style: GoogleFonts.montserrat(
+                color: ColorPalette.SH_Grey900,
+                fontSize: _mediaQueryWidth/40,
+                fontWeight: FontWeight.w500
+              ),
+            ),
           ),
 
            SizedBox(

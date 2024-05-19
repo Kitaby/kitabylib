@@ -27,7 +27,7 @@ void main() async{
     //center: true,
     
     windowButtonVisibility: true,
-    size:Size(1366,768) ,
+    size:Size(1366,768),
     minimumSize:  Size(960,720),
     titleBarStyle: TitleBarStyle.normal,
    
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
       home:Mainscreen(),
       routes: {
         
-        'Forgotyourpassword' : (context) => Forgotyourpassword(oldmail: "") ,
+        'Forgotyourpassword' : (context) =>const Forgotyourpassword(oldmail: "") ,
         'SignUp1' : (context) => SignUp1() ,
         'SignUp2' : (context) => Signup2(phone: "", name: "") ,
         'SignUp3' : (context) => Signup3(phone: "", email: "", password: "", name: "") ,
