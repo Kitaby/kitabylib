@@ -347,7 +347,7 @@ class SideBarMenuState extends State<StatefulWidget>{
               Text(
                 'Logout',
                 style: GoogleFonts.montserrat(
-                  color: (selected==7)? Colors.white:ColorPalette.SH_Grey900, 
+                  color: (selected==8)? Colors.white:ColorPalette.SH_Grey900, 
                   fontSize: _mediaQueryWidth/16,
                   fontWeight: FontWeight.w500
                 ),
