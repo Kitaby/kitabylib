@@ -3,15 +3,16 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitabylib/Constants/Colors.dart';
+import 'package:kitabylib/Constants/Strings.dart';
 import 'package:kitabylib/Constants/validator.dart';
 import 'package:kitabylib/Constants/widgets.dart';
 import 'package:kitabylib/Constants/Path.dart';
-import 'package:kitabylib/login.dart';
+import 'package:kitabylib/Login.dart';
 import 'package:kitabylib/models/forgot_password_request_model.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:kitabylib/Animations/ForgotPassword.dart';
 import '../models/api_services.dart';
-import '../models/login_request_model.dart';
+import '../models/auth/login_request_model.dart';
 import 'forgotyourpassword2.dart';
 
 class Forgotyourpassword extends StatefulWidget {
@@ -25,6 +26,7 @@ class Forgotyourpasswordstate extends State<Forgotyourpassword> {
   final _forgotemailController = TextEditingController();
   static GlobalKey<FormState> forgotyourpassword = GlobalKey();
   static bool state = false;
+  static bool isStreched = true;
 
   @override
   void initState() {
@@ -74,11 +76,7 @@ class Forgotyourpasswordstate extends State<Forgotyourpassword> {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Login(
-                              forgotmail:
-                                  validator.email(_forgotemailController.value.text)
-                                      ? _forgotemailController.value.text
-                                      : ''),
+                          builder: (context) => Login(),
                         ));
                   },
                   child: Icon(
@@ -137,52 +135,64 @@ class Forgotyourpasswordstate extends State<Forgotyourpassword> {
                       null),
                 )),
             if (validator.email(_forgotemailController.value.text))
-              GestureDetector(
-                  onTap: () async {
-                    ForgotPasswordRequestModel ForgotPassword =
-                        ForgotPasswordRequestModel(
-                      email: _forgotemailController.value.text,
-                    );
-                    var response = await APISERVICES()
-                        .forgetPassword(ForgotPassword)
-                        .catchError((error) {
-                      print(error);
-                    });
-                    if (response != null) {
-                      var responsedecoded = jsonDecode(response);
-                      var data = responsedecoded["message"];
-                      if (data == "success") {
-                        // ignore: use_build_context_synchronously
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ForgotPasswordAnime(
-                                email: validator
-                                        .email(_forgotemailController.value.text)
-                                    ? _forgotemailController.value.text
-                                    : '',
-                              ),
-                            ));
-                      }
-                    }
-                  },
-                  child: WidgetsModels.Container_widget(
-                    null,
-                    50,
-                    Alignment.center,
-                    const EdgeInsets.symmetric(horizontal: 55 , vertical: 25),
-                    BoxDecoration(
-                      color: ColorPalette.backgroundcolor,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    Text(
-                      'Send Request',
-                      style: GoogleFonts.montserrat(
-                          color: ColorPalette.SH_Grey100,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w700),
-                    ),
-                  ))
+              StatefulBuilder(
+            builder: (contextbtn, setStatebtn) => GestureDetector(
+                onTap: () async {
+                  setStatebtn(() {
+                    isStreched = false;
+                  });
+                  ForgotPasswordRequestModel ForgotPassword =
+                      ForgotPasswordRequestModel(
+                    email: _forgotemailController.value.text,
+                  );
+                  await Future.delayed(const Duration(seconds: 1));
+                  await APISERVICES()
+                      .forgetPassword(ForgotPassword)
+                      .then((response) => {
+                            setStatebtn(() {
+                              isStreched = true;
+                            }),
+                            if (response.message == "success")
+                              {
+                                Navigator.pop(context),
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ForgotPasswordAnime(email: _forgotemailController.value.text),)),
+                              }
+                            else if (response.message == "user not found")
+                              {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    WidgetsModels.Dialog_Message(
+                                        "fail",
+                                        response.message!,
+                                        "Please enter a valid email ")),
+                              }
+                            else
+                              {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    WidgetsModels.Dialog_Message("fail",
+                                        "Unkwon error", "Please retry later")),
+                              }
+                          });
+                },
+                child: isStreched
+                    ? WidgetsModels.Container_widget(
+                        null,
+                        50,
+                        Alignment.center,
+                        const EdgeInsets.all(25),
+                        BoxDecoration(
+                          color: ColorPalette.backgroundcolor,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        Text(
+                          TextString.sendrequest,
+                          style: GoogleFonts.montserrat(
+                              color: ColorPalette.SH_Grey100,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      )
+                    : WidgetsModels.buildSmallButton()),
+          )
             else
               WidgetsModels.Container_widget(
                   null,

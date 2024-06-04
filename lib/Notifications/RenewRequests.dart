@@ -1,9 +1,7 @@
 import 'dart:convert';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'package:kitabylib/Constants/Colors.dart';
@@ -24,6 +22,7 @@ class _RenewRequestsState extends State<RenewRequests> {
   double _mediaQueryWidth = 0.0;
   double _mediaQueryHeight = 0.0;
 
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Call updateMediaQuerySize in didChangeDependencies
@@ -59,7 +58,7 @@ class _RenewRequestsState extends State<RenewRequests> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF5F6FA) ,
+      backgroundColor: const Color(0xffF5F6FA) ,
       body: ListView(
         children: [
           Padding(
@@ -106,7 +105,7 @@ class _RenewRequestsState extends State<RenewRequests> {
                                           mainAxisAlignment: MainAxisAlignment.end,
                                           children: [
                                             WidgetsModels.button1(_mediaQueryWidth/8, 35, ColorPalette.Error, FluentIcons.calendar_cancel_16_filled, ColorPalette.SH_Grey100, "Refuse renew"),
-                                            SizedBox(width: 30,),
+                                            const SizedBox(width: 30,),
                                             WidgetsModels.button1(_mediaQueryWidth/8, 35, ColorPalette.Secondary_Color_Orignal, FluentIcons.people_swap_16_filled, ColorPalette.SH_Grey100, "Accept renew"),
                                           ],
                                         ),
@@ -118,7 +117,7 @@ class _RenewRequestsState extends State<RenewRequests> {
                             ],
                           ),
                         ), 
-                        WidgetsModels.Container_widget(null, 1, null,const EdgeInsets.symmetric(vertical: 20), BoxDecoration(color: Color(0xffD8D8D8)), null),
+                        WidgetsModels.Container_widget(null, 1, null,const EdgeInsets.symmetric(vertical: 20), const BoxDecoration(color: Color(0xffD8D8D8)), null),
                       ],
                     );
                   },

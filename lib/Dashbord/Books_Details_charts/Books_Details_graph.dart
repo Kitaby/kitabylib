@@ -117,7 +117,7 @@ class Books_Details_graphState extends State<StatefulWidget>{
                         
                         titlesData: FlTitlesData(
                         show: true,  
-                        
+                          
                           
                           bottomTitles: AxisTitles(
                             sideTitles: SideTitles(

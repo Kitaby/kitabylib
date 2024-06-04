@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final ressetPasswordRequestModel = ressetPasswordRequestModelFromJson(jsonString);
-
 import 'dart:convert';
 
 RessetPasswordRequestModel ressetPasswordRequestModelFromJson(String str) =>

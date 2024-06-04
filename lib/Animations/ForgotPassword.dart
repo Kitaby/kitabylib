@@ -30,47 +30,55 @@ class _ForgotPasswordAnimeState extends State<ForgotPasswordAnime> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorPalette.backgroundcolor,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: Lottie.asset(
-                Path.EmailAnime, // Replace with the path to your Lottie JSON file
-                fit: BoxFit.cover,
-                width: 200, // Adjust the width and height as needed
-                height: 200,
+      body: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          image: DecorationImage(image:  AssetImage("assets/images/Shape.png"), fit: BoxFit.cover)
+        ),
+        child: Container(
+          height: 665,
+          width: 456,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            color: ColorPalette.SH_Grey100
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                child: Lottie.asset(
+                  Path.EmailAnime, // Replace with the path to your Lottie JSON file
+                  fit: BoxFit.cover,
+                  width: 200, // Adjust the width and height as needed
+                  height: 200,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Column(
-              children: [
-                Text(
-                  "An Email is Sent",
-                  style: GoogleFonts.montserrat(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      color: ColorPalette.SH_Grey100),
-                ),
-                const SizedBox(
-                  height: 7,
-                ),
-                Text(
-                  "You can Reset your Password with the code",
-                  style: GoogleFonts.montserrat(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: ColorPalette.SH_Grey100),
-                ),
-                const SizedBox(
-                  height: 100,
-                )
-              ],
-            ),
-          ],
+              const SizedBox(
+                height: 50,
+              ),
+              Column(
+                children: [
+                  Text(
+                    "An Email is Sent",
+                    style: GoogleFonts.montserrat(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                        color: ColorPalette.SH_Grey900),
+                  ),
+                  const SizedBox(
+                    height: 7,
+                  ),
+                  Text(
+                    "You can Reset your Password with the code",
+                    style: GoogleFonts.montserrat(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: ColorPalette.SH_Grey900),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

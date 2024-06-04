@@ -1,11 +1,7 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:kitabylib/Animations/EmailVerif.dart';
 import 'package:kitabylib/Constants/validator.dart';
-import 'package:kitabylib/SignUp/SignUp2.dart';
-import 'package:kitabylib/models/phone_otp_request_model.dart';
-import 'package:kitabylib/models/phone_verify_otp_request_model.dart';
-import 'package:regexed_validator/regexed_validator.dart';
 import 'package:kitabylib/Constants/widgets.dart';
 import 'package:kitabylib/Constants/Colors.dart';
 import 'package:kitabylib/Constants/Path.dart';
@@ -13,10 +9,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
 import '../models/api_services.dart';
-import '../models/register_request_model.dart';
+import '../models/auth/signUp_request.dart';
 
 class Signup3 extends StatefulWidget {
-  Signup3({
+  const Signup3({
     super.key,
     required this.phone,
     required this.email,
@@ -33,18 +29,12 @@ class Signup3 extends StatefulWidget {
 }
 
 class _Signup3State extends State<Signup3> {
-  List<String> categories = [];
-  bool cardclick1 = false;
-  bool cardclick2 = false;
-  bool cardclick3 = false;
-  bool cardclick4 = false;
-  bool cardclick5 = false;
-  bool cardclick6 = false;
 
-  static String data = "";
+
   static bool state4 = false;
   static bool state5 = false;
   static bool state6 = false;
+  bool isStreched = true;
   static GlobalKey<FormState> Signup = GlobalKey();
 
   final _libNameController = TextEditingController();
@@ -56,7 +46,7 @@ class _Signup3State extends State<Signup3> {
     super.initState();
 
     _libNameController.addListener(() {
-      final isnameValid = validator.name(_libNameController.value.text);
+      final isnameValid = Fieldvalidator.libName(_libNameController.value.text);
       if (isnameValid != state4) {
         setState(() {
           state4 = isnameValid;
@@ -65,20 +55,19 @@ class _Signup3State extends State<Signup3> {
     });
 
     _commercialRegisterNumberController.addListener(() {
-      final isPhonenumberValid =
-          validator.phone(_commercialRegisterNumberController.value.text);
-      if (isPhonenumberValid != state5) {
+      final iscrnValid = Fieldvalidator.iscrnvalid(_commercialRegisterNumberController.value.text);
+      if (iscrnValid != state5) {
         setState(() {
-          state5 = isPhonenumberValid;
+          state5 = iscrnValid;
         });
       }
     });
 
     _addressController.addListener(() {
-      final isPinValid = Fieldvalidator.isPin(_addressController.value.text);
-      if (isPinValid != state6) {
+      final isAddressValid = Fieldvalidator.libName(_addressController.value.text);
+      if (isAddressValid != state6) {
         setState(() {
-          state6 = isPinValid;
+          state6 = isAddressValid;
         });
       }
     });
@@ -101,7 +90,7 @@ class _Signup3State extends State<Signup3> {
           image : DecorationImage(image: AssetImage("assets/images/Shape.png"), fit: BoxFit.cover),
         ),
         child: Container(
-          height: 650,
+          height: 665,
           width: 456,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
@@ -111,13 +100,7 @@ class _Signup3State extends State<Signup3> {
           child: ListView(
             //physics: const NeverScrollableScrollPhysics(),
             children: [
-              WidgetsModels.Container_widget(
-                  null,
-                  null,
-                  Alignment.center,
-                  const EdgeInsets.only(bottom: 15),
-                  null,
-                  Image.asset(Path.Logolib)),
+              Center(child: Image.asset(Path.Logolib)),
               WidgetsModels.Container_widget(
                   null,
                   40,
@@ -135,7 +118,7 @@ class _Signup3State extends State<Signup3> {
                 null,
                 25,
                 Alignment.center,
-                EdgeInsets.only(bottom: 15),
+                const EdgeInsets.only(bottom: 15),
                 null,
                 Text(
                   'Sign to continue',
@@ -175,7 +158,7 @@ class _Signup3State extends State<Signup3> {
                       null,
                       _commercialRegisterNumberController,
                       TextInputType.number,
-                      Fieldvalidator.validateLibname,
+                      Fieldvalidator.validatecrn,
                       Icon(
                         FluentIcons.barcode_scanner_24_regular,
                         color: ColorPalette.backgroundcolor,
@@ -189,7 +172,7 @@ class _Signup3State extends State<Signup3> {
                       null,
                       _addressController,
                       TextInputType.number,
-                      Fieldvalidator.validateLibname,
+                      Fieldvalidator.validateaddres,
                       Icon(
                         FluentIcons.location_24_regular,
                         color: ColorPalette.backgroundcolor,
@@ -201,65 +184,74 @@ class _Signup3State extends State<Signup3> {
                   ],
                 )
               ),
-              if ((validator.name(_libNameController.value.text)) &&
-                      (validator.phone(_commercialRegisterNumberController.value.text)) &&
-                      (Fieldvalidator.isPin(_addressController.value.text)))
-                    GestureDetector(
-                        onTap: () async {
-                          PhoneVerifyOtpRequestModel phoneVerifyOTP =
-                              PhoneVerifyOtpRequestModel(
-                                  phone: _commercialRegisterNumberController.value.text,
-                                  otp: _addressController.value.text,
-                                  data: data);
-                          var response = await APISERVICES()
-                              .verifyotp(phoneVerifyOTP)
-                              .catchError((error) {
-                            print(error);
-                          });
-                          if (response != null) {
-                            var responsedecoded = jsonDecode(response);
-                            var data = responsedecoded["message"];
-                            if (data == "success") {
-                              // ignore: use_build_context_synchronously
+              if (state4&&state5&&state6
+                )
+                StatefulBuilder(
+                  builder: (contextbtn, setStatebtn) => GestureDetector(
+                    onTap: () async {
+                      setStatebtn(() {
+                        isStreched = false;
+                      });
+                    SignupRequest signup = SignupRequest(
+                      email: widget.email,
+                      password: widget.password,
+                      phone: widget.phone,
+                      name: widget.name,
+                      address: _addressController.value.text,
+                      comRegNum: _commercialRegisterNumberController.value.text
+                    );
+                    await Future.delayed(const Duration(seconds: 1));
+                    await APISERVICES().signup(signup).then((response) => {
+                          setStatebtn(() {
+                            isStreched = true;
+                          }),
+                          if (response.message == "success")
+                            {
+                              Navigator.pop(context),
+                              Navigator.pop(context),
                               Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Signup2(
-                                        name: validator
-                                                .name(_libNameController.value.text)
-                                            ? _libNameController.value.text
-                                            : '',
-                                        phone: validator.phone(
-                                                _commercialRegisterNumberController.value.text)
-                                            ? _commercialRegisterNumberController.value.text
-                                            : ''),
-                                  ));
+                                context,
+                                MaterialPageRoute(builder: (context) => const EmailVerif(),)
+                              )
                             }
-                          }
-                        },
-                        child: WidgetsModels.Container_widget(
-                            50,
-                            40,
-                            Alignment.center,
-                            const EdgeInsets.only(bottom: 20 , top: 15 , left: 30 , right: 30),
-                            BoxDecoration(
-                                color: ColorPalette.backgroundcolor,
-                                borderRadius: BorderRadius.circular(5)),
-                            Text("Register",
-                                style: GoogleFonts.montserrat(
-                                    color: ColorPalette.SH_Grey100,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w600))))
+                          else
+                            {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  WidgetsModels.Dialog_Message("fail",
+                                      "Unkwon error", "Please retry later")),
+                            }
+                        });
+                  },
+                  child: isStreched
+                      ? WidgetsModels.Container_widget(
+                          50,
+                          45,
+                          Alignment.center,
+                          const EdgeInsets.symmetric(horizontal: 30 , vertical: 15),
+                          BoxDecoration(
+                            color: ColorPalette.backgroundcolor,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          Text(
+                            "SignUp",
+                            style: GoogleFonts.montserrat(
+                                color: ColorPalette.SH_Grey100,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        )
+                      : WidgetsModels.buildSmallButton()),
+                )
                   else
                     WidgetsModels.Container_widget(
                         50,
-                        40,
+                        45,
                         Alignment.center,
-                        const EdgeInsets.only(bottom: 20 , top: 15 , left: 30 , right: 30),
+                        const EdgeInsets.symmetric(horizontal: 30 , vertical: 15),
                         BoxDecoration(
                             color: ColorPalette.SH_Grey300,
                             borderRadius: BorderRadius.circular(5)),
-                        Text("Register",
+                        Text("SignUp",
                             style: GoogleFonts.montserrat(
                                 color: ColorPalette.SH_Grey100,
                                 fontSize: 22,

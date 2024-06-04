@@ -82,7 +82,7 @@ class Signup2state extends State<Signup2> {
             image : DecorationImage(image: AssetImage("assets/images/Shape.png"), fit: BoxFit.cover),
           ),
           child: Container(
-            height: 650,
+            height: 665,
             width: 456,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
@@ -94,10 +94,10 @@ class Signup2state extends State<Signup2> {
               children: [
                 Center(child: Image.asset(Path.Logolib)),
                 WidgetsModels.Container_widget(
-                    50,
-                    35,
+                    40,
+                    33,
                     Alignment.center,
-                    const EdgeInsets.only(top: 15),
+                    const EdgeInsets.only(top: 10),
                     null,
                     Text("Welcome Here",
                         style: GoogleFonts.montserrat(
@@ -188,35 +188,35 @@ class Signup2state extends State<Signup2> {
                     (_confirmPasswordController.text == _passwordController.text))
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Signup3(
-                              email: _emailController.value.text,
-                              phone: widget.phone,
-                              password: _passwordController.value.text,
-                              name: widget.name,
-                            ),
-                          ));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Signup3(
+                          phone:  widget.phone.substring(1), 
+                          email: _emailController.value.text, 
+                          password: _passwordController.value.text, 
+                          name: widget.name
+                        )
+                      )
+                      );
                     },
-                    child: WidgetsModels.Container_widget(
-                        50,
-                        50,
-                        Alignment.center,
-                        const EdgeInsets.symmetric(horizontal: 30 , vertical: 15),
-                        BoxDecoration(
-                            color: ColorPalette.backgroundcolor,
-                            borderRadius: BorderRadius.circular(5)),
-                        Text("Next",
-                            style: GoogleFonts.montserrat(
-                                color: ColorPalette.SH_Grey100,
-                                fontSize: 22,
-                                fontWeight: FontWeight.w600))),
-                  )
+                  child: WidgetsModels.Container_widget(
+                      50,
+                      45,
+                      Alignment.center,
+                      const EdgeInsets.symmetric(horizontal: 30 , vertical: 15),
+                      BoxDecoration(
+                          color: ColorPalette.backgroundcolor,
+                          borderRadius: BorderRadius.circular(5)),
+                      Text("Next",
+                          style: GoogleFonts.montserrat(
+                              color: ColorPalette.SH_Grey100,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w600))),
+                )
                 else
                   WidgetsModels.Container_widget(
                       50,
-                      50,
+                      45,
                       Alignment.center,
                       const EdgeInsets.symmetric(horizontal: 30 , vertical: 15),
                       BoxDecoration(

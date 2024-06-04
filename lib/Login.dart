@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:kitabylib/Constants/Strings.dart';
+import 'package:kitabylib/Mainscreen.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,11 +11,10 @@ import 'package:regexed_validator/regexed_validator.dart';
 import 'Constants/widgets.dart';
 import 'Constants/Colors.dart';
 import 'Constants/Path.dart';
-import 'models/login_request_model.dart';
+import 'models/auth/login_request_model.dart';
 
 class Login extends StatefulWidget {
-  final String forgotmail;
-  const Login({super.key, required this.forgotmail});
+  const Login({super.key});
 
   @override
   State<Login> createState() => _LoginState();
@@ -25,6 +24,7 @@ class _LoginState extends State<Login> {
   static bool state = false;
   static bool state2 = false;
   static bool hidetext = true;
+  static bool isStreched = true;
 
   static GlobalKey<FormState> login = GlobalKey();
   final _emailController = TextEditingController();
@@ -33,7 +33,6 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    _emailController.text = widget.forgotmail;
     _emailController.addListener(() {
       final isEmailValid = validator.email(_emailController.value.text);
       if (isEmailValid != state) {
@@ -63,11 +62,10 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final currentwidth = MediaQuery.of(context).size.width ;
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        decoration: BoxDecoration(
+        decoration:const BoxDecoration(
           image : DecorationImage(image: AssetImage("assets/images/Shape.png"), fit: BoxFit.cover),
         ),
         child: Container(
@@ -171,7 +169,7 @@ class _LoginState extends State<Login> {
                         null,
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushReplacement(
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => Forgotyourpassword(
@@ -194,70 +192,86 @@ class _LoginState extends State<Login> {
                         )
                       ),
                       if (validator.email(_emailController.value.text) && validator.password(_passwordController.value.text))
-                      GestureDetector(
+                      StatefulBuilder(
+                    builder: (contextbtn, setStatebtn) => GestureDetector(
                         onTap: () async {
+                          setStatebtn(() {
+                            isStreched = false;
+                          });
                           LoginRequestModel login = LoginRequestModel(
-                            email: _emailController.value.text,
-                            password: _passwordController.value.text
-                          );
-                          var response = await APISERVICES()
-                          .login(login)
-                          .catchError((error) {});
-                          if (response != null) {
-                            var message = jsonDecode(response);
-                            if (message["message"] == "incorrect") {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                WidgetsModels.Dialog_Message(
-                                  "fail",
-                                  "Credential false",
-                                  "Please verify your email so you can us the app !"));
-                                } 
-                            else if (message["message"] == "not verified") {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                WidgetsModels.Dialog_Message(
-                                  "help",
-                                  "Verify email",
-                                  "Please verify your email so you can us the app !"));
-                                } else {
-                                  //var thisuser = userModelFromJson(response);
-                                  //final SharedPreferences prefs =
-                                  //await SharedPreferences.getInstance();
-                                  //prefs.setString('token', thisuser.token);
-                                  // ignore: use_build_context_synchronously
-                                  Timer(const Duration(seconds: 6), () {
-                                    Navigator.pushReplacementNamed(context, 'Home');
-                                  });
-                                }
-                          }
+                              email: _emailController.value.text,
+                              password: _passwordController.value.text);
+                          await Future.delayed(const Duration(seconds: 1));
+                          await APISERVICES().login(login).then((response) => {
+                                setStatebtn(() {
+                                  isStreched = true;
+                                }),
+                                if (response.message == "success")
+                                  {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        WidgetsModels.Dialog_Message(
+                                            "success",
+                                            "Login successed",
+                                            "Welcome back to kitaby ${response.username}")),
+                                    Timer(const Duration(seconds: 5), () {
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => Mainscreen(token: response.token,),),
+                                      );
+                                    })
+                                  }
+                                else if (response.message == "Not verified")
+                                  {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        WidgetsModels.Dialog_Message(
+                                            "help",
+                                            response.message,
+                                            "Please verify your email to use Kitaby")),
+                                  }
+                                else if (response.message ==
+                                    "Wrong Credentials")
+                                  {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        WidgetsModels.Dialog_Message(
+                                            "fail",
+                                            response.message,
+                                            "Your email or password was incorrect please retry")),
+                                  }
+                                else
+                                  {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        WidgetsModels.Dialog_Message(
+                                            "fail",
+                                            "Unkwon error",
+                                            "Please retry later")),
+                                  }
+                              });
                         },
-                        child: WidgetsModels.Container_widget(
-                          null,
-                          50,
-                          Alignment.center,
-                          const EdgeInsets.all(30),
-                          BoxDecoration(
-                            color: ColorPalette.backgroundcolor,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          Text(
-                            'Log in',
-                            style: GoogleFonts.montserrat(
-                              color: ColorPalette.SH_Grey100,
-                              fontSize: 22,
-                              fontWeight: FontWeight.w700
-                            ),
-                          ),
-                        )
-                      )
+                        child: isStreched
+                            ? WidgetsModels.Container_widget(
+                                null,
+                                50,
+                                Alignment.center,
+                                const EdgeInsets.all(25),
+                                BoxDecoration(
+                                  color: ColorPalette.backgroundcolor,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                Text(
+                                  TextString.login,
+                                  style: GoogleFonts.montserrat(
+                                      color: ColorPalette.SH_Grey100,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                              )
+                            : WidgetsModels.buildSmallButton()))
                       else
                       WidgetsModels.Container_widget(
                         null,
                         50,
                         Alignment.center,
-                        const EdgeInsets.symmetric(
-                          horizontal: 30,
-                          vertical: 30,
-                        ),
+                        const EdgeInsets.all(25),
                         BoxDecoration(
                           color: ColorPalette.SH_Grey300,
                           borderRadius: BorderRadius.circular(5),

@@ -3,8 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 
-import 'Colors.dart';
-
 class Fieldvalidator {
   static String? validatename(String? value) {
     if (value == null) {
@@ -16,6 +14,7 @@ class Fieldvalidator {
         return "Must be a valid name";
       }
     }
+    return null;
   }
 
   static String? validateemail(String? value) {
@@ -28,6 +27,7 @@ class Fieldvalidator {
         return "Must be a valid email address";
       }
     }
+    return null;
   }
 
   static String? validatepassword(String? value) {
@@ -40,6 +40,7 @@ class Fieldvalidator {
         return "Must be a valid password";
       }
     }
+    return null;
   }
 
   static String? validatePhoneNumber(String? value) {
@@ -52,6 +53,7 @@ class Fieldvalidator {
         return "Must be a valid phone number";
       }
     }
+    return null;
   }
 
   static String? validatePinCode(String? value) {
@@ -64,6 +66,7 @@ class Fieldvalidator {
         return "Must be a valid pin code";
       }
     }
+    return null;
   }
 
   static String? validateisbn(String? value) {
@@ -72,20 +75,46 @@ class Fieldvalidator {
     } else {
       if (value!.length == 0) {
         return "isbn is Required";
-      } else if (!isisbnvalid(value)) {
+      } else if (isisbnvalid(value)) {
         return "Must be a valid isbn";
       }
     }
+    return null;
+  }
+
+  static String? validatecrn(String? value) { //commercial register number
+    if (value == null) {
+      return null;
+    } else {
+      if (value!.length == 0) {
+        return "CRN is Required";
+      } else if (!iscrnvalid(value)) {
+        return "Must be a valid CRN";
+      }
+    }
+    return null;
+  }
+
+  static String? validateaddres(String? value) { //commercial register number
+    if (value == null) {
+      return null;
+    } else {
+      if (value.isEmpty) {
+        return "Address is Required";
+      }
+    }
+    return null;
   }
 
   static String? validateLibname(String? value) {
     if (value == null) {
       return null;
     } else {
-      if (value!.length == 0) {
+      if (value.isEmpty) {
         return "Name is Required";
       }
     }
+    return null;
   }
 
   static bool isPin(String em) {
@@ -103,4 +132,16 @@ class Fieldvalidator {
 
     return regExp.hasMatch(em);
   }
+
+  static bool iscrnvalid(String input) {
+    String p = r'^[A-Z0-9]{10}$';
+
+    RegExp regExp = new RegExp(p);
+
+    return regExp.hasMatch(input);
+  }  //commercial register number
+  static bool libName(String input) {
+    return input.isNotEmpty;
+  }
+
 }

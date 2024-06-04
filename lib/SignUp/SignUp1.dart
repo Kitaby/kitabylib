@@ -1,19 +1,19 @@
-import 'dart:convert';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:kitabylib/Constants/validator.dart';
 import 'package:kitabylib/SignUp/SignUp2.dart';
-import 'package:kitabylib/models/phone_otp_request_model.dart';
-import 'package:kitabylib/models/phone_verify_otp_request_model.dart';
+import 'package:kitabylib/SignUp/otp_countDown.dart';
+import 'package:kitabylib/models/auth/send_otp_request.dart';
+import 'package:kitabylib/models/auth/verify_otp_request.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:kitabylib/Constants/widgets.dart';
 import 'package:kitabylib/Constants/Colors.dart';
 import 'package:kitabylib/Constants/Path.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 
-import 'package:kitabylib/login.dart';
+import 'package:kitabylib/Login.dart';
 
 import '../models/api_services.dart';
 
@@ -28,6 +28,7 @@ class SignUp1state extends State<SignUp1> {
   static bool state4 = false;
   static bool state5 = false;
   static bool state6 = false;
+  static bool notsent = true;
   static GlobalKey<FormState> Signup = GlobalKey();
 
   final _nameController = TextEditingController();
@@ -80,11 +81,11 @@ class SignUp1state extends State<SignUp1> {
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        decoration: BoxDecoration(
+        decoration:const BoxDecoration(
           image : DecorationImage(image: AssetImage("assets/images/Shape.png"), fit: BoxFit.cover),
         ),
         child: Container(
-          height: 650,
+          height: 665,
           width: 456,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
@@ -166,28 +167,67 @@ class SignUp1state extends State<SignUp1> {
                                 FluentIcons.lock_shield_24_regular,
                                 color: ColorPalette.backgroundcolor,
                               ),
-                              GestureDetector(
-                                onTap: () async {
-                                  PhoneOtpRequestModel phoneOTP =
-                                      PhoneOtpRequestModel(
-                                    phone: _phoneNumberController.value.text,
-                                  );
-                                  var response = await APISERVICES()
+                              StatefulBuilder(
+                            builder: (contextbtn, setStatebtn) =>
+                                GestureDetector(
+                              onTap: () async {
+                                SendOtpRequest phoneOTP =
+                                    SendOtpRequest(
+                                  phone: _phoneNumberController.value.text
+                                      .substring(1),
+                                );
+                                if (notsent) {
+                                  await APISERVICES()
                                       .sendotp(phoneOTP)
-                                      .catchError((error) {
-                                    print(error);
-                                  });
-                                  if (response != null) {
-                                    var responsedecoded = jsonDecode(response);
-                                    data = responsedecoded["data"];
-                                  }
-                                },
-                                child: Text("Send",
-                                    style: GoogleFonts.montserrat(
-                                        color: ColorPalette.backgroundcolor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400)),
-                              ),
+                                      .then((response) => {
+                                            setStatebtn(() {
+                                              notsent = false;
+                                            }),
+                                            Timer(const Duration(minutes: 2),
+                                                () {
+                                              setStatebtn(() {
+                                                notsent = true;
+                                              });
+                                            }),
+                                            if (response.message ==
+                                                "you already have an account")
+                                              {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(WidgetsModels
+                                                        .Dialog_Message(
+                                                            "info",
+                                                            "Used number",
+                                                            "Please enter a valid Number ")),
+                                              }
+                                            else if (response.message !=
+                                                "success")
+                                              {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(WidgetsModels
+                                                        .Dialog_Message(
+                                                            "fail",
+                                                            "Unkwon error",
+                                                            "Please retry later")),
+                                              }
+                                            else
+                                              {data = response.data!,}
+                                          });
+                                }
+                              },
+                              child: notsent
+                                  ? Text("send",
+                                      style: GoogleFonts.montserrat(
+                                          color: ColorPalette.SH_Grey900,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400))
+                                  : otpcountDown(
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorPalette.SH_Grey900,
+                                      fontSize: 14,
+                                      deadline: DateTime.now()
+                                          .add(const Duration(minutes: 2))),
+                            ),
+                          ),
                               false,
                               6),
                         ],
@@ -196,57 +236,73 @@ class SignUp1state extends State<SignUp1> {
                       (validator.phone(_phoneNumberController.value.text)) &&
                       (Fieldvalidator.isPin(_pinController.value.text)))
                     GestureDetector(
-                        onTap: () async {
-                          PhoneVerifyOtpRequestModel phoneVerifyOTP =
-                              PhoneVerifyOtpRequestModel(
-                                  phone: _phoneNumberController.value.text,
-                                  otp: _pinController.value.text,
-                                  data: data);
-                          var response = await APISERVICES()
-                              .verifyotp(phoneVerifyOTP)
-                              .catchError((error) {
-                            print(error);
-                          });
-                          if (response != null) {
-                            var responsedecoded = jsonDecode(response);
-                            var data = responsedecoded["message"];
-                            if (data == "success") {
-                              // ignore: use_build_context_synchronously
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Signup2(
-                                        name: validator
-                                                .name(_nameController.value.text)
-                                            ? _nameController.value.text
-                                            : '',
-                                        phone: validator.phone(
-                                                _phoneNumberController.value.text)
-                                            ? _phoneNumberController.value.text
-                                            : ''),
-                                  ));
-                            }
-                          }
-                        },
-                        child: WidgetsModels.Container_widget(
-                            50,
-                            40,
-                            Alignment.center,
-                            const EdgeInsets.only(bottom: 20 , top: 5 , left: 25 , right: 25),
-                            BoxDecoration(
-                                color: ColorPalette.backgroundcolor,
-                                borderRadius: BorderRadius.circular(5)),
-                            Text("Next",
-                                style: GoogleFonts.montserrat(
-                                    color: ColorPalette.SH_Grey100,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w600))))
+                    onTap: () async {
+                      VerifyOtpRequest phoneVerifyOTP =
+                          VerifyOtpRequest(
+                              phone: _phoneNumberController.value.text
+                                  .substring(1),
+                              otp: _pinController.value.text,
+                              data: data);
+                      await APISERVICES()
+                          .verifyotp(phoneVerifyOTP)
+                          .then((response) => {
+                                if (response.message == "success")
+                                  {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Signup2(
+                                          name: _nameController.value.text,
+                                          phone: _phoneNumberController.value.text,
+                                        ),
+                                      )
+                                    )
+                                  }
+                                else if (response.message == "expired")
+                                  {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        WidgetsModels.Dialog_Message(
+                                            "info",
+                                            response.message,
+                                            "Your otp is expired send another one")),
+                                  }
+                                else if (response.message == "fail")
+                                  {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        WidgetsModels.Dialog_Message(
+                                            "fail",
+                                            "otp incorrect",
+                                            "Your code is incorrect please retry")),
+                                  }
+                                else
+                                  {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        WidgetsModels.Dialog_Message(
+                                            "fail",
+                                            "Unkwon error",
+                                            "Please retry later")),
+                                  }
+                              });
+                    },
+                    child: WidgetsModels.Container_widget(
+                        50,
+                        45,
+                        Alignment.center,
+                        const EdgeInsets.only(bottom: 15 , top: 5 , left: 30 , right: 30),
+                        BoxDecoration(
+                            color: ColorPalette.backgroundcolor,
+                            borderRadius: BorderRadius.circular(5)),
+                        Text("Next",
+                            style: GoogleFonts.montserrat(
+                                color: ColorPalette.SH_Grey100,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600))))
                   else
                     WidgetsModels.Container_widget(
                         50,
-                        40,
+                        45,
                         Alignment.center,
-                        const EdgeInsets.only(bottom: 20 , top: 5 , left: 30 , right: 30),
+                        const EdgeInsets.only(bottom: 15 , top: 5 , left: 30 , right: 30),
                         BoxDecoration(
                             color: ColorPalette.SH_Grey300,
                             borderRadius: BorderRadius.circular(5)),
@@ -270,7 +326,7 @@ class SignUp1state extends State<SignUp1> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const Login(forgotmail: ''),
+                                builder: (context) => const Login(),
                               ));
                         },
                         child: Text(" Login",

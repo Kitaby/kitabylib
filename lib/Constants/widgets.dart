@@ -256,7 +256,7 @@ class WidgetsModels {
     int? varlength,
   ) {
     return Container(
-      height: 118,
+      height: 119,
       margin: varmargin,
       child: Column(
         children: [
@@ -407,23 +407,40 @@ class WidgetsModels {
   }
 
   static Container button1(double varwidth, double varheight, Color varcolor,
-      IconData varicon, Color variconcolor, String vartitle) {
+      IconData? varicon, Color vartitlecolor, String vartitle,{bool? shadow ,bool? border}) {
     return Container(
       width: varwidth,
       height: varheight,
+      
       decoration: BoxDecoration(
           color: varcolor,
+          border:(border==true)?
+           Border.all(
+            color: vartitlecolor,
+            width: 1,
+          ):null,
+          boxShadow: [
+            if(shadow==true)
+            BoxShadow(
+                color:vartitlecolor,
+                blurRadius: 1.0,
+                spreadRadius: 0.0,
+                offset: Offset(1.0, 1.0), // shadow direction: bottom right
+            ),
+        ],
+          
           borderRadius: const BorderRadius.all(Radius.circular(5))),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        if(varicon!=null)
         Icon(
           varicon,
           size: varheight / 2,
-          color: variconcolor,
+          color: vartitlecolor,
         ),
         Text(
           vartitle,
           style: GoogleFonts.montserrat(
-              color: variconcolor,
+              color: vartitlecolor,
               fontWeight: FontWeight.w700,
               fontSize: varwidth / 10),
         )
@@ -486,23 +503,26 @@ class WidgetsModels {
       String varhinttext,
       Widget? varprefix,
       Widget? varsuffix,
-      Function(String) varonchanged,
       Function(String) varonsubmitted) {
     return Container(
       width: varwidth,
       child: TextField(
-        onChanged: varonchanged,
+        textAlignVertical: TextAlignVertical.center,
         onSubmitted: varonsubmitted,
         controller: varcontroller,
-        cursorColor: ColorPalette.SH_Grey900,
+        cursorColor: ColorPalette.SH_Grey300,
         decoration: InputDecoration(
           hintText: varhinttext,
           filled: true,
-          fillColor: ColorPalette.SH_Grey100,
+          fillColor: ColorPalette.verylightgrey,
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.transparent),
               borderRadius: BorderRadius.all(Radius.circular(50))),
           border: OutlineInputBorder(
+              borderSide: BorderSide(color: ColorPalette.SH_Grey300),
+              borderRadius: BorderRadius.all(Radius.circular(50))),
+          enabledBorder:OutlineInputBorder(
+              borderSide: BorderSide(color: ColorPalette.SH_Grey300,width: 0.5),
               borderRadius: BorderRadius.all(Radius.circular(50))),
           prefixIcon: Align(
             heightFactor: 1.0,
@@ -514,10 +534,32 @@ class WidgetsModels {
             widthFactor: 2.0,
             child: varsuffix,
           ),
+          
           contentPadding:
-              const EdgeInsets.symmetric(vertical: 10, horizontal: 10.0),
+               EdgeInsets.symmetric(vertical: 10, horizontal: 10.0),
         ),
       ),
     );
   }
+
+  static Container buildSmallButton() => WidgetsModels.Container_widget(
+        50,
+        50,
+        Alignment.center,
+        const EdgeInsets.all(25),
+        BoxDecoration(
+          shape: BoxShape.circle,
+          color: ColorPalette.backgroundcolor,
+        ),
+        SizedBox(
+          height: 25,
+          width: 25,
+          child: Center(
+            child: CircularProgressIndicator(
+              color: ColorPalette.SH_Grey100,
+            ),
+          ),
+        ),
+      );
+
 }

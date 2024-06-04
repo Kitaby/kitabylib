@@ -1,6 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kitabylib/Animations/PasswordChanged.dart';
 import 'package:kitabylib/Constants/Colors.dart';
 import 'package:kitabylib/Constants/validator.dart';
 import 'package:kitabylib/Constants/widgets.dart';
@@ -11,16 +12,17 @@ import '../models/api_services.dart';
 import '../models/resset_password_request_model.dart';
 
 class Forgotyourpassword2 extends StatefulWidget {
+  final String? email;
   const Forgotyourpassword2({
     super.key,
     required this.email,
   });
-  final String email;
   @override
   State<Forgotyourpassword2> createState() => Forgotyourpassword2state();
 }
 
 class Forgotyourpassword2state extends State<Forgotyourpassword2> {
+  static String email = '';  
   final _newpasswordController = TextEditingController();
   final _confirmnewpasswordController = TextEditingController();
   final _pinController = TextEditingController();
@@ -30,10 +32,16 @@ class Forgotyourpassword2state extends State<Forgotyourpassword2> {
   static bool state3 = false;
   static bool hidetext = true;
   static bool hidetext2 = true;
+  static bool isStreched = true;
 
   @override
   void initState() {
     super.initState();
+    if (widget.email == ' ') {  
+      email = '';
+    } else {
+      email = widget.email!;
+    }
     _newpasswordController.addListener(() {
       final isnewpasswordValid =
           validator.password(_newpasswordController.value.text);
@@ -42,7 +50,6 @@ class Forgotyourpassword2state extends State<Forgotyourpassword2> {
           state = isnewpasswordValid;
         });
       }
-      ;
     });
 
     _confirmnewpasswordController.addListener(() {
@@ -53,7 +60,6 @@ class Forgotyourpassword2state extends State<Forgotyourpassword2> {
           state2 = isnewpasswordValid;
         });
       }
-      ;
     });
 
     _pinController.addListener(() {
@@ -100,7 +106,7 @@ class Forgotyourpassword2state extends State<Forgotyourpassword2> {
                   null,
                   null,
                   Alignment.center,
-                  const EdgeInsets.only(bottom: 20 , top: 20),
+                  const EdgeInsets.symmetric(horizontal: 25 , vertical: 10),
                   null,
                   Image.asset(Path.Logolib)),
               WidgetsModels.Container_widget(
@@ -220,46 +226,83 @@ class Forgotyourpassword2state extends State<Forgotyourpassword2> {
                   validator.password(_confirmnewpasswordController.value.text) &&
                   (_confirmnewpasswordController.value.text ==
                       _newpasswordController.value.text))
-                GestureDetector(
-                    onTap: () async {
-                      RessetPasswordRequestModel ForgotPassword =
-                          RessetPasswordRequestModel(
-                              email: widget.email,
-                              otp: _pinController.value.text,
-                              password: _newpasswordController.value.text);
-                      var response = await APISERVICES()
-                          .RessetPassword(ForgotPassword)
-                          .catchError((error) {
-                        print(error);
-                      });
-                      if (response != null) {
-                        print(response);
-                      }
-                      Navigator.pushReplacementNamed(context, "PasswordChanged");
-                    },
-                    child: WidgetsModels.Container_widget(
-                      null,
-                      50,
-                      Alignment.center,
-                      const EdgeInsets.symmetric(horizontal: 30 , vertical: 20),
-                      BoxDecoration(
-                        color: ColorPalette.backgroundcolor,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      Text(
-                        'Reset Password',
-                        style: GoogleFonts.montserrat(
-                            color: ColorPalette.SH_Grey100,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    ))
+                StatefulBuilder(
+              builder: (contextbtn, setStatebtn) => GestureDetector(
+                  onTap: () async {
+                    setStatebtn(() {
+                      isStreched = false;
+                    });
+                    RessetPasswordRequestModel ForgotPassword =
+                        RessetPasswordRequestModel(
+                            email: widget.email!,
+                            otp: _pinController.value.text,
+                            password: _newpasswordController.value.text);
+                    await Future.delayed(const Duration(seconds: 1));
+                    await APISERVICES()
+                        .ressetPassword(ForgotPassword)
+                        .then((response) => {
+                              setStatebtn(() {
+                                isStreched = true;
+                              }),
+                              if (response.message == "success")
+                                {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(builder: (context) =>const PasswordChanged(),)
+                                  )
+                                }
+                              else if (response.message == "expired")
+                                {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      WidgetsModels.Dialog_Message(
+                                          "help",
+                                          response.message!,
+                                          "Your otp is expired send another one")),
+                                }
+                              else if (response.message == "otp incorrect")
+                                {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      WidgetsModels.Dialog_Message(
+                                          "fail",
+                                          response.message!,
+                                          "Your code is incorrect please retry")),
+                                }
+                              else
+                                {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      WidgetsModels.Dialog_Message(
+                                          "fail",
+                                          "Unkwon error",
+                                          "Please retry later")),
+                                }
+                            });
+                  },
+                  child: isStreched
+                      ? WidgetsModels.Container_widget(
+                          null,
+                          50,
+                          Alignment.center,
+                          const EdgeInsets.symmetric(horizontal: 30 , vertical: 15),
+                          BoxDecoration(
+                            color: ColorPalette.backgroundcolor,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          Text(
+                            "Reset Password",
+                            style: GoogleFonts.montserrat(
+                                color: ColorPalette.SH_Grey100,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        )
+                      : WidgetsModels.buildSmallButton()),
+            )
               else
                 WidgetsModels.Container_widget(
                     null,
                     50,
                     Alignment.center,
-                    const EdgeInsets.symmetric(horizontal: 30 , vertical: 20),
+                    const EdgeInsets.symmetric(horizontal: 30 , vertical: 15),
                     BoxDecoration(
                       color: ColorPalette.SH_Grey300,
                       borderRadius: BorderRadius.circular(5),

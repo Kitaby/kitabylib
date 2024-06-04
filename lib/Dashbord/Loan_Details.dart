@@ -190,11 +190,11 @@ class Loan_DetailsState extends State<StatefulWidget>{
                                    children: [
                                  
                                      FadeInImage.assetNetwork(
-                                      placeholder: Path.Logolib , // Before image load
+                                      placeholder: Path.Logolib, // Before image load
                                       image: "http://books.google.com/books/content?id=ncuX8p2xLIUC&printsec=frontcover&img=1&zoom=1&source=gbs_api", // After image load
                                       width:_mediaQueryWidth/24,
                                       height: _mediaQueryWidth/14,
-                                      fit: BoxFit.cover,),
+                                      fit: BoxFit.contain,),
                                  
                                      Padding(
                                        padding: const EdgeInsets.all(10.0),
