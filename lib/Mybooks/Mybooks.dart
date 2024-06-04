@@ -15,6 +15,7 @@ import 'package:kitabylib/Mybooks/Upload_A_File.dart';
 import 'package:kitabylib/main.dart';
 import 'package:kitabylib/models/api_services.dart';
 import 'package:kitabylib/models/getBooksresponsemodel.dart';
+import 'package:kitabylib/models/getavailablebooksmodel.dart';
 
 class Mybooks extends StatefulWidget{
   const Mybooks({super.key});
@@ -39,37 +40,41 @@ class MybooksState extends State<StatefulWidget>{
   }
 
   void updateMediaQuerySize() {
+    if(mounted){
     setState(() {
       MediaQueryData mediaQueryData = MediaQuery.of(context);
       _mediaQueryWidth = mediaQueryData.size.width*5/6;
       _mediaQueryHeight = mediaQueryData.size.height;
     });
+    }
   }
 
 
-  List<AllBook> booksfound=[];
+  static List<Book> booksfound=[];
   
   bool hasmore =true;
   int page =1;
   bool isloading=false;
   final _list_offers_controller=ScrollController(); 
 
-  Future fetchoffers(String searched) async{
+  Future fetchoffers(String name) async{
     if(isloading)return;
     isloading=true;
-    Getbooksresponsemodel? response= await APISERVICES().getBooks(searched, page);///get loan books
+    Getavailablebooksresponsemodel? response= await APISERVICES().getAvalaibleBooks('6638e4d14bca83d6fe6dfb40', page,name);///get loan books
     if(response!=null ){
+      if(mounted){
         setState(() {
           page++;
           isloading=false;
-          if( response.allBooks.length<8){hasmore=false;}
-          booksfound.addAll(response.allBooks);
+          if( response.availableBooks.length<8){hasmore=false;}
+          booksfound.addAll(response.availableBooks);
             });
-          }
+          }}
            
             }
 
   Future refresh()async{
+    if(mounted){
     setState(() {
       seeall=false;
       isloading=false;
@@ -79,18 +84,22 @@ class MybooksState extends State<StatefulWidget>{
       _searchcontroller.text="";
         });
     fetchoffers("");
-  }
+  }}
   
   @override
   void initState() {
     super.initState();
+    if (booksfound.isEmpty){
     fetchoffers("");
+    }
+   
     
     
     _list_offers_controller.addListener(() {
       if(_list_offers_controller.position.maxScrollExtent==_list_offers_controller.offset){
         print(page);
         fetchoffers(_searchcontroller.text);
+        
       }
     });
 
@@ -116,18 +125,19 @@ class MybooksState extends State<StatefulWidget>{
 
  
 void search(String e){
- 
+ if(mounted){
      setState(() {
        isloading=false;
       hasmore=true;
       page=1;
       booksfound.clear();
       seeall=false;
-     fetchoffers(e);
+      fetchoffers(e);
+    
      
      });
      
-  
+ }
    
 }
  
@@ -146,7 +156,9 @@ void search(String e){
       body: ListView(
         physics: NeverScrollableScrollPhysics(),
         children: [
-          Container(height: _mediaQueryWidth/11,color: Colors.white,
+          Container(
+          height: _mediaQueryWidth/11,
+          color: Colors.white,
           child:Padding(
             padding: EdgeInsets.all(_mediaQueryWidth/50),
             child: WidgetsModels.searchbar(_searchcontroller,275,"Search",
@@ -178,7 +190,7 @@ void search(String e){
                 child: Padding(
                   padding: EdgeInsets.all(_mediaQueryWidth/40),
                   child: Text(
-                        'Mybooks',
+                        'Available Books',
                         style: GoogleFonts.montserrat(
                           color: ColorPalette.SH_Grey900,
                           fontSize: _mediaQueryWidth/40,
@@ -198,7 +210,7 @@ void search(String e){
                         showDialog(
                         context: context,
                         builder:(context) => UploadFile(),//doesn't work rn
-                        ).whenComplete(() => refresh());
+                        );
                         },
                       child: WidgetsModels.button1(_mediaQueryWidth*(9/55),_mediaQueryWidth*(9/220),ColorPalette.SH_Grey100,FluentIcons.send_copy_20_filled,ColorPalette.Primary_Color_Original,'Upload A File',shadow: true)),
                   ),

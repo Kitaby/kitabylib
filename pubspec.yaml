@@ -83,9 +83,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/lottie/Logo.json
-    - assets/images/Logo-lib.png
     - assets/images/upload.png
+    - assets/images/Logo-lib.png
     - assets/images/Bookshop-cuate.png
     - assets/images/Library-rafiki.png
     - assets/images/Reading book-pana.png
@@ -93,9 +92,13 @@ flutter:
     - assets/images/Barcode-rafiki.png
     - assets/lottie/EmailVerif.json
     - assets/lottie/ChangedPassword.json
+    - assets/lottie/Logoanime.json
     - assets/icons/bubbles.svg
     - assets/icons/close.svg
     - assets/icons/fail.svg
+    - assets/icons/introlib1.svg
+    - assets/icons/introlib2.svg
+    - assets/icons/introlib3.svg
     - assets/icons/warning.svg
     - assets/icons/success.svg
     - assets/icons/question.svg

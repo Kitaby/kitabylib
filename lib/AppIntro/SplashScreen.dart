@@ -44,33 +44,47 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorPalette.backgroundcolor,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Lottie.asset(
-                Path.LogoAnime, // Replace with the path to your Lottie JSON file
-                fit: BoxFit.cover,
-                width: 400, // Adjust the width and height as needed
-                height: 400,
-              ),
+      
+      body: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          image : DecorationImage(image: AssetImage("assets/images/Shape.png"), fit: BoxFit.cover),
+        ),
+        child: Container(
+           height: 650,
+            width: 456,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+            color: Colors.white,
             ),
-            Center(
-              child: AnimatedTextKit(animatedTexts: [
-                TyperAnimatedText(
-                  TextString.title,
-                  textStyle: GoogleFonts.montserrat(
-                      fontSize: 64,
-                      fontWeight: FontWeight.w700,
-                      color: ColorPalette.SH_Grey100),
-                  speed: const Duration(milliseconds: 210),
-                  curve: Curves.easeIn,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: Lottie.asset(
+                    Path.LogoAnime, // Replace with the path to your Lottie JSON file
+                    fit: BoxFit.cover,
+                    width: 400, // Adjust the width and height as needed
+                    height: 400,
+                  ),
+                ),
+                Center(
+                  child: AnimatedTextKit(animatedTexts: [
+                    TyperAnimatedText(
+                      TextString.title,
+                      textStyle: GoogleFonts.montserrat(
+                          fontSize: 64,
+                          fontWeight: FontWeight.w700,
+                          color: ColorPalette.backgroundcolor),
+                      speed: const Duration(milliseconds: 210),
+                      curve: Curves.easeIn,
+                    )
+                  ]),
                 )
-              ]),
-            )
-          ],
+              ],
+            ),
+          ),
         ),
       ),
     );

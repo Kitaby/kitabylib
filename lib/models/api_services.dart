@@ -1,10 +1,19 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:kitabylib/models/Get-onHold-Books-Response-model.dart';
+import 'package:kitabylib/models/GetExpiredBooksResponseModel.dart';
+import 'package:kitabylib/models/GetRenewRequestResponseModel.dart';
 import 'package:kitabylib/models/Get_all_books_responsemodel.dart';
+import 'package:kitabylib/models/acceptrequest-requestmodel.dart';
+import 'package:kitabylib/models/addbooklibrequestmodel.dart';
+import 'package:kitabylib/models/addbooklibresponsemodel.dart';
+import 'package:kitabylib/models/get-requested-books-response-model.dart';
 import 'package:kitabylib/models/getBooksresponsemodel.dart';
 import 'package:kitabylib/models/get_collection_responsemodel.dart';
 import 'package:kitabylib/models/get_received_offer_responsemodel.dart';
+import 'package:kitabylib/models/getavailablebooksmodel.dart';
+import 'package:kitabylib/models/getreservedBooksResponseModel.dart';
 import 'package:kitabylib/models/phone_otp_request_model.dart';
 import 'package:kitabylib/models/phone_verify_otp_request_model.dart';
 
@@ -126,5 +135,124 @@ class APISERVICES {
     }else{
       return null;
     }
+  }
+
+
+   //bib api
+  Future<Getavailablebooksresponsemodel> getAvalaibleBooks(String id,int page,String name) async {
+    var url = Uri.parse(config.apiURL + config.getavailablebooks + id+"?page=$page"+"&name="+name);
+    var response = await client.get(url);
+    Getavailablebooksresponsemodel responsebody = getavailablebooksresponsemodelFromJson(response.body);
+    return responsebody;
+  }
+
+
+  Future<GetOnHoldBooksResponseModel> getOnholdBooks(String id,int page,String name) async {
+    var url = Uri.parse(config.apiURL + config.getonholdbooks + id+"?page=$page"+"&name="+name);
+    var response = await client.get(url);
+    GetOnHoldBooksResponseModel responsebody = getOnHoldBooksResponseModelFromJson(response.body);
+    return responsebody;
+  }
+
+  Future<GetRequestedBooksResponseModel> getRequestedBooks(String id,int page,String name) async {
+    var url = Uri.parse(config.apiURL + config.getrequestedbooks + id+"?page=$page"+"&name="+name);
+    var response = await client.get(url);
+    GetRequestedBooksResponseModel responsebody = getRequestedBooksResponseModelFromJson(response.body);
+    return responsebody;
+  }
+
+
+  Future<GetReservedBooksResponseModel> getReservedBooks(String id,int page,String name) async {
+    var url = Uri.parse(config.apiURL + config.getreservedbooks + id+"?page=$page"+"&name="+name);
+    var response = await client.get(url);
+    GetReservedBooksResponseModel responsebody = getReservedBooksResponseModelFromJson(response.body);//response same type as requestedbooks
+    return responsebody;
+  }
+
+  Future<GetExpiredBooksResponseModel> getExpiredBooks(String id,int page,String name) async {
+    var url = Uri.parse(config.apiURL + config.getexpiredbooks + id+"?page=$page"+"&name="+name);
+    var response = await client.get(url);
+    GetExpiredBooksResponseModel responsebody = getExpiredBooksResponseModelFromJson(response.body);//response same type as requestedbooks
+    return responsebody;
+  }
+
+  Future<GetRenewRequestResponseModel> getrenewRequests(String id,int page,String name) async {
+    var url = Uri.parse(config.apiURL + config.getrenewrequests + id+"?page=$page"+"&name="+name);
+    var response = await client.get(url);
+    GetRenewRequestResponseModel responsebody = getRenewRequestResponseModelFromJson(response.body);//response same type as requestedbooks
+    return responsebody;
+  }
+
+  Future<dynamic> Addbooktolib(String id, String isbn,String quantity) async {
+    Addbooklibrequestmodel object =Addbooklibrequestmodel(id:id,isbn:isbn,quantity:quantity);
+    var url = Uri.parse(config.apiURL + config.addbook);
+    var codedobject = addbooklibrequestmodelToJson(object);
+    var response = await client.post(url, headers: customHeaders, body: codedobject);
+    return response.body;
+  }
+
+  Future<dynamic> acceptrequest(String id) async {
+    AcceptrequestRequestModel object =AcceptrequestRequestModel(reservationId:id);
+    var url = Uri.parse(config.apiURL + config.acceptrequest);
+    var codedobject = acceptrequestRequestModelToJson(object);
+    var response = await client.patch(url, headers: customHeaders, body: codedobject);
+    return response.body;
+  }
+
+  Future<dynamic> cancelreservation(String id) async {
+    AcceptrequestRequestModel object =AcceptrequestRequestModel(reservationId:id);
+    var url = Uri.parse(config.apiURL + config.cancelreservation);
+    var codedobject = acceptrequestRequestModelToJson(object);
+    var response = await client.put(url, headers: customHeaders, body: codedobject);
+    return response.body;
+  }
+
+  Future<dynamic> refuserequest(String id) async {
+    AcceptrequestRequestModel object =AcceptrequestRequestModel(reservationId:id);
+    var url = Uri.parse(config.apiURL + config.refuserequest);
+    var codedobject = acceptrequestRequestModelToJson(object);
+    var response = await client.put(url, headers: customHeaders, body: codedobject);
+    return response.body;
+  }
+
+  Future<dynamic> acceptrenewrequest(String id) async {
+    AcceptrequestRequestModel object =AcceptrequestRequestModel(reservationId:id);
+    var url = Uri.parse(config.apiURL + config.acceptrenewrequest);
+    var codedobject = acceptrequestRequestModelToJson(object);//we can use acceptrequestrequestmodel because it uses reservationId
+    var response = await client.put(url, headers: customHeaders, body: codedobject);
+    return response.body;
+  }
+
+  Future<dynamic> refuserenewrequest(String id) async {
+    AcceptrequestRequestModel object =AcceptrequestRequestModel(reservationId:id);
+    var url = Uri.parse(config.apiURL + config.refuserenewrequest);//we can use acceptrequestrequestmodel because it uses reservationId
+    var codedobject = acceptrequestRequestModelToJson(object);
+    var response = await client.put(url, headers: customHeaders, body: codedobject);
+    return response.body;
+  }
+
+
+  Future<dynamic> Reportuser(String id) async {
+    AcceptrequestRequestModel object =AcceptrequestRequestModel(reservationId:id); //we can use acceptrequestrequestmodel because it uses reservationId
+    var url = Uri.parse(config.apiURL + config.Reportuser);
+    var codedobject = acceptrequestRequestModelToJson(object);
+    var response = await client.post(url, headers: customHeaders, body: codedobject);
+    return response.body;
+  }
+
+  Future<dynamic> givebook(String id) async {
+    AcceptrequestRequestModel object =AcceptrequestRequestModel(reservationId:id); //we can use acceptrequestrequestmodel because it uses reservationId
+    var url = Uri.parse(config.apiURL + config.givebook);
+    var codedobject = acceptrequestRequestModelToJson(object);
+    var response = await client.put(url, headers: customHeaders, body: codedobject);
+    return response.body;
+  }
+
+  Future<dynamic> returnbook(String id) async {
+    AcceptrequestRequestModel object =AcceptrequestRequestModel(reservationId:id); //we can use acceptrequestrequestmodel because it uses reservationId
+    var url = Uri.parse(config.apiURL + config.returnbook);
+    var codedobject = acceptrequestRequestModelToJson(object);
+    var response = await client.put(url, headers: customHeaders, body: codedobject);
+    return response.body;
   }
 }

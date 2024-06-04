@@ -6,7 +6,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kitabylib/Constants/Colors.dart';
 import 'package:kitabylib/Constants/validator.dart';
 import 'package:kitabylib/Constants/widgets.dart';
+import 'package:kitabylib/Mybooks/Mybooks.dart';
+import 'package:kitabylib/models/addbooklibresponsemodel.dart';
 import 'package:kitabylib/models/api_services.dart';
+import 'package:kitabylib/models/getavailablebooksmodel.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 
 class Addbook extends StatefulWidget {
@@ -49,7 +52,7 @@ static bool state = false;
     // TODO: implement initState
     super.initState();
     _isbncontroller.addListener(() {
-      if(_isbncontroller.value.text.isNotEmpty&&Fieldvalidator.isisbnvalid(_isbncontroller.value.text)){
+      if(_isbncontroller.value.text.isNotEmpty&&Fieldvalidator.isIsbnValid(_isbncontroller.value.text)){
         setState(() {
           canadd=true;
         });
@@ -70,7 +73,7 @@ bool canadd=false;
     return Dialog(
      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
      child: SizedBox(
-      height: _mediaQueryHeight/2,
+      height: _mediaQueryHeight*(2/3),
       width: _mediaQueryWidth/2,
 
        child: Column(
@@ -163,7 +166,8 @@ bool canadd=false;
                 GestureDetector(
                   onTap:()async {
                     
-                   //await APISERVICES().PostBookInCollectionAPI("66278f1b7ebcbd88a1b8c761", _isbncontroller.value.text); 
+                  await APISERVICES().Addbooktolib("6638e4d14bca83d6fe6dfb40", _isbncontroller.value.text,"1");
+                             
                    Navigator.pop(context);
                   } ,
                   child: WidgetsModels.button1(130, 35, ColorPalette.Secondary_Color_Orignal, FluentIcons.arrow_clockwise_dashes_16_filled, ColorPalette.SH_Grey100, "Add this book")

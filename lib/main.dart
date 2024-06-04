@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kitabylib/AppIntro/Intro-1.dart';
+import 'package:kitabylib/AppIntro/Intro-2.dart';
+import 'package:kitabylib/AppIntro/Intro-3.dart';
 import 'package:kitabylib/Dashbord/DashBoard.dart';
 
 import 'package:kitabylib/Mainscreen.dart';
@@ -53,8 +56,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home:Mainscreen(),
       routes: {
-        
+        'Mainscreen':(context) => Mainscreen(),
         'Forgotyourpassword' : (context) =>const Forgotyourpassword(oldmail: "") ,
+        'Intro1' : (context) => Intro1() ,
+        'Intro2' : (context) => Intro2() ,
+        'Intro3' : (context) => Intro3() ,
         'SignUp1' : (context) => SignUp1() ,
         'SignUp2' : (context) => Signup2(phone: "", name: "") ,
         'SignUp3' : (context) => Signup3(phone: "", email: "", password: "", name: "") ,

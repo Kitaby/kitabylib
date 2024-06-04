@@ -34,11 +34,13 @@ class DashBoardState extends State<StatefulWidget>{
   }
 
   void updateMediaQuerySize() {
+    if(mounted){
     setState(() {
       MediaQueryData mediaQueryData = MediaQuery.of(context);
       _mediaQueryWidth = mediaQueryData.size.width*5/6;
       _mediaQueryHeight = mediaQueryData.size.height;
     });
+    }
   }
 
 

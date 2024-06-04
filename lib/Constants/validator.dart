@@ -72,7 +72,7 @@ class Fieldvalidator {
     } else {
       if (value!.length == 0) {
         return "isbn is Required";
-      } else if (!isisbnvalid(value)) {
+      } else if (!isIsbnValid(value)) {
         return "Must be a valid isbn";
       }
     }
@@ -96,11 +96,9 @@ class Fieldvalidator {
     return regExp.hasMatch(em);
   }
 
-  static bool isisbnvalid(String em) {
-    String p = r'^[0-9]{13}$';
-
-    RegExp regExp = new RegExp(p);
-
-    return regExp.hasMatch(em);
-  }
+  static bool isIsbnValid(String em) {
+  String pattern = r'^[0-9]{10}$|^[0-9]{13}$';
+  RegExp regExp = new RegExp(pattern);
+  return regExp.hasMatch(em);
+}
 }
