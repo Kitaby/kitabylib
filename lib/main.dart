@@ -18,24 +18,19 @@ import 'package:kitabylib/SignUp/SignUp1.dart';
 import 'package:kitabylib/SignUp/SignUp2.dart';
 import 'package:kitabylib/SignUp/SignUp3.dart';
 
-
-
-
-void main() async{
-    WidgetsFlutterBinding.ensureInitialized();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
 
   WindowOptions windowOptions = const WindowOptions(
-    
-    //center: true,
-    
-    windowButtonVisibility: true,
-    size:Size(1366,768),
-    minimumSize:  Size(960,720),
-    titleBarStyle: TitleBarStyle.normal,
-   
-    title: 'Kitabylib'
-  );
+
+      //center: true,
+
+      windowButtonVisibility: true,
+      size: Size(1366, 768),
+      minimumSize: Size(960, 720),
+      titleBarStyle: TitleBarStyle.normal,
+      title: 'Kitabylib');
   windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();
     await windowManager.focus();
@@ -44,26 +39,26 @@ void main() async{
   runApp(const MyApp());
 }
 
-
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       title: 'Kitabylib',
       debugShowCheckedModeBanner: false,
-      home:Mainscreen(),
+      home: Mainscreen(),
       routes: {
-        'Mainscreen':(context) => Mainscreen(),
-        'Forgotyourpassword' : (context) =>const Forgotyourpassword(oldmail: "") ,
-        'Intro1' : (context) => Intro1() ,
-        'Intro2' : (context) => Intro2() ,
-        'Intro3' : (context) => Intro3() ,
-        'SignUp1' : (context) => SignUp1() ,
-        'SignUp2' : (context) => Signup2(phone: "", name: "") ,
-        'SignUp3' : (context) => Signup3(phone: "", email: "", password: "", name: "") ,
+        'Mainscreen': (context) => Mainscreen(),
+        'Forgotyourpassword': (context) =>
+            const Forgotyourpassword(oldmail: ""),
+        'Intro1': (context) => Intro1(),
+        'Intro2': (context) => Intro2(),
+        'Intro3': (context) => Intro3(),
+        'SignUp1': (context) => SignUp1(),
+        'SignUp2': (context) => Signup2(phone: "", name: ""),
+        'SignUp3': (context) =>
+            Signup3(phone: "", email: "", password: "", name: ""),
       },
     );
   }
