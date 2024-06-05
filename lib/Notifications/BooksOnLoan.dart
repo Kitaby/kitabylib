@@ -1,11 +1,12 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart';
 import 'package:kitabylib/Constants/Colors.dart';
-import 'package:kitabylib/Constants/Path.dart';
 import 'package:kitabylib/Constants/widgets.dart';
 import 'package:kitabylib/CountDown.dart';
+import 'package:kitabylib/models/api_services.dart';
+import 'package:kitabylib/models/getreservedBooksResponseModel.dart';
 
 class BooksOnLoan extends StatefulWidget {
   const BooksOnLoan({super.key});
@@ -26,97 +27,197 @@ class _BooksOnLoanState extends State<BooksOnLoan> {
   }
 
   void updateMediaQuerySize() {
+    if(mounted){
     setState(() {
       MediaQueryData mediaQueryData = MediaQuery.of(context);
       _mediaQueryWidth = mediaQueryData.size.width*5/6;
       _mediaQueryHeight= mediaQueryData.size.height;
     });
+  }}
+
+   List<ReservedBook> booksfound=[];
+  
+  bool hasmore =true;
+  int page =1;
+  bool isloading=false;
+  final _list_offers_controller=ScrollController(); 
+
+  Future fetchoffers(String name) async{
+    if(isloading)return;
+    isloading=true;
+    GetReservedBooksResponseModel? response= await APISERVICES().getReservedBooks('6638e4d14bca83d6fe6dfb40', page,name);///get loan books
+    if(response!=null ){
+      if(mounted){
+        setState(() {
+          page++;
+          isloading=false;
+          if( response.reservedBooks
+          .length<8){hasmore=false;}
+          booksfound.addAll(response.reservedBooks);
+            });
+          }}
+           
+            }
+
+  Future refresh()async{
+    if(mounted){
+    setState(() {
+      seeall=false;
+      isloading=false;
+      hasmore=true;
+      page=1;
+      booksfound.clear();
+      _searchcontroller.text="";
+        });
+    fetchoffers("");
+  }}
+  
+  @override
+  void initState() {
+    super.initState();
+    fetchoffers("");
+   
+    
+    
+    _list_offers_controller.addListener(() {
+      if(_list_offers_controller.position.maxScrollExtent==_list_offers_controller.offset){
+        print(page);
+        fetchoffers(_searchcontroller.text);
+        
+      }
+    });
   }
 
-  List notificationsLoan = [
-    {'periodType' : "Taking the book"},
-    {'periodType' : "Taking the book"},
-    {'periodType' : "Taking the book"},
-    {'periodType' : "Taking the book"},
-    {'periodType' : "Taking the book"},
-    {'periodType' : "Taking the book"},
-    {'periodType' : "Taking the book"},
-    {'periodType' : "Taking the book"},
-  ];
-
-  Future<List> getData() async{
-    var response =
-        await get(Uri.parse("https://jsonplaceholder.typicode.com/posts"));
-    List responsebody = jsonDecode(response.body);
-    return responsebody;
+  @override
+  void dispose() {
+    super.dispose();
+    _list_offers_controller.dispose();
   }
+ 
+void search(String e){
+ if(mounted){
+     setState(() {
+       isloading=false;
+      hasmore=true;
+      page=1;
+      booksfound.clear();
+      seeall=false;
+      fetchoffers(e);
+    
+     
+     });
+ } 
+}
+ 
+  FocusNode focus =FocusNode();
+  final _searchcontroller = TextEditingController();
+  bool searchfocus =false; 
+  bool seeall =false; 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:const Color(0xffF5F6FA) ,
+      backgroundColor: ColorPalette.verylightgrey,
       body: ListView(
+        physics: NeverScrollableScrollPhysics(),
         children: [
-          Padding(
-            padding:EdgeInsets.all(_mediaQueryWidth/40),
-            child: Text(
-              'Loan Requests',
-              style: GoogleFonts.montserrat(
-                color: ColorPalette.SH_Grey900,
-                fontSize: _mediaQueryWidth/40,
-                fontWeight: FontWeight.w500
+          Container(height: _mediaQueryWidth/11.h,color: Colors.white,
+          child:Padding(
+            padding: EdgeInsets.all(_mediaQueryWidth/50).w,
+            child: WidgetsModels.searchbar(_searchcontroller,275.w,"Search",//prefix
+            GestureDetector(//set shared preferences
+              onTap: (){
+                search(_searchcontroller.value.text);
+              },
+              child: Icon(FluentIcons.search_20_regular,color: ColorPalette.SH_Grey900,)),//suffix
+                      null,  //on submitted        
+                      (p0) => search(p0),      
+            ),
+          )
+          ),
+          Container(
+            height: _mediaQueryWidth/11,
+            child: Padding(
+              padding: EdgeInsets.all(_mediaQueryWidth/40).w,
+              child: Text(
+                'Books on Loan',
+                style: GoogleFonts.montserrat(
+                  color: ColorPalette.SH_Grey900,
+                  fontSize: _mediaQueryWidth/40.sp,
+                  fontWeight: FontWeight.w500
+                ),
               ),
             ),
           ),
-          SizedBox(
-            height: _mediaQueryHeight,
-            child: FutureBuilder<List>(
-              future: getData(),
-              builder: (context, snapshot) {
-                if(snapshot.connectionState == ConnectionState.waiting){
-                  return Center(child: Image.asset(Path.Logolib),);
-                }
-                return ListView.builder(
-                  itemCount: notificationsLoan.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Container(
-                          height: _mediaQueryWidth*(1/6),
-                          margin:const EdgeInsets.only(left: 45 ),
-                          child:Row(
-                            children: [
-                              WidgetsModels.bookcard("The end ",_mediaQueryWidth/65,"Author",_mediaQueryWidth/80,ColorPalette.SH_Grey900,"https://edit.org/images/cat/book-covers-big-2019101610.jpg",_mediaQueryWidth/10,_mediaQueryWidth*(1/6),_mediaQueryWidth/10,_mediaQueryWidth*(1/8),false,null ),                                 
-                              Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    WidgetsModels.Container_widget(_mediaQueryWidth/2, _mediaQueryWidth*(1/20), Alignment.center,const EdgeInsets.only(bottom: 10 ), null,  Text("User's name " , style: GoogleFonts.montserrat(color: ColorPalette.SH_Grey900 , fontSize: 25 , fontWeight: FontWeight.w600),),),
-                                    WidgetsModels.Container_widget(_mediaQueryWidth/1.6,_mediaQueryWidth*(1/20), Alignment.topLeft,null, null, Text("PeriodType: Taking the book" , style: GoogleFonts.montserrat(color: ColorPalette.SH_Grey900 , fontSize: 18 , fontWeight: FontWeight.w400),), ),
-                                    WidgetsModels.Container_widget(_mediaQueryWidth/1.6,_mediaQueryWidth*(1/20), Alignment.topLeft, null,null,
-                                      countDown(
-                                        fontWeight: FontWeight.w400,
-                                        color: ColorPalette.SH_Grey900,
-                                        deadline: DateTime.now().add(
-                                          const Duration(days: 10)
+          StatefulBuilder(        
+            builder: (context,setStatelist) {
+              return RefreshIndicator(
+                onRefresh: refresh,
+                child: Container(
+                  width: _mediaQueryWidth.w,
+                  height:(_mediaQueryHeight-_mediaQueryWidth*(2/11)).h,//calculated
+                  child: ListView.builder(
+                    shrinkWrap: true,            
+                    physics: AlwaysScrollableScrollPhysics(),
+                    controller: _list_offers_controller,
+                    scrollDirection: Axis.vertical,
+                    itemCount:booksfound.length+1,
+                    itemBuilder: (context, i) {              
+                      if(i<booksfound.length){
+                        return Column(
+                          children: [
+                            Container(
+                              height: _mediaQueryWidth*(1/4).h,
+                              margin:const EdgeInsets.only(left: 45 ).w,
+                              child:Row(
+                                children: [
+                                  WidgetsModels.bookcard(booksfound[i].bookName,_mediaQueryWidth/65.sp,booksfound[i].author,_mediaQueryWidth/80.sp,ColorPalette.SH_Grey900, booksfound[i].bookImage,_mediaQueryWidth/10.w,_mediaQueryWidth*(1/4).h,_mediaQueryWidth/10.w,_mediaQueryWidth*(1/8).h,false,null ),                                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        WidgetsModels.Container_widget(_mediaQueryWidth/2.w, _mediaQueryWidth*(1/20).h, Alignment.center,const EdgeInsets.only(bottom: 10 ), null,  Text(booksfound[i].reserverName, style: GoogleFonts.montserrat(color: ColorPalette.SH_Grey900 , fontSize: 25.sp , fontWeight: FontWeight.w600),),),
+                                        WidgetsModels.Container_widget(_mediaQueryWidth/1.6.w,_mediaQueryWidth*(1/20).h, Alignment.topLeft,null, null, Text("PeriodType: Having the book" , style: GoogleFonts.montserrat(color: ColorPalette.SH_Grey900 , fontSize: 18.sp , fontWeight: FontWeight.w400),), ),
+                                        WidgetsModels.Container_widget(_mediaQueryWidth/1.6.w,_mediaQueryWidth*(1/20).h, Alignment.topLeft, null,null,
+                                        countDown(
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorPalette.SH_Grey900,
+                                          deadline: booksfound[i].date.add(
+                                            Duration(days: 15)
+                                          ),
+                                          fontSize: 17.sp,
+                                        )
                                         ),
-                                        fontSize: 17,
-                                      )
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              )
-                            ],
+                                  )
+                                ],
+                              ),
+                            ), 
+                            WidgetsModels.Container_widget(null, 1.h, null,const EdgeInsets.symmetric(vertical: 20).w, BoxDecoration(color: Color(0xffD8D8D8)), null),
+                          ],
+                        );
+                      }
+                      else{
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: 32).w,
+                          child: Center(child:hasmore
+                          ?const CircularProgressIndicator()
+                          : Text(
+                            'No More Books',
+                            style: GoogleFonts.montserrat(
+                              color: ColorPalette.SH_Grey100,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500),
+                            )
                           ),
-                        ), 
-                        WidgetsModels.Container_widget(null, 1, null,const EdgeInsets.symmetric(vertical: 20),const BoxDecoration(color: Color(0xffD8D8D8)), null),
-                      ],
-                    );
-                  },
-                );
-              },
-            ),
-          ),
+                        );
+                      }
+                    },
+                  ),
+                ),
+              );
+            }
+          )    
         ],
       ),
     );

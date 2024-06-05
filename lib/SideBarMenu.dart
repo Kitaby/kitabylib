@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitabylib/Constants/Colors.dart';
 import 'package:kitabylib/Constants/Path.dart';
@@ -75,7 +76,7 @@ class SideBarMenuState extends State<StatefulWidget>{
               children: [
                 Padding(
                   padding:  EdgeInsets.symmetric(horizontal:_mediaQueryWidth/20),
-                  child: Icon(Icons.insert_chart_outlined_rounded,size:_mediaQueryWidth/9,color:(selected==0)? Colors.white:ColorPalette.SH_Grey900, ),
+                  child: Icon((selected!=0)?Icons.insert_chart_outlined_rounded:Icons.insert_chart_rounded,size:_mediaQueryWidth/9,color:(selected==0)? Colors.white:ColorPalette.SH_Grey900, ),
                 ),
                 Text(
                   'Dashboard',
@@ -108,10 +109,10 @@ class SideBarMenuState extends State<StatefulWidget>{
             children: [
              Padding(
                padding: EdgeInsets.symmetric(horizontal:_mediaQueryWidth/20),
-               child: Icon(FluentIcons.book_24_regular,size:_mediaQueryWidth/9,color: (selected==1)? Colors.white:ColorPalette.SH_Grey900, ),
+               child: Icon((selected!=1)?FluentIcons.book_24_regular:FluentIcons.book_24_filled,size:_mediaQueryWidth/9,color: (selected==1)? Colors.white:ColorPalette.SH_Grey900, ),
              ),
              Text(
-               'My Books',
+               'Available Books',
                style: GoogleFonts.montserrat(
                  color: (selected==1)? Colors.white:ColorPalette.SH_Grey900, 
                  fontSize: _mediaQueryWidth/16,
@@ -136,11 +137,12 @@ class SideBarMenuState extends State<StatefulWidget>{
            height:_mediaQueryWidth/4,
            margin:const EdgeInsets.symmetric(horizontal: 15),
           child: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal:_mediaQueryWidth/20),
-                child: Icon(FluentIcons.book_clock_24_regular,size:_mediaQueryWidth/9,color:(selected==2)? Colors.white:ColorPalette.SH_Grey900,  ),
-              ),
+           
+           children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal:_mediaQueryWidth/20),
+              child: Icon((selected!=2)?FluentIcons.book_clock_24_regular:FluentIcons.book_clock_24_filled,size:_mediaQueryWidth/9,color:(selected==2)? Colors.white:ColorPalette.SH_Grey900,  ),
+            ),
             Text(
               'Loan Requests',
               style: GoogleFonts.montserrat(
@@ -172,7 +174,7 @@ class SideBarMenuState extends State<StatefulWidget>{
            children: [
             Padding(
               padding:EdgeInsets.symmetric(horizontal:_mediaQueryWidth/20),
-              child: Icon(FluentIcons.book_question_mark_24_regular,size:_mediaQueryWidth/9,color: (selected==3)? Colors.white:ColorPalette.SH_Grey900,  ),
+              child: Icon((selected!=3)?FluentIcons.book_question_mark_24_regular:FluentIcons.book_question_mark_24_filled,size:_mediaQueryWidth/9,color: (selected==3)? Colors.white:ColorPalette.SH_Grey900,  ),
             ),
             Text(
               'Pending Books',
@@ -205,7 +207,7 @@ class SideBarMenuState extends State<StatefulWidget>{
            children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal:_mediaQueryWidth/20),
-              child: Icon(FluentIcons.book_exclamation_mark_24_regular,size:_mediaQueryWidth/9,color:(selected==4)? Colors.white:ColorPalette.SH_Grey900,  ),
+              child: Icon((selected!=4)?FluentIcons.book_exclamation_mark_24_regular:FluentIcons.book_exclamation_mark_24_filled,size:_mediaQueryWidth/9,color:(selected==4)? Colors.white:ColorPalette.SH_Grey900,  ),
             ),
             Text(
               'Books On Loan',
@@ -238,7 +240,7 @@ class SideBarMenuState extends State<StatefulWidget>{
              
              Padding(
                padding: EdgeInsets.symmetric(horizontal:_mediaQueryWidth/20),
-               child: Icon(FluentIcons.book_pulse_24_regular,size:_mediaQueryWidth/9,color: (selected==5)? Colors.white:ColorPalette.SH_Grey900,  ),
+               child: Icon((selected!=5)?FluentIcons.book_pulse_24_regular:FluentIcons.book_pulse_24_filled,size:_mediaQueryWidth/9,color: (selected==5)? Colors.white:ColorPalette.SH_Grey900,  ),
              ),
              Text(
                'Expired Books',
@@ -271,7 +273,7 @@ class SideBarMenuState extends State<StatefulWidget>{
              
              Padding(
                padding: EdgeInsets.symmetric(horizontal:_mediaQueryWidth/20),
-               child: Icon(FluentIcons.book_clock_24_regular,size:_mediaQueryWidth/9,color: (selected==6)? Colors.white:ColorPalette.SH_Grey900,  ),
+               child: Icon((selected!=6)?FluentIcons.book_clock_24_regular:FluentIcons.book_clock_24_filled,size:_mediaQueryWidth/9,color: (selected==6)? Colors.white:ColorPalette.SH_Grey900,  ),
              ),
              Text(
                'Renew Requests',
@@ -289,39 +291,6 @@ class SideBarMenuState extends State<StatefulWidget>{
            child: Container(height: 0.5,color:ColorPalette.SH_Grey300 ,),
          ),
 
-
-          GestureDetector(
-          onTap: () {
-            setState(() {
-              selected=7;
-              MainscreenState.currentscreen.value=7;
-            });
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius:const BorderRadius.all(Radius.circular(10)),
-              color: (selected==7)? ColorPalette.Primary_Color_Light:Colors.white
-            ),
-             height:_mediaQueryWidth/4,
-             margin:const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-            
-             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal:_mediaQueryWidth/20),
-                child: Icon(FluentIcons.settings_24_regular,size:_mediaQueryWidth/9,color: (selected==7)? Colors.white:ColorPalette.SH_Grey900, ),
-              ),
-              Text(
-                'Settings',
-                style: GoogleFonts.montserrat(
-                  color: (selected==7)? Colors.white:ColorPalette.SH_Grey900, 
-                  fontSize: _mediaQueryWidth/16,
-                  fontWeight: FontWeight.w500
-                ),
-              )
-            ],),
-          ),
-                   ),
           GestureDetector(
           onTap: () {
             setToken("");

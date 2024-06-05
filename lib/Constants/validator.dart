@@ -72,7 +72,7 @@ class Fieldvalidator {
     } else {
       if (value.isEmpty) {
         return "isbn is Required";
-      } else if (isisbnvalid(value)) {
+      } else if (!isisbnvalid(value)) {
         return "Must be a valid isbn";
       }
     }
@@ -123,7 +123,7 @@ class Fieldvalidator {
   }
 
   static bool isisbnvalid(String em) {
-    String p = r'^[0-9]{13}$';
+    String p = r'^[0-9]{10}$|^[0-9]{13}$';
 
     RegExp regExp = RegExp(p);
 

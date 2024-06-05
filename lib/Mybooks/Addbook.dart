@@ -1,9 +1,11 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitabylib/Constants/Colors.dart';
 import 'package:kitabylib/Constants/validator.dart';
 import 'package:kitabylib/Constants/widgets.dart';
+import 'package:kitabylib/models/api_services.dart';
 
 class Addbook extends StatefulWidget {
  
@@ -61,10 +63,10 @@ bool canadd=false;
 @override
   Widget build(BuildContext context) {
     return Dialog(
-     shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+     shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)).r),
      child: SizedBox(
-      height: _mediaQueryHeight/2,
-      width: _mediaQueryWidth/2,
+      height: _mediaQueryHeight*(2/3).h,
+      width: _mediaQueryWidth/2.w,
 
        child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -72,13 +74,13 @@ bool canadd=false;
            
            const Image(image: AssetImage("assets/images/Barcode-rafiki.png")),
      
-           WidgetsModels.Container_widget(300,null,null,const EdgeInsets.only(bottom: 20),null,Text('Enter the code in the back of the book Or search it on google ! ',style: GoogleFonts.montserrat(color: ColorPalette.SH_Grey900,fontWeight:FontWeight.w600,fontSize: 16.5 ),textAlign: TextAlign.center,)),
+           WidgetsModels.Container_widget(300.w,null,null,const EdgeInsets.only(bottom: 20).w,null,Text('Enter the code in the back of the book Or search it on google ! ',style: GoogleFonts.montserrat(color: ColorPalette.SH_Grey900,fontWeight:FontWeight.w600,fontSize: 16.5.sp ),textAlign: TextAlign.center,)),
            
            Column(
              children: [
-               WidgetsModels.Container_widget(null,null,Alignment.centerLeft,const EdgeInsets.symmetric(horizontal: 30,vertical:5),null,Text('ISBN',style: GoogleFonts.montserrat(color: ColorPalette.SH_Grey900,fontWeight:FontWeight.w600,fontSize: 10 ),textAlign: TextAlign.center,)),
+               WidgetsModels.Container_widget(null,null,Alignment.centerLeft,const EdgeInsets.symmetric(horizontal: 30,vertical:5).w,null,Text('ISBN',style: GoogleFonts.montserrat(color: ColorPalette.SH_Grey900,fontWeight:FontWeight.w600,fontSize: 10.sp ),textAlign: TextAlign.center,)),
                Padding(
-             padding: const EdgeInsets.symmetric(horizontal:20),
+             padding: const EdgeInsets.symmetric(horizontal:20).w,
              child: TextFormField(
               controller:_isbncontroller ,
               keyboardType: TextInputType.number,
@@ -86,16 +88,16 @@ bool canadd=false;
               validator: Fieldvalidator.validateisbn,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               maxLength: 13,
-              style: GoogleFonts.montserrat(fontSize:15,fontWeight: FontWeight.w500,color: ColorPalette.SH_Grey500 ),
+              style: GoogleFonts.montserrat(fontSize:15.sp,fontWeight: FontWeight.w500,color: ColorPalette.SH_Grey500 ),
               decoration: InputDecoration(
                   counterText: '',
                   errorStyle: GoogleFonts.montserrat(
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       color: ColorPalette.Error,
                       fontWeight: FontWeight.w500),
                   prefixIcon: Align(
-                    heightFactor: 1.0,
-                    widthFactor: 1.0,
+                    heightFactor: 1.0.h,
+                    widthFactor: 1.0.w,
                     child: Icon(
                       FluentIcons.barcode_scanner_24_filled,
                       color: ColorPalette.SH_Grey900,
@@ -103,33 +105,33 @@ bool canadd=false;
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide:
-                        BorderSide(color: ColorPalette.SH_Grey900, width: 1.5),
-                    borderRadius: BorderRadius.circular(5),
+                        BorderSide(color: ColorPalette.SH_Grey900, width: 1.5.w),
+                    borderRadius: BorderRadius.circular(5).r,
                   ),
                   focusedErrorBorder: OutlineInputBorder(
                     borderSide:
-                        BorderSide(color: ColorPalette.Error, width: 1.5),
-                    borderRadius: BorderRadius.circular(5),
+                        BorderSide(color: ColorPalette.Error, width: 1.5.w),
+                    borderRadius: BorderRadius.circular(5).r,
                   ),
                   errorBorder: OutlineInputBorder(
                     borderSide:
-                        BorderSide(color: ColorPalette.Error, width: 1.5),
-                    borderRadius: BorderRadius.circular(5),
+                        BorderSide(color: ColorPalette.Error, width: 1.5.w),
+                    borderRadius: BorderRadius.circular(5).r,
                   ),
                   disabledBorder: OutlineInputBorder(
                     borderSide:
-                        BorderSide(color: ColorPalette.SH_Grey900, width: 1.5),
-                    borderRadius: BorderRadius.circular(5),
+                        BorderSide(color: ColorPalette.SH_Grey900, width: 1.5.w),
+                    borderRadius: BorderRadius.circular(5).r,
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide:
-                        BorderSide(color: ColorPalette.SH_Grey900, width: 1.5),
-                    borderRadius: BorderRadius.circular(5),
+                        BorderSide(color: ColorPalette.SH_Grey900, width: 1.5.w),
+                    borderRadius: BorderRadius.circular(5).r,
                   ),
                   border: OutlineInputBorder(
                     borderSide:
-                        BorderSide(color: ColorPalette.SH_Grey900, width: 1.5),
-                    borderRadius: BorderRadius.circular(5),
+                        BorderSide(color: ColorPalette.SH_Grey900, width: 1.5.w),
+                    borderRadius: BorderRadius.circular(5).r,
                   ),
                 ),
               ),
@@ -156,7 +158,8 @@ bool canadd=false;
                 GestureDetector(
                   onTap:()async {
                     
-                   //await APISERVICES().PostBookInCollectionAPI("66278f1b7ebcbd88a1b8c761", _isbncontroller.value.text); 
+                  await APISERVICES().Addbooktolib("6638e4d14bca83d6fe6dfb40", _isbncontroller.value.text,"1");
+                             
                    Navigator.pop(context);
                   } ,
                   child: WidgetsModels.button1(130, 35, ColorPalette.Secondary_Color_Orignal, FluentIcons.arrow_clockwise_dashes_16_filled, ColorPalette.SH_Grey100, "Add this book")
