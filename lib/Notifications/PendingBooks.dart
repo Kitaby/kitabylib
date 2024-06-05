@@ -10,6 +10,7 @@ import 'package:kitabylib/Constants/Colors.dart';
 import 'package:kitabylib/Constants/Path.dart';
 import 'package:kitabylib/Constants/widgets.dart';
 import 'package:kitabylib/CountDown.dart';
+import 'package:kitabylib/Notifications/confirmwithcode.dart';
 import 'package:kitabylib/models/Get-onHold-Books-Response-model.dart';
 import 'package:kitabylib/models/api_services.dart';
 import 'package:kitabylib/models/get-requested-books-response-model.dart';
@@ -50,7 +51,7 @@ class _PendingBooksState extends State<PendingBooks> {
   Future fetchoffers(String name) async{
     if(isloading)return;
     isloading=true;
-    GetOnHoldBooksResponseModel? response= await APISERVICES().getOnholdBooks('6638e4d14bca83d6fe6dfb40', page,name);///get loan books
+    GetOnHoldBooksResponseModel? response= await APISERVICES().getOnholdBooks( page,name);///get loan books
     if(response!=null ){
       if(mounted){
         setState(() {
@@ -231,18 +232,14 @@ void search(String e){
                                                           child: Row(
                                                             mainAxisAlignment: MainAxisAlignment.end,
                                                             children: [
+                                                              
                                                               GestureDetector(
-                                                                onTap: () async{
-                                                                      await APISERVICES().cancelreservation(booksfound[i].id);
-                                                                       refresh();
-                                                                    },
-                                                                child: WidgetsModels.button1(_mediaQueryWidth/8, 35, ColorPalette.Error, FluentIcons.calendar_cancel_16_filled, ColorPalette.SH_Grey100, "Cancel Loan")),
-                                                              SizedBox(width: 30,),
-                                                              GestureDetector(
-                                                                onTap: () async{
-                                                                      await APISERVICES().givebook(booksfound[i].id);
-                                                                       refresh();
-                                                                    },
+                                                                 onTap:()async{
+                                                                  showDialog(
+                                                                  context: context,
+                                                                  builder:(context) =>confirmcode(type:"give",id:booksfound[i].id),//doesn't work rn
+                                                                  ).whenComplete(() => refresh());
+                                                                  },
                                                                 child: WidgetsModels.button1(_mediaQueryWidth/8, 35, ColorPalette.Secondary_Color_Orignal, FluentIcons.people_swap_16_filled, ColorPalette.SH_Grey100, "Give Book")),
                                                             ],
                                                           ),

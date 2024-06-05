@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -340,7 +341,9 @@ class WidgetsModels {
       double imagewidth,
       double imageheight,
       bool selected,
-      String? booktype) {
+      String? booktype,
+      {int? quantity}
+      ) {
     return Container(
       width: containerwidth,
       height: containerheight,
@@ -366,6 +369,27 @@ class WidgetsModels {
                 ),
               ),
             ),
+            if (booktype == 'quantity')
+              Positioned(
+                  top: 0,
+                  right: imagewidth / 7,
+                  child: WidgetsModels.Container_widget(
+                    imagewidth / 7,
+                    imagewidth / 7,
+                    Alignment.center,
+                    null,
+                    BoxDecoration(
+                        color: ColorPalette.Secondary_Color_Orignal,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(2))),
+                    Text(
+                      "$quantity",
+                      style: GoogleFonts.montserrat(
+                  color:  ColorPalette.SH_Grey100,
+                  fontWeight: FontWeight.w500,
+                  fontSize:imagewidth / 10),
+                    ),
+                  )),
           ],
         ),
         //SizedBox(height: imagewidth ),

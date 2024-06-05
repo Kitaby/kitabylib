@@ -14,6 +14,7 @@ import 'package:kitabylib/models/get_collection_responsemodel.dart';
 import 'package:kitabylib/models/get_received_offer_responsemodel.dart';
 import 'package:kitabylib/models/getavailablebooksmodel.dart';
 import 'package:kitabylib/models/getreservedBooksResponseModel.dart';
+import 'package:kitabylib/models/givebookrequestmodel.dart';
 import 'package:kitabylib/models/phone_otp_request_model.dart';
 import 'package:kitabylib/models/phone_verify_otp_request_model.dart';
 
@@ -139,120 +140,206 @@ class APISERVICES {
 
 
    //bib api
-  Future<Getavailablebooksresponsemodel> getAvalaibleBooks(String id,int page,String name) async {
-    var url = Uri.parse(config.apiURL + config.getavailablebooks + id+"?page=$page"+"&name="+name);
-    var response = await client.get(url);
+  Future<Getavailablebooksresponsemodel> getAvalaibleBooks(int page,String name) async {
+    // String? token = await getToken();
+    var url = Uri.parse(config.apiURL + config.getavailablebooks +"?page=$page"+"&name="+name);
+    var response = await client.get(url,
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaWJJZCI6IjY2NWUzYjQxOGRhN2Q3MzdkYmJkZjVjMSIsImlhdCI6MTcxNzYwNjg4MSwiZXhwIjoxNzQzNTI2ODgxfQ.MblvDBEMfRqbIxiTcbjBWpLJWPrWRuBKj26aF0ckTac',
+      },
+    );
     Getavailablebooksresponsemodel responsebody = getavailablebooksresponsemodelFromJson(response.body);
     return responsebody;
   }
 
 
-  Future<GetOnHoldBooksResponseModel> getOnholdBooks(String id,int page,String name) async {
-    var url = Uri.parse(config.apiURL + config.getonholdbooks + id+"?page=$page"+"&name="+name);
-    var response = await client.get(url);
+  Future<GetOnHoldBooksResponseModel> getOnholdBooks(int page,String name) async {
+    // String? token = await getToken();
+    var url = Uri.parse(config.apiURL + config.getonholdbooks +"?page=$page"+"&name="+name);
+    var response = await client.get(url,
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaWJJZCI6IjY2NWUzYjQxOGRhN2Q3MzdkYmJkZjVjMSIsImlhdCI6MTcxNzYwNjg4MSwiZXhwIjoxNzQzNTI2ODgxfQ.MblvDBEMfRqbIxiTcbjBWpLJWPrWRuBKj26aF0ckTac',
+      },
+    );
     GetOnHoldBooksResponseModel responsebody = getOnHoldBooksResponseModelFromJson(response.body);
     return responsebody;
   }
 
-  Future<GetRequestedBooksResponseModel> getRequestedBooks(String id,int page,String name) async {
-    var url = Uri.parse(config.apiURL + config.getrequestedbooks + id+"?page=$page"+"&name="+name);
-    var response = await client.get(url);
+  Future<GetRequestedBooksResponseModel> getRequestedBooks(int page,String name) async {
+    // String? token = await getToken();
+    var url = Uri.parse(config.apiURL + config.getrequestedbooks +"?page=$page"+"&name="+name);
+    var response = await client.get(url,
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaWJJZCI6IjY2NWUzYjQxOGRhN2Q3MzdkYmJkZjVjMSIsImlhdCI6MTcxNzYwNjg4MSwiZXhwIjoxNzQzNTI2ODgxfQ.MblvDBEMfRqbIxiTcbjBWpLJWPrWRuBKj26aF0ckTac',
+      },
+    );
     GetRequestedBooksResponseModel responsebody = getRequestedBooksResponseModelFromJson(response.body);
     return responsebody;
   }
 
 
-  Future<GetReservedBooksResponseModel> getReservedBooks(String id,int page,String name) async {
-    var url = Uri.parse(config.apiURL + config.getreservedbooks + id+"?page=$page"+"&name="+name);
-    var response = await client.get(url);
+  Future<GetReservedBooksResponseModel> getReservedBooks(int page,String name) async {
+    // String? token = await getToken();
+    var url = Uri.parse(config.apiURL + config.getreservedbooks +"?page=$page"+"&name="+name);
+    var response = await client.get(url,
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaWJJZCI6IjY2NWUzYjQxOGRhN2Q3MzdkYmJkZjVjMSIsImlhdCI6MTcxNzYwNjg4MSwiZXhwIjoxNzQzNTI2ODgxfQ.MblvDBEMfRqbIxiTcbjBWpLJWPrWRuBKj26aF0ckTac',
+      },);
     GetReservedBooksResponseModel responsebody = getReservedBooksResponseModelFromJson(response.body);//response same type as requestedbooks
     return responsebody;
   }
 
-  Future<GetExpiredBooksResponseModel> getExpiredBooks(String id,int page,String name) async {
-    var url = Uri.parse(config.apiURL + config.getexpiredbooks + id+"?page=$page"+"&name="+name);
-    var response = await client.get(url);
+  Future<GetExpiredBooksResponseModel> getExpiredBooks(int page,String name) async {
+    // String? token = await getToken();
+    var url = Uri.parse(config.apiURL + config.getexpiredbooks + "?page=$page"+"&name="+name);
+    var response = await client.get(url,
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaWJJZCI6IjY2NWUzYjQxOGRhN2Q3MzdkYmJkZjVjMSIsImlhdCI6MTcxNzYwNjg4MSwiZXhwIjoxNzQzNTI2ODgxfQ.MblvDBEMfRqbIxiTcbjBWpLJWPrWRuBKj26aF0ckTac',
+      },);
     GetExpiredBooksResponseModel responsebody = getExpiredBooksResponseModelFromJson(response.body);//response same type as requestedbooks
     return responsebody;
   }
 
-  Future<GetRenewRequestResponseModel> getrenewRequests(String id,int page,String name) async {
-    var url = Uri.parse(config.apiURL + config.getrenewrequests + id+"?page=$page"+"&name="+name);
-    var response = await client.get(url);
+  Future<GetRenewRequestResponseModel> getrenewRequests(int page,String name) async {
+    // String? token = await getToken();
+    var url = Uri.parse(config.apiURL + config.getrenewrequests +"?page=$page"+"&name="+name);
+    var response = await client.get(url,
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaWJJZCI6IjY2NWUzYjQxOGRhN2Q3MzdkYmJkZjVjMSIsImlhdCI6MTcxNzYwNjg4MSwiZXhwIjoxNzQzNTI2ODgxfQ.MblvDBEMfRqbIxiTcbjBWpLJWPrWRuBKj26aF0ckTac',
+      },);
     GetRenewRequestResponseModel responsebody = getRenewRequestResponseModelFromJson(response.body);//response same type as requestedbooks
     return responsebody;
   }
 
-  Future<dynamic> Addbooktolib(String id, String isbn,String quantity) async {
-    Addbooklibrequestmodel object =Addbooklibrequestmodel(id:id,isbn:isbn,quantity:quantity);
+  Future<dynamic> Addbooktolib( String isbn,String quantity) async {
+    // String? token = await getToken();
+    Addbooklibrequestmodel object =Addbooklibrequestmodel(isbn:isbn,quantity:quantity);
     var url = Uri.parse(config.apiURL + config.addbook);
     var codedobject = addbooklibrequestmodelToJson(object);
-    var response = await client.post(url, headers: customHeaders, body: codedobject);
+    var response = await client.post(url,
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaWJJZCI6IjY2NWUzYjQxOGRhN2Q3MzdkYmJkZjVjMSIsImlhdCI6MTcxNzYwNjg4MSwiZXhwIjoxNzQzNTI2ODgxfQ.MblvDBEMfRqbIxiTcbjBWpLJWPrWRuBKj26aF0ckTac',//benhammadi lokmane
+      },
+     body: codedobject);
     return response.body;
   }
 
   Future<dynamic> acceptrequest(String id) async {
+    // String? token = await getToken();
     AcceptrequestRequestModel object =AcceptrequestRequestModel(reservationId:id);
     var url = Uri.parse(config.apiURL + config.acceptrequest);
     var codedobject = acceptrequestRequestModelToJson(object);
-    var response = await client.patch(url, headers: customHeaders, body: codedobject);
+    var response = await client.patch(url,headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaWJJZCI6IjY2NWUzYjQxOGRhN2Q3MzdkYmJkZjVjMSIsImlhdCI6MTcxNzYwNjg4MSwiZXhwIjoxNzQzNTI2ODgxfQ.MblvDBEMfRqbIxiTcbjBWpLJWPrWRuBKj26aF0ckTac',//benhammadi lokmane
+      }, body: codedobject);
     return response.body;
   }
 
   Future<dynamic> cancelreservation(String id) async {
+    // String? token = await getToken();
     AcceptrequestRequestModel object =AcceptrequestRequestModel(reservationId:id);
     var url = Uri.parse(config.apiURL + config.cancelreservation);
     var codedobject = acceptrequestRequestModelToJson(object);
-    var response = await client.put(url, headers: customHeaders, body: codedobject);
+    var response = await client.put(url,headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaWJJZCI6IjY2NWUzYjQxOGRhN2Q3MzdkYmJkZjVjMSIsImlhdCI6MTcxNzYwNjg4MSwiZXhwIjoxNzQzNTI2ODgxfQ.MblvDBEMfRqbIxiTcbjBWpLJWPrWRuBKj26aF0ckTac',//benhammadi lokmane
+      }, body: codedobject);
     return response.body;
   }
 
   Future<dynamic> refuserequest(String id) async {
+    // String? token = await getToken();
     AcceptrequestRequestModel object =AcceptrequestRequestModel(reservationId:id);
     var url = Uri.parse(config.apiURL + config.refuserequest);
     var codedobject = acceptrequestRequestModelToJson(object);
-    var response = await client.put(url, headers: customHeaders, body: codedobject);
+    var response = await client.put(url,headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaWJJZCI6IjY2NWUzYjQxOGRhN2Q3MzdkYmJkZjVjMSIsImlhdCI6MTcxNzYwNjg4MSwiZXhwIjoxNzQzNTI2ODgxfQ.MblvDBEMfRqbIxiTcbjBWpLJWPrWRuBKj26aF0ckTac',//benhammadi lokmane
+      }, body: codedobject);
     return response.body;
   }
 
   Future<dynamic> acceptrenewrequest(String id) async {
+    // String? token = await getToken();
     AcceptrequestRequestModel object =AcceptrequestRequestModel(reservationId:id);
     var url = Uri.parse(config.apiURL + config.acceptrenewrequest);
     var codedobject = acceptrequestRequestModelToJson(object);//we can use acceptrequestrequestmodel because it uses reservationId
-    var response = await client.put(url, headers: customHeaders, body: codedobject);
+    var response = await client.put(url,headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaWJJZCI6IjY2NWUzYjQxOGRhN2Q3MzdkYmJkZjVjMSIsImlhdCI6MTcxNzYwNjg4MSwiZXhwIjoxNzQzNTI2ODgxfQ.MblvDBEMfRqbIxiTcbjBWpLJWPrWRuBKj26aF0ckTac',//benhammadi lokmane
+      }, body: codedobject);
     return response.body;
   }
 
   Future<dynamic> refuserenewrequest(String id) async {
+    // String? token = await getToken();
     AcceptrequestRequestModel object =AcceptrequestRequestModel(reservationId:id);
     var url = Uri.parse(config.apiURL + config.refuserenewrequest);//we can use acceptrequestrequestmodel because it uses reservationId
     var codedobject = acceptrequestRequestModelToJson(object);
-    var response = await client.put(url, headers: customHeaders, body: codedobject);
+    var response = await client.put(url,headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaWJJZCI6IjY2NWUzYjQxOGRhN2Q3MzdkYmJkZjVjMSIsImlhdCI6MTcxNzYwNjg4MSwiZXhwIjoxNzQzNTI2ODgxfQ.MblvDBEMfRqbIxiTcbjBWpLJWPrWRuBKj26aF0ckTac',//benhammadi lokmane
+      }, body: codedobject);
     return response.body;
   }
 
 
   Future<dynamic> Reportuser(String id) async {
+// String? token = await getToken();
     AcceptrequestRequestModel object =AcceptrequestRequestModel(reservationId:id); //we can use acceptrequestrequestmodel because it uses reservationId
     var url = Uri.parse(config.apiURL + config.Reportuser);
     var codedobject = acceptrequestRequestModelToJson(object);
-    var response = await client.post(url, headers: customHeaders, body: codedobject);
+    var response = await client.post(url,headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaWJJZCI6IjY2NWUzYjQxOGRhN2Q3MzdkYmJkZjVjMSIsImlhdCI6MTcxNzYwNjg4MSwiZXhwIjoxNzQzNTI2ODgxfQ.MblvDBEMfRqbIxiTcbjBWpLJWPrWRuBKj26aF0ckTac',//benhammadi lokmane
+      }, body: codedobject);
     return response.body;
   }
 
-  Future<dynamic> givebook(String id) async {
-    AcceptrequestRequestModel object =AcceptrequestRequestModel(reservationId:id); //we can use acceptrequestrequestmodel because it uses reservationId
+  Future<dynamic> givebook(String id,String code) async {
+    // String? token = await getToken();
+    Givebookrequestmodel object =Givebookrequestmodel(reservationId:id,code: code); //we can use acceptrequestrequestmodel because it uses reservationId
     var url = Uri.parse(config.apiURL + config.givebook);
-    var codedobject = acceptrequestRequestModelToJson(object);
-    var response = await client.put(url, headers: customHeaders, body: codedobject);
+    var codedobject = givebookrequestmodelToJson(object);
+    var response = await client.put(url, headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaWJJZCI6IjY2NWUzYjQxOGRhN2Q3MzdkYmJkZjVjMSIsImlhdCI6MTcxNzYwNjg4MSwiZXhwIjoxNzQzNTI2ODgxfQ.MblvDBEMfRqbIxiTcbjBWpLJWPrWRuBKj26aF0ckTac',//benhammadi lokmane
+      }, body: codedobject);
     return response.body;
   }
 
-  Future<dynamic> returnbook(String id) async {
-    AcceptrequestRequestModel object =AcceptrequestRequestModel(reservationId:id); //we can use acceptrequestrequestmodel because it uses reservationId
+  Future<dynamic> returnbook(String id,String code) async {
+    // String? token = await getToken();
+    Givebookrequestmodel object =Givebookrequestmodel(reservationId:id,code: code); //we can use acceptrequestrequestmodel because it uses reservationId
     var url = Uri.parse(config.apiURL + config.returnbook);
-    var codedobject = acceptrequestRequestModelToJson(object);
-    var response = await client.put(url, headers: customHeaders, body: codedobject);
+    var codedobject = givebookrequestmodelToJson(object);
+    var response = await client.put(url,headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaWJJZCI6IjY2NWUzYjQxOGRhN2Q3MzdkYmJkZjVjMSIsImlhdCI6MTcxNzYwNjg4MSwiZXhwIjoxNzQzNTI2ODgxfQ.MblvDBEMfRqbIxiTcbjBWpLJWPrWRuBKj26aF0ckTac',//benhammadi lokmane
+      }, body: codedobject);
     return response.body;
   }
 }

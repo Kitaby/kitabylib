@@ -78,6 +78,29 @@ class Fieldvalidator {
     }
   }
 
+  static String? validatequant(String? value) {
+    if (value == null) {
+      return null;
+    } else {
+      if (value!.length == 0) {
+        return "quantity is Required";
+      } else if (!isquantValid(value)) {
+        return "Must be a valid quant";
+      }
+    }
+  }
+  static String? validatecode(String? value) {
+    if (value == null) {
+      return null;
+    } else {
+      if (value!.length == 0) {
+        return "code is Required";
+      } else if (!iscodeValid(value)) {
+        return "Must be a valid code";
+      }
+    }
+  }
+
   static String? validateLibname(String? value) {
     if (value == null) {
       return null;
@@ -98,6 +121,17 @@ class Fieldvalidator {
 
   static bool isIsbnValid(String em) {
   String pattern = r'^[0-9]{10}$|^[0-9]{13}$';
+  RegExp regExp = new RegExp(pattern);
+  return regExp.hasMatch(em);
+}
+
+static bool isquantValid(String em) {
+  String pattern = r'^[0-9]{1}$|^[0-9]{2}$';
+  RegExp regExp = new RegExp(pattern);
+  return regExp.hasMatch(em);
+}
+static bool iscodeValid(String em) {
+  String pattern = r'^[0-9A-Za-z_]{6}$';
   RegExp regExp = new RegExp(pattern);
   return regExp.hasMatch(em);
 }

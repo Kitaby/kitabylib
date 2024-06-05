@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       title: 'Kitabylib',
       debugShowCheckedModeBanner: false,
-      home:Mainscreen(),
+      home: Mainscreen(),
       routes: {
         'Mainscreen':(context) => Mainscreen(),
         'Forgotyourpassword' : (context) =>const Forgotyourpassword(oldmail: "") ,

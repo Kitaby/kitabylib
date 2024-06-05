@@ -60,14 +60,14 @@ class MybooksState extends State<StatefulWidget>{
   Future fetchoffers(String name) async{
     if(isloading)return;
     isloading=true;
-    Getavailablebooksresponsemodel? response= await APISERVICES().getAvalaibleBooks('6638e4d14bca83d6fe6dfb40', page,name);///get loan books
+    Getavailablebooksresponsemodel? response= await APISERVICES().getAvalaibleBooks( page,name);///get loan books
     if(response!=null ){
       if(mounted){
         setState(() {
           page++;
           isloading=false;
           if( response.availableBooks.length<8){hasmore=false;}
-          booksfound.addAll(response.availableBooks);
+          if(response.total>booksfound.length){booksfound.addAll(response.availableBooks);}
             });
           }}
            
@@ -89,9 +89,9 @@ class MybooksState extends State<StatefulWidget>{
   @override
   void initState() {
     super.initState();
-    if (booksfound.isEmpty){
+    
     fetchoffers("");
-    }
+    
    
     
     
@@ -252,16 +252,16 @@ void search(String e){
                                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                     children: [
                                                     if(i*4<booksfound.length)  
-                                                     WidgetsModels.bookcard(booksfound[i*4].title, _mediaQueryWidth/60,booksfound[i*4].author, _mediaQueryWidth/70, ColorPalette.SH_Grey900,booksfound[i*4].image, _mediaQueryWidth/8,_mediaQueryWidth/3, _mediaQueryWidth/8, _mediaQueryWidth/5,false,null),
+                                                     WidgetsModels.bookcard(booksfound[i*4].title, _mediaQueryWidth/60,booksfound[i*4].author, _mediaQueryWidth/70, ColorPalette.SH_Grey900,booksfound[i*4].image, _mediaQueryWidth/8,_mediaQueryWidth/3, _mediaQueryWidth/8, _mediaQueryWidth/5,false,"quantity",quantity: booksfound[i*4].quantity),
                                                    
                                                     if(i*4+1<booksfound.length)  
-                                                     WidgetsModels.bookcard(booksfound[i*4+1].title, _mediaQueryWidth/60,booksfound[i*4+1].author, _mediaQueryWidth/70, ColorPalette.SH_Grey900,booksfound[i*4+1].image, _mediaQueryWidth/8,_mediaQueryWidth/3, _mediaQueryWidth/8, _mediaQueryWidth/5,false,null),
+                                                     WidgetsModels.bookcard(booksfound[i*4+1].title, _mediaQueryWidth/60,booksfound[i*4+1].author, _mediaQueryWidth/70, ColorPalette.SH_Grey900,booksfound[i*4+1].image, _mediaQueryWidth/8,_mediaQueryWidth/3, _mediaQueryWidth/8, _mediaQueryWidth/5,false,"quantity",quantity: booksfound[i*4+1].quantity),
                                                     
                                                     if(i*4+2<booksfound.length)  
-                                                     WidgetsModels.bookcard(booksfound[i*4+2].title, _mediaQueryWidth/60,booksfound[i*4+2].author, _mediaQueryWidth/70, ColorPalette.SH_Grey900,booksfound[i*4+2].image, _mediaQueryWidth/8,_mediaQueryWidth/3, _mediaQueryWidth/8, _mediaQueryWidth/5,false,null),
+                                                     WidgetsModels.bookcard(booksfound[i*4+2].title, _mediaQueryWidth/60,booksfound[i*4+2].author, _mediaQueryWidth/70, ColorPalette.SH_Grey900,booksfound[i*4+2].image, _mediaQueryWidth/8,_mediaQueryWidth/3, _mediaQueryWidth/8, _mediaQueryWidth/5,false,"quantity",quantity: booksfound[i*4+2].quantity),
                                      
                                                     if(i*4+3<booksfound.length) 
-                                                    WidgetsModels.bookcard(booksfound[i*4+3].title, _mediaQueryWidth/60,booksfound[i*4+3].author, _mediaQueryWidth/70, ColorPalette.SH_Grey900,booksfound[i*4+3].image, _mediaQueryWidth/8,_mediaQueryWidth/3, _mediaQueryWidth/8, _mediaQueryWidth/5,false,null),
+                                                    WidgetsModels.bookcard(booksfound[i*4+3].title, _mediaQueryWidth/60,booksfound[i*4+3].author, _mediaQueryWidth/70, ColorPalette.SH_Grey900,booksfound[i*4+3].image, _mediaQueryWidth/8,_mediaQueryWidth/3, _mediaQueryWidth/8, _mediaQueryWidth/5,false,"quantity",quantity: booksfound[i*4+3].quantity),
                                      
                                                     if(i*4+1==booksfound.length+1)
                                                     

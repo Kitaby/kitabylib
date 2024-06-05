@@ -33,7 +33,7 @@ class MainscreenState extends State<Mainscreen>{
 
  
 
-static  ValueNotifier<int> currentscreen =ValueNotifier<int>(2);
+static  ValueNotifier<int> currentscreen =ValueNotifier<int>(0);
 
 
 @override

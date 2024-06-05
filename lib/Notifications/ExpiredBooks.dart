@@ -10,6 +10,7 @@ import 'package:kitabylib/Constants/Colors.dart';
 import 'package:kitabylib/Constants/Path.dart';
 import 'package:kitabylib/Constants/widgets.dart';
 import 'package:kitabylib/CountDown.dart';
+import 'package:kitabylib/Notifications/confirmwithcode.dart';
 import 'package:kitabylib/models/Get-onHold-Books-Response-model.dart';
 import 'package:kitabylib/models/GetExpiredBooksResponseModel.dart';
 import 'package:kitabylib/models/api_services.dart';
@@ -51,7 +52,7 @@ class _ExpiredBooksState extends State<ExpiredBooks> {
   Future fetchoffers(String name) async{
     if(isloading)return;
     isloading=true;
-    GetExpiredBooksResponseModel? response= await APISERVICES().getExpiredBooks('6638e4d14bca83d6fe6dfb40', page,name);///get loan books
+    GetExpiredBooksResponseModel? response= await APISERVICES().getExpiredBooks( page,name);///get loan books
     if(response!=null ){
       if(mounted){
         setState(() {
@@ -240,10 +241,12 @@ void search(String e){
                                                                 child: WidgetsModels.button1(_mediaQueryWidth/8, 35, ColorPalette.Error, FluentIcons.calendar_cancel_16_filled, ColorPalette.SH_Grey100, "Report")),
                                                               SizedBox(width: 30,),
                                                               GestureDetector(
-                                                                onTap: () async{
-                                                                      await APISERVICES().returnbook(booksfound[i].id);
-                                                                       refresh();
-                                                                    },
+                                                                onTap:()async{
+                                                                  showDialog(
+                                                                  context: context,
+                                                                  builder:(context) =>confirmcode(type:"return",id:booksfound[i].id),//doesn't work rn
+                                                                  ).whenComplete(() => refresh());
+                                                                  },
                                                                 child: WidgetsModels.button1(_mediaQueryWidth/8, 35, ColorPalette.Secondary_Color_Orignal, FluentIcons.people_swap_16_filled, ColorPalette.SH_Grey100, "Return Book")),
                                                             ],
                                                           ),
