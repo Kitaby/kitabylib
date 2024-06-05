@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class otpcountDown extends StatefulWidget {
@@ -60,7 +61,7 @@ class _otpcountDownState extends State<otpcountDown> {
     );
 
     return Padding(
-      padding: const EdgeInsets.all(6.5),
+      padding: const EdgeInsets.all(6.5).w,
       child: seconds,
     );
   }

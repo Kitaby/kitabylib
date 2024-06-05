@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 
 class Fieldvalidator {
@@ -8,7 +5,7 @@ class Fieldvalidator {
     if (value == null) {
       return null;
     } else {
-      if (value!.length == 0) {
+      if (value.isEmpty) {
         return "Name is Required";
       } else if (!validator.name(value)) {
         return "Must be a valid name";
@@ -21,7 +18,7 @@ class Fieldvalidator {
     if (value == null) {
       return null;
     } else {
-      if (value!.length == 0) {
+      if (value.isEmpty) {
         return "Email is Required";
       } else if (!validator.email(value)) {
         return "Must be a valid email address";
@@ -34,7 +31,7 @@ class Fieldvalidator {
     if (value == null) {
       return null;
     } else {
-      if (value!.length == 0) {
+      if (value.isEmpty) {
         return "password is Required";
       } else if (!validator.password(value)) {
         return "Must be a valid password";
@@ -47,7 +44,7 @@ class Fieldvalidator {
     if (value == null) {
       return null;
     } else {
-      if (value!.length == 0) {
+      if (value.isEmpty) {
         return "Phone number is Required";
       } else if (!validator.phone(value)) {
         return "Must be a valid phone number";
@@ -60,7 +57,7 @@ class Fieldvalidator {
     if (value == null) {
       return null;
     } else {
-      if (value!.length == 0) {
+      if (value.isEmpty) {
         return "Code pin is Required";
       } else if (!isPin(value)) {
         return "Must be a valid pin code";
@@ -73,7 +70,7 @@ class Fieldvalidator {
     if (value == null) {
       return null;
     } else {
-      if (value!.length == 0) {
+      if (value.isEmpty) {
         return "isbn is Required";
       } else if (isisbnvalid(value)) {
         return "Must be a valid isbn";
@@ -86,7 +83,7 @@ class Fieldvalidator {
     if (value == null) {
       return null;
     } else {
-      if (value!.length == 0) {
+      if (value.isEmpty) {
         return "CRN is Required";
       } else if (!iscrnvalid(value)) {
         return "Must be a valid CRN";
@@ -120,7 +117,7 @@ class Fieldvalidator {
   static bool isPin(String em) {
     String p = r'^[1-9][0-9]{5}$';
 
-    RegExp regExp = new RegExp(p);
+    RegExp regExp = RegExp(p);
 
     return regExp.hasMatch(em);
   }
@@ -128,7 +125,7 @@ class Fieldvalidator {
   static bool isisbnvalid(String em) {
     String p = r'^[0-9]{13}$';
 
-    RegExp regExp = new RegExp(p);
+    RegExp regExp = RegExp(p);
 
     return regExp.hasMatch(em);
   }
@@ -136,7 +133,7 @@ class Fieldvalidator {
   static bool iscrnvalid(String input) {
     String p = r'^[A-Z0-9]{10}$';
 
-    RegExp regExp = new RegExp(p);
+    RegExp regExp = RegExp(p);
 
     return regExp.hasMatch(input);
   }  //commercial register number

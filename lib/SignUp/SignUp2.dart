@@ -1,5 +1,6 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitabylib/Constants/validator.dart';
 import 'package:kitabylib/SignUp/SignUp3.dart';
 import 'package:regexed_validator/regexed_validator.dart';
@@ -78,44 +79,44 @@ class Signup2state extends State<Signup2> {
         },
         child: Container(
           alignment: Alignment.center,
-          decoration: BoxDecoration(
+          decoration:const BoxDecoration(
             image : DecorationImage(image: AssetImage("assets/images/Shape.png"), fit: BoxFit.cover),
           ),
           child: Container(
-            height: 665,
-            width: 456,
+            height: 665.h,
+            width: 456.w,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(24).r,
               color: ColorPalette.SH_Grey100,
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 25 , vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 25 , vertical: 10).w,
             child: ListView(
               physics: const ClampingScrollPhysics(),
               children: [
                 Center(child: Image.asset(Path.Logolib)),
                 WidgetsModels.Container_widget(
-                    40,
-                    33,
+                    40.w,
+                    33.h,
                     Alignment.center,
-                    const EdgeInsets.only(top: 10),
+                    const EdgeInsets.only(top: 10).w,
                     null,
                     Text("Welcome Here",
                         style: GoogleFonts.montserrat(
                             color: ColorPalette.backgroundcolor,
-                            fontSize: 30,
+                            fontSize: 30.sp,
                             fontWeight: FontWeight.w600))),
                 WidgetsModels.Container_widget(
-                    20,
-                    25,
+                    20.w,
+                    25.h,
                     Alignment.center,
-                    const EdgeInsets.only(bottom: 15),
+                    const EdgeInsets.only(bottom: 15).w,
                     null,
                     Text("Sign to continue",
                         style: GoogleFonts.montserrat(
                             color: ColorPalette.backgroundcolor,
-                            fontSize: 20,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.w300))),
-                WidgetsModels.Container_widget(null, 30, Alignment.center, null,
+                WidgetsModels.Container_widget(null, 30.h, Alignment.center, null,
                     null, Image.asset(Path.Selected2)),
                 Form(
                     key: Signup,
@@ -200,32 +201,32 @@ class Signup2state extends State<Signup2> {
                       );
                     },
                   child: WidgetsModels.Container_widget(
-                      50,
-                      45,
+                      50.w,
+                      45.h,
                       Alignment.center,
-                      const EdgeInsets.symmetric(horizontal: 30 , vertical: 15),
+                      const EdgeInsets.symmetric(horizontal: 30 , vertical: 15).w,
                       BoxDecoration(
                           color: ColorPalette.backgroundcolor,
-                          borderRadius: BorderRadius.circular(5)),
+                          borderRadius: BorderRadius.circular(5).r),
                       Text("Next",
                           style: GoogleFonts.montserrat(
                               color: ColorPalette.SH_Grey100,
-                              fontSize: 22,
+                              fontSize: 22.sp,
                               fontWeight: FontWeight.w600))),
                 )
                 else
                   WidgetsModels.Container_widget(
-                      50,
-                      45,
+                      50.w,
+                      45.h,
                       Alignment.center,
-                      const EdgeInsets.symmetric(horizontal: 30 , vertical: 15),
+                      const EdgeInsets.symmetric(horizontal: 30 , vertical: 15).w,
                       BoxDecoration(
                           color: ColorPalette.SH_Grey300,
-                          borderRadius: BorderRadius.circular(5)),
+                          borderRadius: BorderRadius.circular(5).r),
                       Text("Next",
                           style: GoogleFonts.montserrat(
                               color: ColorPalette.SH_Grey100,
-                              fontSize: 22,
+                              fontSize: 22.sp,
                               fontWeight: FontWeight.w600))),
               ],
             ),

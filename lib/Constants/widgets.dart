@@ -1,17 +1,12 @@
-import 'dart:ffi';
-
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+// ignore_for_file: non_constant_identifier_names, sized_box_for_whitespace
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kitabylib/Constants/Colors.dart';
 import 'package:kitabylib/Constants/Strings.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:kitabylib/Constants/Colors.dart';
 import 'package:kitabylib/Constants/Path.dart';
 
 class WidgetsModels {
@@ -89,43 +84,43 @@ class WidgetsModels {
     return InputDecoration(
       counterText: '',
       errorStyle: GoogleFonts.montserrat(
-          fontSize: 14, color: ColorPalette.Error, fontWeight: FontWeight.w500),
+          fontSize: 14.sp, color: ColorPalette.Error, fontWeight: FontWeight.w500),
       prefixIcon: Align(
-        heightFactor: 1.0,
-        widthFactor: 1.0,
+        heightFactor: 1.0.h,
+        widthFactor: 1.0.w,
         child: varprefix,
       ),
       suffixIcon: Align(
-        heightFactor: 1.0,
-        widthFactor: 2.0,
+        heightFactor: 1.0.h,
+        widthFactor: 2.0.w,
         child: varsuffix,
       ),
       contentPadding:
-          const EdgeInsets.symmetric(vertical: 20, horizontal: 10.0),
+          const EdgeInsets.symmetric(vertical: 20, horizontal: 10.0).w,
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: ColorPalette.backgroundcolor, width: 1.5),
-        borderRadius: BorderRadius.circular(5),
+        borderSide: BorderSide(color: ColorPalette.backgroundcolor, width: 1.5.w),
+        borderRadius: BorderRadius.circular(5).r,
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: ColorPalette.Error, width: 1.5),
-        borderRadius: BorderRadius.circular(5),
+        borderSide: BorderSide(color: ColorPalette.Error, width: 1.5.w),
+        borderRadius: BorderRadius.circular(5).r,
       ),
       errorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: ColorPalette.Error, width: 1.5),
-        borderRadius: BorderRadius.circular(5),
+        borderSide: BorderSide(color: ColorPalette.Error, width: 1.5.w),
+        borderRadius: BorderRadius.circular(5).r,
       ),
       disabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: ColorPalette.backgroundcolor, width: 1.5),
-        borderRadius: BorderRadius.circular(5),
+        borderSide: BorderSide(color: ColorPalette.backgroundcolor, width: 1.5.w),
+        borderRadius: BorderRadius.circular(5).r,
       ),
       enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: ColorPalette.backgroundcolor, width: 1.5),
-        borderRadius: BorderRadius.circular(5),
+        borderSide: BorderSide(color: ColorPalette.backgroundcolor, width: 1.5.w),
+        borderRadius: BorderRadius.circular(5).r,
       ),
       //Decoration of textformfieldborders
       border: OutlineInputBorder(
-        borderSide: BorderSide(color: ColorPalette.backgroundcolor, width: 1.5),
-        borderRadius: BorderRadius.circular(5),
+        borderSide: BorderSide(color: ColorPalette.backgroundcolor, width: 1.5.w),
+        borderRadius: BorderRadius.circular(5).r,
       ),
     );
   }
@@ -141,8 +136,8 @@ class WidgetsModels {
         clipBehavior: Clip.none,
         children: [
           Container(
-            padding: const EdgeInsets.all(16),
-            height: 100,
+            padding: const EdgeInsets.all(16).w,
+            height: 100.h,
             decoration: BoxDecoration(
               color: (type == "success")
                   ? ColorPalette.Secondary_Color_Dark
@@ -151,7 +146,7 @@ class WidgetsModels {
                       : (type == "warning")
                           ? ColorPalette.snackWarning
                           : ColorPalette.Primary_Color_Light,
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              borderRadius: const BorderRadius.all(Radius.circular(20)).r,
             ),
             child: Row(
               children: [
@@ -168,7 +163,7 @@ class WidgetsModels {
                         style: GoogleFonts.montserrat(
                             color: ColorPalette.SH_Grey100,
                             fontWeight: FontWeight.w600,
-                            fontSize: 24),
+                            fontSize: 24.sp),
                       ),
                       const Spacer(),
                       Text(
@@ -176,7 +171,7 @@ class WidgetsModels {
                         style: GoogleFonts.montserrat(
                             color: ColorPalette.SH_Grey100,
                             fontWeight: FontWeight.w500,
-                            fontSize: 15),
+                            fontSize: 15.sp),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -193,8 +188,9 @@ class WidgetsModels {
                       const BorderRadius.only(bottomLeft: Radius.circular(20)),
                   child: SvgPicture.asset(
                     Path.pathBubble,
-                    height: 65,
-                    width: 60,
+                    height: 65.h,
+                    width: 60.w,
+                    // ignore: deprecated_member_use
                     color: (type == "success")
                         ? ColorPalette.snackBubblesucces
                         : (type == "fail")
@@ -209,7 +205,7 @@ class WidgetsModels {
               left: 10,
               child: SvgPicture.asset(
                 Path.pathsucces,
-                height: 60,
+                height: 60.h,
               ),
             ),
           if (type == "fail")
@@ -218,7 +214,7 @@ class WidgetsModels {
               left: 10,
               child: SvgPicture.asset(
                 Path.pathfail,
-                height: 60,
+                height: 60.h,
               ),
             ),
           if (type == "help")
@@ -227,7 +223,7 @@ class WidgetsModels {
               left: 10,
               child: SvgPicture.asset(
                 Path.pathquestion,
-                height: 60,
+                height: 60.h,
               ),
             ),
           if (type == "warning")
@@ -236,7 +232,7 @@ class WidgetsModels {
               left: 10,
               child: SvgPicture.asset(
                 Path.pathwarning,
-                height: 60,
+                height: 60.h,
               ),
             ),
         ],
@@ -256,7 +252,7 @@ class WidgetsModels {
     int? varlength,
   ) {
     return Container(
-      height: 119,
+      height: 119.h,
       margin: varmargin,
       child: Column(
         children: [
@@ -264,11 +260,11 @@ class WidgetsModels {
               null,
               null,
               Alignment.centerLeft,
-              const EdgeInsets.all(10),
+              const EdgeInsets.all(10).w,
               null,
               Text(vartitle,
                   style: GoogleFonts.montserrat(
-                      fontSize: 12,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w600,
                       color: ColorPalette.backgroundcolor))),
           Container_widget(
@@ -280,7 +276,7 @@ class WidgetsModels {
               customTFF(
                   varcontroller,
                   GoogleFonts.montserrat(
-                      fontSize: 15.5,
+                      fontSize: 15.5.sp,
                       fontWeight: FontWeight.w400,
                       color: ColorPalette.backgroundcolor),
                   AutovalidateMode.onUserInteraction,
@@ -303,7 +299,7 @@ class WidgetsModels {
     var varontap,
   ) {
     return Container(
-      width: 80,
+      width: 80.w,
       child: Card(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
@@ -318,7 +314,7 @@ class WidgetsModels {
             vartitle , 
             style: GoogleFonts.montserrat(
               color: ColorPalette.SH_Grey100,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w500
             ),
           ),
@@ -348,13 +344,13 @@ class WidgetsModels {
         Stack(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius:const BorderRadius.all(Radius.circular(10)).r,
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderRadius:const BorderRadius.all(Radius.circular(10)).r,
                   border: (selected)
                       ? Border.all(
-                          width: 3, color: ColorPalette.Secondary_Color_Orignal)
+                          width: 3.w, color: ColorPalette.Secondary_Color_Orignal)
                       : null,
                 ),
                 child: FadeInImage.assetNetwork(
@@ -417,24 +413,24 @@ class WidgetsModels {
           border:(border==true)?
            Border.all(
             color: vartitlecolor,
-            width: 1,
+            width: 1.w,
           ):null,
           boxShadow: [
             if(shadow==true)
             BoxShadow(
                 color:vartitlecolor,
-                blurRadius: 1.0,
-                spreadRadius: 0.0,
-                offset: Offset(1.0, 1.0), // shadow direction: bottom right
+                blurRadius: 1.0.r,
+                spreadRadius: 0.0.r,
+                offset:const Offset(1.0, 1.0), // shadow direction: bottom right
             ),
         ],
           
-          borderRadius: const BorderRadius.all(Radius.circular(5))),
+          borderRadius: const BorderRadius.all(Radius.circular(5)).r),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         if(varicon!=null)
         Icon(
           varicon,
-          size: varheight / 2,
+          size: (varheight / 2).sp,
           color: vartitlecolor,
         ),
         Text(
@@ -442,7 +438,7 @@ class WidgetsModels {
           style: GoogleFonts.montserrat(
               color: vartitlecolor,
               fontWeight: FontWeight.w700,
-              fontSize: varwidth / 10),
+              fontSize: (varwidth / 10).sp),
         )
       ]),
     );
@@ -451,7 +447,7 @@ class WidgetsModels {
   static Container titlenr() {
     return WidgetsModels.Container_widget(
       null,
-      100,
+      100.h,
       Alignment.center,
       null,
       BoxDecoration(color: ColorPalette.Primary_Color_Original),
@@ -459,7 +455,7 @@ class WidgetsModels {
         TextString.title,
         style: GoogleFonts.montserrat(
             color: ColorPalette.SH_Grey100,
-            fontSize: 32,
+            fontSize: 32.sp,
             fontWeight: FontWeight.w800),
       ),
     );
@@ -468,21 +464,21 @@ class WidgetsModels {
   static Container title(BuildContext context) {
     return WidgetsModels.Container_widget(
         null,
-        80,
+        80.h,
         Alignment.center,
         null,
         BoxDecoration(color: ColorPalette.Primary_Color_Original),
         Row(
           children: [
             Container(
-              margin: const EdgeInsets.only(left: 20, right: 104),
+              margin: const EdgeInsets.only(left: 20, right: 104).w,
               child: GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
                   },
                   child: Icon(
                     Icons.arrow_back_rounded,
-                    size: 30,
+                    size: 30.sp,
                     color: ColorPalette.SH_Grey100,
                   )),
             ),
@@ -490,7 +486,7 @@ class WidgetsModels {
               TextString.title,
               style: GoogleFonts.montserrat(
                   color: ColorPalette.SH_Grey100,
-                  fontSize: 32,
+                  fontSize: 32.sp,
                   fontWeight: FontWeight.w800),
             ),
           ],
@@ -516,44 +512,44 @@ class WidgetsModels {
           filled: true,
           fillColor: ColorPalette.verylightgrey,
           focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent),
-              borderRadius: BorderRadius.all(Radius.circular(50))),
+              borderSide:const BorderSide(color: Colors.transparent),
+              borderRadius:const BorderRadius.all(Radius.circular(50)).r),
           border: OutlineInputBorder(
               borderSide: BorderSide(color: ColorPalette.SH_Grey300),
-              borderRadius: BorderRadius.all(Radius.circular(50))),
+              borderRadius:const BorderRadius.all(Radius.circular(50)).r),
           enabledBorder:OutlineInputBorder(
-              borderSide: BorderSide(color: ColorPalette.SH_Grey300,width: 0.5),
-              borderRadius: BorderRadius.all(Radius.circular(50))),
+              borderSide: BorderSide(color: ColorPalette.SH_Grey300,width: 0.5.w),
+              borderRadius:const BorderRadius.all(Radius.circular(50)).r),
           prefixIcon: Align(
-            heightFactor: 1.0,
-            widthFactor: 1.0,
+            heightFactor: 1.0.h,
+            widthFactor: 1.0.w,
             child: varprefix,
           ),
           suffixIcon: Align(
-            heightFactor: 1.0,
-            widthFactor: 2.0,
+            heightFactor: 1.0.h,
+            widthFactor: 2.0.w,
             child: varsuffix,
           ),
           
           contentPadding:
-               EdgeInsets.symmetric(vertical: 10, horizontal: 10.0),
+              const EdgeInsets.symmetric(vertical: 10, horizontal: 10.0).w,
         ),
       ),
     );
   }
 
   static Container buildSmallButton() => WidgetsModels.Container_widget(
-        50,
-        50,
+        50.w,
+        50.h,
         Alignment.center,
-        const EdgeInsets.all(25),
+        const EdgeInsets.all(25).w,
         BoxDecoration(
           shape: BoxShape.circle,
           color: ColorPalette.backgroundcolor,
         ),
         SizedBox(
-          height: 25,
-          width: 25,
+          height: 25.h,
+          width: 25.w,
           child: Center(
             child: CircularProgressIndicator(
               color: ColorPalette.SH_Grey100,
@@ -561,5 +557,4 @@ class WidgetsModels {
           ),
         ),
       );
-
 }

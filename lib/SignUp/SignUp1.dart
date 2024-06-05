@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitabylib/Constants/validator.dart';
 import 'package:kitabylib/SignUp/SignUp2.dart';
 import 'package:kitabylib/SignUp/otp_countDown.dart';
@@ -85,10 +86,10 @@ class SignUp1state extends State<SignUp1> {
           image : DecorationImage(image: AssetImage("assets/images/Shape.png"), fit: BoxFit.cover),
         ),
         child: Container(
-          height: 665,
-          width: 456,
+          height: 665.h,
+          width: 456.w,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: BorderRadius.circular(24).w,
           color: ColorPalette.SH_Grey100,
           ),
           child: NotificationListener<OverscrollIndicatorNotification>(
@@ -97,35 +98,35 @@ class SignUp1state extends State<SignUp1> {
               return true;
             },
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 25 , vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 25 , vertical: 10).w,
               child: ListView(
                 //physics:const NeverScrollableScrollPhysics(),
                 //physics: const ClampingScrollPhysics(),
                 children: [
                   Center(child: Image.asset(Path.Logolib)),
                   WidgetsModels.Container_widget(
-                      40,
-                      33,
+                      40.w,
+                      33.h,
                       Alignment.center,
-                      const EdgeInsets.only(top: 10),
+                      const EdgeInsets.only(top: 10).w,
                       null,
                       Text("Welcome Here",
                           style: GoogleFonts.montserrat(
                               color: ColorPalette.backgroundcolor,
-                              fontSize: 30,
+                              fontSize: 30.sp,
                               fontWeight: FontWeight.w600))),
                   WidgetsModels.Container_widget(
-                      20,
-                      25,
+                      20.h,
+                      25.w,
                       Alignment.center,
-                      const EdgeInsets.only(bottom: 15),
+                      const EdgeInsets.only(bottom: 15).w,
                       null,
                       Text("Sign to continue",
                           style: GoogleFonts.montserrat(
                               color: ColorPalette.backgroundcolor,
-                              fontSize: 20,
+                              fontSize: 20.sp,
                               fontWeight: FontWeight.w300))),
-                  WidgetsModels.Container_widget(null , 30, Alignment.center, null,
+                  WidgetsModels.Container_widget(null , 30.h, Alignment.center, null,
                       null, Image.asset(Path.Selected1)),
                   Form(
                       key: Signup,
@@ -218,12 +219,12 @@ class SignUp1state extends State<SignUp1> {
                                   ? Text("send",
                                       style: GoogleFonts.montserrat(
                                           color: ColorPalette.SH_Grey900,
-                                          fontSize: 16,
+                                          fontSize: 16.sp,
                                           fontWeight: FontWeight.w400))
                                   : otpcountDown(
                                       fontWeight: FontWeight.w600,
                                       color: ColorPalette.SH_Grey900,
-                                      fontSize: 14,
+                                      fontSize: 14.sp,
                                       deadline: DateTime.now()
                                           .add(const Duration(minutes: 2))),
                             ),
@@ -285,31 +286,31 @@ class SignUp1state extends State<SignUp1> {
                               });
                     },
                     child: WidgetsModels.Container_widget(
-                        50,
-                        45,
+                        50.w,
+                        45.h,
                         Alignment.center,
-                        const EdgeInsets.only(bottom: 15 , top: 5 , left: 30 , right: 30),
+                        const EdgeInsets.only(bottom: 15 , top: 5 , left: 30 , right: 30).w,
                         BoxDecoration(
                             color: ColorPalette.backgroundcolor,
-                            borderRadius: BorderRadius.circular(5)),
+                            borderRadius: BorderRadius.circular(5).r),
                         Text("Next",
                             style: GoogleFonts.montserrat(
                                 color: ColorPalette.SH_Grey100,
-                                fontSize: 22,
+                                fontSize: 22.sp,
                                 fontWeight: FontWeight.w600))))
                   else
                     WidgetsModels.Container_widget(
-                        50,
-                        45,
+                        50.w,
+                        45.h,
                         Alignment.center,
-                        const EdgeInsets.only(bottom: 15 , top: 5 , left: 30 , right: 30),
+                        const EdgeInsets.only(bottom: 15 , top: 5 , left: 30 , right: 30).w,
                         BoxDecoration(
                             color: ColorPalette.SH_Grey300,
-                            borderRadius: BorderRadius.circular(5)),
+                            borderRadius: BorderRadius.circular(5).r),
                         Text("Next",
                             style: GoogleFonts.montserrat(
                                 color: ColorPalette.SH_Grey100,
-                                fontSize: 22,
+                                fontSize: 22.sp,
                                 fontWeight: FontWeight.w600))),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -318,7 +319,7 @@ class SignUp1state extends State<SignUp1> {
                         "Already have an account ?",
                         style: GoogleFonts.montserrat(
                             color: ColorPalette.backgroundcolor,
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w500),
                       ),
                       GestureDetector(
@@ -332,7 +333,7 @@ class SignUp1state extends State<SignUp1> {
                         child: Text(" Login",
                             style: GoogleFonts.montserrat(
                                 color: Colors.lightBlue,
-                                fontSize: 16,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w500)),
                       ),
                     ],

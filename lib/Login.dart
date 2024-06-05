@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitabylib/Constants/validator.dart';
 import 'package:kitabylib/Forgotyourpassword/forgotyourpassword.dart';
+import 'package:kitabylib/SignUp/SignUp1.dart';
 import 'package:kitabylib/models/api_services.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'Constants/widgets.dart';
 import 'Constants/Colors.dart';
 import 'Constants/Path.dart';
 import 'models/auth/login_request_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -69,10 +71,10 @@ class _LoginState extends State<Login> {
           image : DecorationImage(image: AssetImage("assets/images/Shape.png"), fit: BoxFit.cover),
         ),
         child: Container(
-          height: 650,
-          width: 456,
+          height: 650.h,
+          width: 456.w,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: BorderRadius.circular(24).r,
           color: ColorPalette.SH_Grey100,
           ),
           child: ListView(
@@ -82,37 +84,37 @@ class _LoginState extends State<Login> {
                 null,
                 null,
                 Alignment.center,
-                const EdgeInsets.only(bottom: 20 , top: 20),
+                const EdgeInsets.only(bottom: 20 , top: 20).w,
                 null,
                 Image.asset(Path.Logolib)
               ),
               WidgetsModels.Container_widget(
                 null,
-                40,
+                40.h,
                 Alignment.center,
                 null,
                 null,
                 Text(
                   'Welcome Back',
-                  style: GoogleFonts.montserrat(color: ColorPalette.backgroundcolor, fontSize: 30, fontWeight: FontWeight.w600),
+                  style: GoogleFonts.montserrat(color: ColorPalette.backgroundcolor, fontSize: 30.sp, fontWeight: FontWeight.w600),
                 )
               ),
               WidgetsModels.Container_widget(
                 null,
-                25,
+                25.h,
                 Alignment.center,
                 null,
                 null,
                 Text(
                   'Login to continue',
-                  style: GoogleFonts.montserrat(color: ColorPalette.backgroundcolor, fontSize: 20, fontWeight: FontWeight.w300),
+                  style: GoogleFonts.montserrat(color: ColorPalette.backgroundcolor, fontSize: 20.sp, fontWeight: FontWeight.w300),
                 )
               ),
               Form(
                 key: login,
                 child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 20),
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  margin: const EdgeInsets.symmetric(vertical: 20).w,
+                  padding: const EdgeInsets.symmetric(horizontal: 25).w,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -125,7 +127,7 @@ class _LoginState extends State<Login> {
                         Icon(
                           FluentIcons.mail_24_regular,
                           color: ColorPalette.backgroundcolor,
-                          size: 20,
+                          size: 20.sp,
                         ),
                         null,
                         false,
@@ -140,7 +142,7 @@ class _LoginState extends State<Login> {
                         Icon(
                           FluentIcons.key_24_regular,
                           color: ColorPalette.backgroundcolor,
-                          size: 20,
+                          size: 20.sp,
                         ),
                         GestureDetector(
                           onTap: () {
@@ -186,7 +188,7 @@ class _LoginState extends State<Login> {
                             'Forgot your password?',
                             style: GoogleFonts.montserrat(
                               color: ColorPalette.backgroundcolor,
-                              fontSize: 14,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w500),
                           ),
                         )
@@ -252,16 +254,16 @@ class _LoginState extends State<Login> {
                                 null,
                                 50,
                                 Alignment.center,
-                                const EdgeInsets.all(25),
+                                const EdgeInsets.all(25).w,
                                 BoxDecoration(
                                   color: ColorPalette.backgroundcolor,
-                                  borderRadius: BorderRadius.circular(5),
+                                  borderRadius: BorderRadius.circular(5).r,
                                 ),
                                 Text(
                                   TextString.login,
                                   style: GoogleFonts.montserrat(
                                       color: ColorPalette.SH_Grey100,
-                                      fontSize: 22,
+                                      fontSize: 22.sp,
                                       fontWeight: FontWeight.w700),
                                 ),
                               )
@@ -269,18 +271,18 @@ class _LoginState extends State<Login> {
                       else
                       WidgetsModels.Container_widget(
                         null,
-                        50,
+                        50.h,
                         Alignment.center,
-                        const EdgeInsets.all(25),
+                        const EdgeInsets.all(25).w,
                         BoxDecoration(
                           color: ColorPalette.SH_Grey300,
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(5).r,
                         ),
                         Text(
                           'Log in',
                           style: GoogleFonts.montserrat(
                             color: ColorPalette.SH_Grey100,
-                            fontSize: 22,
+                            fontSize: 22.sp,
                             fontWeight: FontWeight.w700
                           ),
                         )
@@ -289,7 +291,7 @@ class _LoginState extends State<Login> {
                   null,
                   null,
                   Alignment.center,
-                  const EdgeInsets.symmetric(horizontal: 25),
+                  const EdgeInsets.symmetric(horizontal: 25).w,
                   null,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -298,18 +300,18 @@ class _LoginState extends State<Login> {
                         'Dont Have an account ? ',
                         style: GoogleFonts.montserrat(
                             color: ColorPalette.backgroundcolor,
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w500),
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushReplacementNamed(context, "SignUp1");
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const SignUp1(),));
                         },
                         child: Text(
                           'SignUp',
                           style: GoogleFonts.montserrat(
                               color: Colors.lightBlue,
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w500),
                         ),
                       ),

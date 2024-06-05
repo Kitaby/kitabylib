@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitabylib/Animations/EmailVerif.dart';
 import 'package:kitabylib/Constants/validator.dart';
 import 'package:kitabylib/Constants/widgets.dart';
@@ -90,20 +91,20 @@ class _Signup3State extends State<Signup3> {
           image : DecorationImage(image: AssetImage("assets/images/Shape.png"), fit: BoxFit.cover),
         ),
         child: Container(
-          height: 665,
-          width: 456,
+          height: 665.h,
+          width: 456.w,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: BorderRadius.circular(24).w,
             color: ColorPalette.SH_Grey100,
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 25 , vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 25 , vertical: 10).w,
           child: ListView(
             //physics: const NeverScrollableScrollPhysics(),
             children: [
               Center(child: Image.asset(Path.Logolib)),
               WidgetsModels.Container_widget(
                   null,
-                  40,
+                  40.h,
                   Alignment.center,
                   null,
                   null,
@@ -111,25 +112,25 @@ class _Signup3State extends State<Signup3> {
                     'Welcome Here',
                     style: GoogleFonts.montserrat(
                         color: ColorPalette.backgroundcolor,
-                        fontSize: 30,
+                        fontSize: 30.sp,
                         fontWeight: FontWeight.w600),
                   )),
               WidgetsModels.Container_widget(
                 null,
-                25,
+                25.h,
                 Alignment.center,
-                const EdgeInsets.only(bottom: 15),
+                const EdgeInsets.only(bottom: 15).w,
                 null,
                 Text(
                   'Sign to continue',
                   style: GoogleFonts.montserrat(
                     color: ColorPalette.backgroundcolor,
-                      fontSize: 20,
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.w300),
                 )),
               WidgetsModels.Container_widget(
                   null,
-                  30,
+                  30.h,
                   Alignment.center,
                   null,
                   null,
@@ -224,19 +225,19 @@ class _Signup3State extends State<Signup3> {
                   },
                   child: isStreched
                       ? WidgetsModels.Container_widget(
-                          50,
-                          45,
+                          50.w,
+                          45.h,
                           Alignment.center,
-                          const EdgeInsets.symmetric(horizontal: 30 , vertical: 15),
+                          const EdgeInsets.symmetric(horizontal: 30 , vertical: 15).w,
                           BoxDecoration(
                             color: ColorPalette.backgroundcolor,
-                            borderRadius: BorderRadius.circular(5),
+                            borderRadius: BorderRadius.circular(5).r,
                           ),
                           Text(
                             "SignUp",
                             style: GoogleFonts.montserrat(
                                 color: ColorPalette.SH_Grey100,
-                                fontSize: 22,
+                                fontSize: 22.sp,
                                 fontWeight: FontWeight.w700),
                           ),
                         )
@@ -244,17 +245,17 @@ class _Signup3State extends State<Signup3> {
                 )
                   else
                     WidgetsModels.Container_widget(
-                        50,
-                        45,
+                        50.w,
+                        45.h,
                         Alignment.center,
-                        const EdgeInsets.symmetric(horizontal: 30 , vertical: 15),
+                        const EdgeInsets.symmetric(horizontal: 30 , vertical: 15).w,
                         BoxDecoration(
                             color: ColorPalette.SH_Grey300,
-                            borderRadius: BorderRadius.circular(5)),
+                            borderRadius: BorderRadius.circular(5).r),
                         Text("SignUp",
                             style: GoogleFonts.montserrat(
                                 color: ColorPalette.SH_Grey100,
-                                fontSize: 22,
+                                fontSize: 22.sp,
                                 fontWeight: FontWeight.w600))),
             ],
           ),

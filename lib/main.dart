@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kitabylib/Animations/EmailVerif.dart';
 import 'package:kitabylib/Animations/ForgotPassword.dart';
 import 'package:kitabylib/Animations/PasswordChanged.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context,designSize: const Size(1366,700));
     return  MaterialApp(
       title: 'Kitabylib',
       debugShowCheckedModeBanner: false,
