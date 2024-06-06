@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'package:kitabylib/Constants/Colors.dart';
@@ -26,6 +25,7 @@ class _PendingBooksState extends State<PendingBooks> {
   double _mediaQueryWidth = 0.0;
   double _mediaQueryHeight = 0.0;
 
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Call updateMediaQuerySize in didChangeDependencies
@@ -80,9 +80,7 @@ class _PendingBooksState extends State<PendingBooks> {
   @override
   void initState() {
     super.initState();
-    fetchoffers("");
-   
-    
+    fetchoffers(""); 
     
     _list_offers_controller.addListener(() {
       if(_list_offers_controller.position.maxScrollExtent==_list_offers_controller.offset){
@@ -91,11 +89,6 @@ class _PendingBooksState extends State<PendingBooks> {
         
       }
     });
-
-
-    
-
-    
   }
 
   @override
@@ -103,15 +96,6 @@ class _PendingBooksState extends State<PendingBooks> {
     super.dispose();
     _list_offers_controller.dispose();
   }
-
-
-
-
-
-  
-  
- 
-
  
 void search(String e){
  if(mounted){
@@ -122,21 +106,14 @@ void search(String e){
       booksfound.clear();
       seeall=false;
       fetchoffers(e);
-    
-     
      });
- }
-  
-   
+ }  
 }
- 
+
   FocusNode focus =FocusNode();
   final _searchcontroller = TextEditingController();
   bool searchfocus =false; 
   bool seeall =false; 
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -145,90 +122,79 @@ void search(String e){
       body: ListView(
         physics: NeverScrollableScrollPhysics(),
         children: [
-          Container(height: _mediaQueryWidth/11,color: Colors.white,
+          Container(height: _mediaQueryWidth/11.h,color: Colors.white,
           child:Padding(
-            padding: EdgeInsets.all(_mediaQueryWidth/50),
-            child: WidgetsModels.searchbar(_searchcontroller,275,"Search",
-                          
-                            //prefix
+            padding: EdgeInsets.all(_mediaQueryWidth/50).w,
+            child: WidgetsModels.searchbar(_searchcontroller,275.w,"Search",
+                 //prefix
                             GestureDetector(//set shared preferences
                               onTap: (){
                                   search(_searchcontroller.value.text);
-                                         },
+                             },
                               child: Icon(FluentIcons.search_20_regular,color: ColorPalette.SH_Grey900,)),
                             //suffix
                             null,
-                                                      
-                            //on submitted        
-                            (p0) => search(p0),
-                            
-                            
-                                                     
-                            
+                         //on submitted        
+                            (p0) => search(p0),    
                       ),
                       )
                      ),
 
               Container(
-                height: _mediaQueryWidth/11,
+                height: _mediaQueryWidth/11.h,
                 child: Padding(
-                  padding: EdgeInsets.all(_mediaQueryWidth/40),
+                  padding: EdgeInsets.all(_mediaQueryWidth/40).w,
                   child: Text(
                         'Pending Books',
                         style: GoogleFonts.montserrat(
                           color: ColorPalette.SH_Grey900,
-                          fontSize: _mediaQueryWidth/40,
+                          fontSize: _mediaQueryWidth/40.sp,
                           fontWeight: FontWeight.w500
                         ),
                       ),
                      
                 ),
               ),
-         
            StatefulBuilder(
-                  
                     builder: (context,setStatelist) {
                       return RefreshIndicator(
                         onRefresh: refresh,
                         child: Container(
-                              width: _mediaQueryWidth,
-                              height:(_mediaQueryHeight-_mediaQueryWidth*(2/11)),//calculated
+                              width: _mediaQueryWidth.w,
+                              height:(_mediaQueryHeight-_mediaQueryWidth*(2/11)).h,//calculated
                               child: ListView.builder(
                                 shrinkWrap: true,
-                                
                                 physics: AlwaysScrollableScrollPhysics(),
                                 controller: _list_offers_controller,
                                 scrollDirection: Axis.vertical,
                                 itemCount:booksfound.length+1,
                                 itemBuilder: (context, i) {
-                                  
                                        if(i<booksfound.length){
-
                                        return Column(
                                           children: [
                                             Container(
-                                              height: _mediaQueryWidth*(1/4),
-                                              margin:const EdgeInsets.only(left: 45 ),
+                                              height: _mediaQueryWidth*(1/4).h,
+                                              margin:const EdgeInsets.only(left: 45 ).w,
                                               child:Row(
                                                 children: [
-                                                  WidgetsModels.bookcard(booksfound[i].bookName,_mediaQueryWidth/65,booksfound[i].author,_mediaQueryWidth/80,ColorPalette.SH_Grey900, booksfound[i].bookImage,_mediaQueryWidth/10,_mediaQueryWidth*(1/4),_mediaQueryWidth/10,_mediaQueryWidth*(1/8),false,null ),                                                  Expanded(
+                                                  WidgetsModels.bookcard(booksfound[i].bookName,_mediaQueryWidth/65.sp,booksfound[i].author,_mediaQueryWidth/80.sp,ColorPalette.SH_Grey900, booksfound[i].bookImage,_mediaQueryWidth/10.w,_mediaQueryWidth*(1/4).h,_mediaQueryWidth/10.w,_mediaQueryWidth*(1/8).h,false,null ),                                                  Expanded(
                                                     child: Column(
                                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                       children: [
-                                                        WidgetsModels.Container_widget(_mediaQueryWidth/2, _mediaQueryWidth*(1/20), Alignment.center,const EdgeInsets.only(bottom: 10 ), null,  Text(booksfound[i].reserverName, style: GoogleFonts.montserrat(color: ColorPalette.SH_Grey900 , fontSize: 25 , fontWeight: FontWeight.w600),),),
-                                                        WidgetsModels.Container_widget(_mediaQueryWidth/1.6,_mediaQueryWidth*(1/20), Alignment.topLeft,null, null, Text("PeriodType: Taking the book" , style: GoogleFonts.montserrat(color: ColorPalette.SH_Grey900 , fontSize: 18 , fontWeight: FontWeight.w400),), ),
-                                                        WidgetsModels.Container_widget(_mediaQueryWidth/1.6,_mediaQueryWidth*(1/20), Alignment.topLeft, null,null,
+                                                        WidgetsModels.Container_widget(_mediaQueryWidth/2.w, _mediaQueryWidth*(1/20).h, Alignment.center,const EdgeInsets.only(bottom: 10 ).w, null,  Text(booksfound[i].reserverName, style: GoogleFonts.montserrat(color: ColorPalette.SH_Grey900 , fontSize: 25.sp , fontWeight: FontWeight.w600),),),
+                                                        WidgetsModels.Container_widget(_mediaQueryWidth/1.6.w,_mediaQueryWidth*(1/20).h, Alignment.topLeft,null, null, Text("PeriodType: Taking the book" , style: GoogleFonts.montserrat(color: ColorPalette.SH_Grey900 , fontSize: 18.sp , fontWeight: FontWeight.w400),), ),
+                                                        WidgetsModels.Container_widget(_mediaQueryWidth/1.6.w,_mediaQueryWidth*(1/20).h, Alignment.topLeft, null,null,
                                                           countDown(
                                                             fontWeight: FontWeight.w400,
                                                             color: ColorPalette.SH_Grey900,
                                                             deadline: booksfound[i].date.add(
                                                                Duration(days: 3)
                                                             ),
-                                                            fontSize: 17,
+                                                            fontSize: 17.sp,
                                                           )
                                                         ),
                                                         Padding(
-                                                          padding: const EdgeInsets.only(right: 20),
+                                                          padding: const EdgeInsets.only(right: 20).w,
                                                           child: Row(
                                                             mainAxisAlignment: MainAxisAlignment.end,
                                                             children: [
@@ -240,7 +206,7 @@ void search(String e){
                                                                   builder:(context) =>confirmcode(type:"give",id:booksfound[i].id),//doesn't work rn
                                                                   ).whenComplete(() => refresh());
                                                                   },
-                                                                child: WidgetsModels.button1(_mediaQueryWidth/8, 35, ColorPalette.Secondary_Color_Orignal, FluentIcons.people_swap_16_filled, ColorPalette.SH_Grey100, "Give Book")),
+                                                                child: WidgetsModels.button1(_mediaQueryWidth/8.w, 35.h, ColorPalette.Secondary_Color_Orignal, FluentIcons.people_swap_16_filled, ColorPalette.SH_Grey100, "Give Book")),
                                                             ],
                                                           ),
                                                         ),
@@ -250,32 +216,28 @@ void search(String e){
                                                 ],
                                               ),
                                             ), 
-                                            WidgetsModels.Container_widget(null, 1, null,const EdgeInsets.symmetric(vertical: 20), BoxDecoration(color: Color(0xffD8D8D8)), null),
+                                            WidgetsModels.Container_widget(null, 1.h, null,const EdgeInsets.symmetric(vertical: 20).w, BoxDecoration(color: Color(0xffD8D8D8)), null),
                                           ],
                                         );
-  
                                        }
                                            else{
                                           return Padding(
-                                              padding: EdgeInsets.symmetric(vertical: 32),
+                                              padding: EdgeInsets.symmetric(vertical: 32).w,
                                               child: Center(child:hasmore
                                               ?const CircularProgressIndicator()
                                               : Text(
                                                   'No More Books',
                                                     style: GoogleFonts.montserrat(
                                                       color: ColorPalette.SH_Grey100,
-                                                      fontSize: 16,
+                                                      fontSize: 16.sp,
                                                       fontWeight: FontWeight.w500),
                                                       )),
                                               );
-                  
                                         }
                                      },),),
                       );
                     }
                   )
-                   
-
         ],
       ),
 

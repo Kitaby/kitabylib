@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kitabylib/AppIntro/Intro-1.dart';
 import 'package:kitabylib/Login.dart';
 import 'package:kitabylib/Mainscreen.dart';
 import 'package:lottie/lottie.dart';
@@ -31,30 +33,29 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         const Duration(seconds: 3, milliseconds: 215, microseconds: 5),
         () => (token == null)
-            ? Navigator.pushReplacementNamed(context, 'Intro1')
+            ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Intro1(),))
             : (token == "")
                 ? Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Login (forgotmail: "",)))
+                        builder: (context) => const Login ()))
                 : Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Mainscreen())));
+                    MaterialPageRoute(builder: (context) => Mainscreen(token: token,))));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
           image : DecorationImage(image: AssetImage("assets/images/Shape.png"), fit: BoxFit.cover),
         ),
         child: Container(
-           height: 650,
-            width: 456,
+           height: 650.h,
+            width: 456.w,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(24).r,
             color: Colors.white,
             ),
           child: Center(
@@ -65,8 +66,8 @@ class _SplashScreenState extends State<SplashScreen> {
                   child: Lottie.asset(
                     Path.LogoAnime, // Replace with the path to your Lottie JSON file
                     fit: BoxFit.cover,
-                    width: 400, // Adjust the width and height as needed
-                    height: 400,
+                    width: 400.w, // Adjust the width and height as needed
+                    height: 400.h,
                   ),
                 ),
                 Center(
@@ -74,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     TyperAnimatedText(
                       TextString.title,
                       textStyle: GoogleFonts.montserrat(
-                          fontSize: 64,
+                          fontSize: 64.sp,
                           fontWeight: FontWeight.w700,
                           color: ColorPalette.backgroundcolor),
                       speed: const Duration(milliseconds: 210),

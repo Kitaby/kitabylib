@@ -1,18 +1,19 @@
+// ignore_for_file: camel_case_types
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kitabylib/Constants/Colors.dart';
 
 class countDown extends StatefulWidget {
   const countDown({
-    Key? key,
+    super.key,
     required this.deadline,
     required this.fontSize ,
     required this.color,
     required this.fontWeight,
     this.textStyle,
     this.labelTextStyle,
-  }) : super(key: key);
+  });
 
   final DateTime deadline;
   final TextStyle? textStyle;

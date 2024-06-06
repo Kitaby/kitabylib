@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final forgotPasswordRequestModel = forgotPasswordRequestModelFromJson(jsonString);
-
 import 'dart:convert';
 
 ForgotPasswordRequestModel forgotPasswordRequestModelFromJson(String str) =>

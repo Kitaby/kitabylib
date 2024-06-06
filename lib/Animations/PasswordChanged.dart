@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:kitabylib/login.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kitabylib/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:kitabylib/Constants/Colors.dart';
@@ -22,55 +23,61 @@ class _PasswordChangedState extends State<PasswordChanged> {
         () => Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (BuildContext context) => const Login(
-                      forgotmail: "",
-                    ))));
+                builder: (BuildContext context) => const Login())));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorPalette.backgroundcolor,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: Lottie.asset(
-                Path.PasswordChanged, // Replace with the path to your Lottie JSON file
-                fit: BoxFit.cover,
-                width: 200, // Adjust the width and height as needed
-                height: 200,
+      body: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          image: DecorationImage(image:  AssetImage("assets/images/Shape.png"), fit: BoxFit.cover)
+        ),
+        child: Container(
+          height: 665.h,
+          width: 456.w,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            color: ColorPalette.SH_Grey100
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                child: Lottie.asset(
+                  Path.PasswordChanged, // Replace with the path to your Lottie JSON file
+                  fit: BoxFit.cover,
+                  width: 250.w, // Adjust the width and height as needed
+                  height: 250.h,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Column(
-              children: [
-                Text(
-                  "Reset Password Completed",
-                  style: GoogleFonts.montserrat(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      color: ColorPalette.SH_Grey100),
-                ),
-                const SizedBox(
-                  height: 7,
-                ),
-                Text(
-                  "You can now login with your account ",
-                  style: GoogleFonts.montserrat(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: ColorPalette.SH_Grey100),
-                ),
-                const SizedBox(
-                  height: 100,
-                )
-              ],
-            ),
-          ],
+              const SizedBox(
+                height: 50,
+              ),
+              Column(
+                children: [
+                  Text(
+                    "Reset Password Completed",
+                    style: GoogleFonts.montserrat(
+                        fontSize: 26.sp,
+                        fontWeight: FontWeight.w700,
+                        color: ColorPalette.SH_Grey900),
+                  ),
+                  const SizedBox(
+                    height: 7,
+                  ),
+                  Text(
+                    "You can now login with your account ",
+                    style: GoogleFonts.montserrat(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w400,
+                        color: ColorPalette.SH_Grey900),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

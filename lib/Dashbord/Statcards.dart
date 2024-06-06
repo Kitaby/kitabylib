@@ -54,7 +54,7 @@ class StatcardsState extends State<StatefulWidget>{
       "sense":"up",
     },
     {
-      "rate":8.4,
+      "rate":0.4,
       "sense":"down",
     },
   ];
@@ -108,7 +108,7 @@ class StatcardsState extends State<StatefulWidget>{
               
                   Positioned(
                     child: Text(
-                    '40000',
+                    '13',
                     style: GoogleFonts.montserrat(
                       color: ColorPalette.SH_Grey900,
                       fontSize: _mediaQueryWidth/50,
@@ -211,7 +211,7 @@ class StatcardsState extends State<StatefulWidget>{
               
                   Positioned(
                     child: Text(
-                    '20000',
+                    '39',
                     style: GoogleFonts.montserrat(
                       color: ColorPalette.SH_Grey900,
                       fontSize: _mediaQueryWidth/50,
@@ -316,7 +316,7 @@ class StatcardsState extends State<StatefulWidget>{
               
                   Positioned(
                     child: Text(
-                    '10000',
+                    '8',
                     style: GoogleFonts.montserrat(
                       color: ColorPalette.SH_Grey900,
                       fontSize: _mediaQueryWidth/50,
@@ -421,7 +421,7 @@ class StatcardsState extends State<StatefulWidget>{
               
                   Positioned(
                     child: Text(
-                    '2000',
+                    '7',
                     style: GoogleFonts.montserrat(
                       color: ColorPalette.SH_Grey900,
                       fontSize: _mediaQueryWidth/50,

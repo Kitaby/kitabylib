@@ -1,11 +1,14 @@
+import 'dart:async';
+
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitabylib/Constants/Colors.dart';
 import 'package:kitabylib/Constants/Path.dart';
+import 'package:kitabylib/Login.dart';
 import 'package:kitabylib/Mainscreen.dart';
-import 'package:kitabylib/main.dart';
+import 'package:kitabylib/models/api_services.dart';
 
 class SideBarMenu extends StatefulWidget{
   const SideBarMenu({super.key});
@@ -20,9 +23,7 @@ class SideBarMenuState extends State<StatefulWidget>{
  double _mediaQueryWidth = 0.0;
  double _mediaQueryHeight = 0.0;
 
-
-
-
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Call updateMediaQuerySize in didChangeDependencies
@@ -45,17 +46,16 @@ class SideBarMenuState extends State<StatefulWidget>{
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white //
+      decoration:const BoxDecoration(
+        color: Colors.white 
       ),
-      child: Column(
+      child: ListView(
        
        children: [
 
         Padding(
-          padding:  EdgeInsets.symmetric(vertical: 15),
-          child: Container(height: _mediaQueryWidth/2,width:_mediaQueryWidth/2,
-          child:Image.asset(Path.Logolib),),
+          padding:const EdgeInsets.symmetric(vertical: 15),
+          child:SizedBox(height: _mediaQueryWidth/2,width:_mediaQueryWidth/2,child: Image.asset(Path.Logolib),),
         ),
 
         GestureDetector(
@@ -67,11 +67,11 @@ class SideBarMenuState extends State<StatefulWidget>{
           },
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius:const BorderRadius.all(Radius.circular(10)),
               color:(selected==0)? ColorPalette.Primary_Color_Light:Colors.white
             ),
             height:_mediaQueryWidth/4,
-            margin: EdgeInsets.symmetric(horizontal: 15),
+            margin:const EdgeInsets.symmetric(horizontal: 15),
             child: Row(
               children: [
                 Padding(
@@ -99,11 +99,11 @@ class SideBarMenuState extends State<StatefulWidget>{
          },
          child: Container(
            decoration: BoxDecoration(
-             borderRadius: BorderRadius.all(Radius.circular(10)),
+             borderRadius:const BorderRadius.all(Radius.circular(10)),
              color: (selected==1)? ColorPalette.Primary_Color_Light:Colors.white
            ),
             height:_mediaQueryWidth/4,
-            margin: EdgeInsets.symmetric(horizontal: 15),
+            margin:const EdgeInsets.symmetric(horizontal: 15),
            child: Row(
             
             children: [
@@ -131,11 +131,11 @@ class SideBarMenuState extends State<StatefulWidget>{
         },
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius:const BorderRadius.all(Radius.circular(10)),
             color: (selected==2)? ColorPalette.Primary_Color_Light:Colors.white
           ),
            height:_mediaQueryWidth/4,
-           margin: EdgeInsets.symmetric(horizontal: 15),
+           margin:const EdgeInsets.symmetric(horizontal: 15),
           child: Row(
            
            children: [
@@ -164,11 +164,11 @@ class SideBarMenuState extends State<StatefulWidget>{
         },
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius:const BorderRadius.all(Radius.circular(10)),
             color: (selected==3)? ColorPalette.Primary_Color_Light:Colors.white
           ),
            height:_mediaQueryWidth/4,
-           margin: EdgeInsets.symmetric(horizontal: 15),
+           margin:const EdgeInsets.symmetric(horizontal: 15),
           child: Row(
            
            children: [
@@ -197,11 +197,11 @@ class SideBarMenuState extends State<StatefulWidget>{
         },
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius:const BorderRadius.all(Radius.circular(10)),
             color:(selected==4)? ColorPalette.Primary_Color_Light:Colors.white
           ),
            height:_mediaQueryWidth/4,
-          margin: EdgeInsets.symmetric(horizontal: 15),
+          margin:const EdgeInsets.symmetric(horizontal: 15),
           child: Row(
            
            children: [
@@ -229,11 +229,11 @@ class SideBarMenuState extends State<StatefulWidget>{
          },
          child: Container(
            decoration: BoxDecoration(
-             borderRadius: BorderRadius.all(Radius.circular(10)),
+             borderRadius:const BorderRadius.all(Radius.circular(10)),
              color: (selected==5)? ColorPalette.Primary_Color_Light:Colors.white
            ),
             height:_mediaQueryWidth/4,
-            margin: EdgeInsets.symmetric(horizontal: 15),
+            margin:const EdgeInsets.symmetric(horizontal: 15),
            child: Row(
            
             children: [
@@ -262,11 +262,11 @@ class SideBarMenuState extends State<StatefulWidget>{
          },
          child: Container(
            decoration: BoxDecoration(
-             borderRadius: BorderRadius.all(Radius.circular(10)),
+             borderRadius:const BorderRadius.all(Radius.circular(10)),
              color: (selected==6)? ColorPalette.Primary_Color_Light:Colors.white
            ),
             height:_mediaQueryWidth/4,
-            margin: EdgeInsets.symmetric(horizontal: 15),
+            margin:const EdgeInsets.symmetric(horizontal: 15),
            child: Row(
            
             children: [
@@ -287,38 +287,34 @@ class SideBarMenuState extends State<StatefulWidget>{
          ),
         ),
          Padding(
-           padding:  EdgeInsets.symmetric(vertical: 10),
+           padding:const EdgeInsets.symmetric(vertical: 10),
            child: Container(height: 0.5,color:ColorPalette.SH_Grey300 ,),
          ),
 
-
-          
           GestureDetector(
           onTap: () {
-            setState(() {
-              selected=7;
-              MainscreenState.currentscreen.value=7;
-              
+            setToken("");
+            Timer(const Duration(seconds: 2), () {
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) =>const Login(),), (route) => false);
             });
           },
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: (selected==7)? ColorPalette.Primary_Color_Light:Colors.white
+              borderRadius:const BorderRadius.all(Radius.circular(10)),
+              color: ColorPalette.Error,
             ),
              height:_mediaQueryWidth/4,
-             margin: EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-             
+             margin:const EdgeInsets.symmetric(horizontal: 15),
+            child: Row(         
              children: [
               Padding(
                 padding:EdgeInsets.symmetric(horizontal:_mediaQueryWidth/20),
-                child: Icon(FluentIcons.power_24_regular,size:_mediaQueryWidth/9,color: (selected==7)? Colors.white:ColorPalette.SH_Grey900,  ),
+                child: Icon(FluentIcons.power_24_regular,size:_mediaQueryWidth/9,color:  Colors.white,),
               ),
               Text(
                 'Logout',
                 style: GoogleFonts.montserrat(
-                  color: (selected==7)? Colors.white:ColorPalette.SH_Grey900, 
+                  color: Colors.white, 
                   fontSize: _mediaQueryWidth/16,
                   fontWeight: FontWeight.w500
                 ),
