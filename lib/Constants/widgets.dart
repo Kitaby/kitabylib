@@ -395,7 +395,7 @@ class WidgetsModels {
             null,
             null,
             Text(
-              vartitle,
+              ( vartitle.length>25)? vartitle.substring(0,25)+"...":vartitle,
               style: GoogleFonts.montserrat(
                   color: (selected)
                       ? ColorPalette.Secondary_Color_Orignal
@@ -412,7 +412,7 @@ class WidgetsModels {
             null,
             null,
             Text(
-             ( varauthor.length>25)? varauthor.substring(0,25):varauthor,
+             ( varauthor.length>25)? varauthor.substring(0,25)+"...":varauthor,
               style: GoogleFonts.montserrat(
                   color: (selected)
                       ? ColorPalette.Secondary_Color_Orignal
